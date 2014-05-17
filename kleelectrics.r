@@ -2,9 +2,7 @@
 # Anja Kleebaum
 
 ### looking for working directory
-whereFrom=sys.calls()[[1]]
-whereFrom=as.character(whereFrom[2]) 
-whereFrom=paste(getwd(),whereFrom,sep="/") # prefix it with the current working directory
+whereFrom=as.character(sys.calls()[[1]][2]) 
 
 ### install packages
 require(tcltk)
