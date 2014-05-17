@@ -1,3 +1,4 @@
+#! /usr/bin/R
 # 3D-Presentation of 2D-Geoelectric Profiles Version 1.0
 # Anja Kleebaum
 
@@ -98,13 +99,12 @@ getXyzData <- function(Profile) {
     profile_without_topo <- read.table(file=Profile@xyzData@address, skip=skipLines1, header=F, nrows=numberOfRows)
     slot(Profile@xyzData, "seaLevel") <- data.frame(
       profile_without_topo[1],profile_without_topo[2],
-      profile_without_topo[3],profile_without_topo[5])
+      profile_without_topo[3])#,profile_without_topo[5])
     
     profile <- read.table(file=Profile@xyzData@address, skip=skipLines2, header=F, nrows=numberOfRows2)
     
-    
     slot(Profile@xyzData, "heightAdaption") <- data.frame(
-      profile[1],profile[2],profile[3],profile[5])
+      profile[1],profile[2],profile[3])#,profile[5])
     
     close(con)
     
@@ -211,8 +211,11 @@ plotXyz <- function(Profile) {
 }
 
 levelplotXyz <- function(Profile) {
+  #values <- log(Profile@xyzData@seaLevel$V3)
+  #v <- (values - min(values))/diff(range(values))
   assign("img", levelplot(log(Profile@xyzData@seaLevel$V3) ~ Profile@xyzData@seaLevel$V1 * Profile@xyzData@seaLevel$V2, 
             col.regions = colorRampPalette(colors), interpolate=T, 
+            #col.regions = colorRamp(colors)(values), interpolate=T, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), aspect="iso"),
          envir=.GlobalEnv)
@@ -282,8 +285,12 @@ plot3dXyz <- function(Profile) {
   points3d(y, Profile@xyzData@heightAdaption$V2, x, color=colorAssignment, size=pointsize)  
   rgl.bbox()  
   rgl.texts(y[1], Profile@xyzData@heightAdaption$V2[1]+5, x[1], 
-            text=paste("Profil", Profile@number), cex=10, color="black")
-  axes3d(edges="bbox", labels=T, tick=T, color="black") 
+            text=paste("Profil", Profile@number), cex=1, color="black")
+  axes3d(edges="bbox",  yunit=25, expand=1.2)
+  #title3d('main','sub','xlab','ylab','zlab')
+  #title3d('Geoelektrik Eichig 2013','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
+  #title3d('','','[m]','','[m]')
+  #title3d('','','','Hoehe [m]','')
 }  
 
 choosePlottingProfile <- function(type) {  
@@ -331,12 +338,16 @@ heightAdjustment <- function(Profile, height) {
 }
 
 ###---Settings---####
-pointsize <- 5
+pointsize <- 10
 colors <- c("blue", "green", "yellow", "orange", "red", "purple")
 
 # Funktion zur Farb-Wertzuweisung
 myColorRamp <- function(colors, values) { 
+  #all_values <- c(min(p[[1]]@xyzData@heightAdaption$V3), max(p[[1]]@xyzData@heightAdaption$V3))
   v <- (values - min(values))/diff(range(values))
+  #v <- (values - min(values))/diff(range(c(log(0.01),log(12000))))
+  #v <- (values - min(log(p[[1]]@xyzData@heightAdaption$V3)))/diff(range(values))
+  #v <- (values - min(values))/diff(range(log(p[[2]]@xyzData@heightAdaption$V3)))
   x <- colorRamp(colors)(v) 
   rgb(x[,1], x[,2], x[,3], maxColorValue = 255) 
 } 
@@ -633,6 +644,7 @@ tkadd(plot2dXyz, "command", label = "Levels with Topography", command = function
 
 tkadd(example, "command", label = "Ursprung", command = function() source("ge3dExample1/ge3dExample1.r"))
 tkadd(example, "command", label = "Eichig", command = function() source("ge3dExample2/ge3dExample2.r"))
+tkadd(example, "command", label = "Auerbach", command = function() source("ge3dExample3/ge3dExample3.r"))
 
 ### frames
 deleteFrame <- function(frameName) {
@@ -662,3 +674,6 @@ tkgrid(tklabel(frameRight, text="Welcome to the Software for 3D-Presentation of 
 
 # create frames
 tkgrid(frameLeft, frameRight)
+
+# don't terminate 
+Sys.sleep(1e30)
