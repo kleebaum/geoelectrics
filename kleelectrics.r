@@ -642,9 +642,7 @@ tkadd(plot2dXyz, "command", label = "Levels", command = function() choosePlottin
 tkadd(plot2dXyz, "command", label = "Points with Topography", command = function() choosePlottingProfile(plotXyzHeight))
 tkadd(plot2dXyz, "command", label = "Levels with Topography", command = function() choosePlottingProfile(levelplotXyzHeight))
 
-#tkadd(example, "command", label = "Ursprung", command = function() source("ge3dExample1/ge3dExample1.r"))
-tkadd(example, "command", label = "Eichig", command = function() source("ge3dExample2/ge3dExample2.r"))
-#tkadd(example, "command", label = "Auerbach", command = function() source("ge3dExample3/ge3dExample3.r"))
+tkadd(example, "command", label = "Sinkhole", command = function() source("example/example.r"))
 
 ### frames
 deleteFrame <- function(frameName) {
