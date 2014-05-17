@@ -2,7 +2,6 @@
 # 3D-Presentation of Geoelectric Profiles Version 1.1
 # Anja Kleebaum
 
-library(knitr)
 require(tcltk)
 library(tkrplot)
 library(lattice) # for levelplots
