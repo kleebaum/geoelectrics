@@ -1,7 +1,12 @@
-#! /usr/bin/R
 # 3D-Presentation of Geoelectric Profiles Version 1.1
 # Anja Kleebaum
 
+### looking for working directory
+whereFrom=sys.calls()[[1]]
+whereFrom=as.character(whereFrom[2]) 
+whereFrom=paste(getwd(),whereFrom,sep="/") # prefix it with the current working directory
+
+### install packages
 require(tcltk)
 library(tkrplot)
 library(lattice) # for levelplots
@@ -9,6 +14,9 @@ library(rgl)
 tt <- tktoplevel()
 tkwm.minsize(tt, 400, 300)
 tktitle(tt) <- "Kleelectrics: 3D-Presentation of Geoelectric Profiles"
+
+### change working directory to right one
+try(setwd(dirname(whereFrom)))
 
 ###----Classes and methods----####
 setClass("RawData",

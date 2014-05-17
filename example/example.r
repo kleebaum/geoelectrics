@@ -6,40 +6,40 @@ p[1] <- new("Profile",
             number = 1,
             xyzData = 
               new("XyzData", 
-                  address = "ge3dExample2/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+                  address = "example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
             rawData = 
               new("RawData",
-                  address ="ge3dExample2/rawdata/p1_DipolDipol_SW-NE.dat"),
+                  address ="example/rawdata/p1_DipolDipol_SW-NE.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="ge3dExample2/gps/p1.txt"))
+                  address ="example/gps/p1.txt"))
 
 p[2] <- new("Profile", 
             number = 2,
             xyzData = 
               new("XyzData", 
-                  address = "ge3dExample2/xyzFiles/p2_DipolDipol_SSW-NNE.xyz"),
+                  address = "example/xyzFiles/p2_DipolDipol_SSW-NNE.xyz"),
             rawData = 
               new("RawData",
-                  address ="ge3dExample2/rawdata/p2_DipolDipol_SSW-NNE.dat"),
+                  address ="example/rawdata/p2_DipolDipol_SSW-NNE.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="ge3dExample2/gps/p2.txt")) 
+                  address ="example/gps/p2.txt")) 
 
 p[3] <- new("Profile", 
             number = 3,
             xyzData = 
               new("XyzData", 
-                  address = "ge3dExample2/xyzFiles/p3_DipolDipol_S-N.xyz"),
+                  address = "example/xyzFiles/p3_DipolDipol_S-N.xyz"),
             rawData = 
               new("RawData",
-                  address ="ge3dExample2/rawdata/p3_DipolDipol_S-N.dat"),
+                  address ="example/rawdata/p3_DipolDipol_S-N.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="ge3dExample2/gps/p3.txt")) 
+                  address ="example/gps/p3.txt")) 
 
 # Nullpunkte fuer 3D Darstellung
 minLon <- 653737
