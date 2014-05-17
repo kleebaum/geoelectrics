@@ -1,5 +1,5 @@
 #! /usr/bin/R
-# 3D-Presentation of 2D-Geoelectric Profiles Version 1.0
+# 3D-Presentation of Geoelectric Profiles Version 1.1
 # Anja Kleebaum
 
 require(tcltk)
@@ -8,7 +8,7 @@ library(lattice) # for levelplots
 library(rgl)
 tt <- tktoplevel()
 tkwm.minsize(tt, 400, 300)
-tktitle(tt) <- "3D-Presentation of 2D-Geoelectric Profiles"
+tktitle(tt) <- "Kleelectrics: 3D-Presentation of Geoelectric Profiles"
 
 ###----Classes and methods----####
 setClass("RawData",
@@ -642,9 +642,9 @@ tkadd(plot2dXyz, "command", label = "Levels", command = function() choosePlottin
 tkadd(plot2dXyz, "command", label = "Points with Topography", command = function() choosePlottingProfile(plotXyzHeight))
 tkadd(plot2dXyz, "command", label = "Levels with Topography", command = function() choosePlottingProfile(levelplotXyzHeight))
 
-tkadd(example, "command", label = "Ursprung", command = function() source("ge3dExample1/ge3dExample1.r"))
+#tkadd(example, "command", label = "Ursprung", command = function() source("ge3dExample1/ge3dExample1.r"))
 tkadd(example, "command", label = "Eichig", command = function() source("ge3dExample2/ge3dExample2.r"))
-tkadd(example, "command", label = "Auerbach", command = function() source("ge3dExample3/ge3dExample3.r"))
+#tkadd(example, "command", label = "Auerbach", command = function() source("ge3dExample3/ge3dExample3.r"))
 
 ### frames
 deleteFrame <- function(frameName) {
