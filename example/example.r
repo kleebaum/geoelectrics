@@ -53,4 +53,20 @@ for(x in p) {
 
 heightAdjustment(p[[3]], -10)
 
+for(x in p) { 
+  p[x@number] <- getXyzData(p[[x@number]])
+  p[x@number] <- getGpsData(p[[x@number]])
+  try(p[x@number] <- getRawData(p[[x@number]]))
+}
+
+minData <- 9999999
+maxData <- 0
+
+for(x in p) {
+  minDataX <- min(log(p[[x@number]]@xyzData@seaLevel$V3))
+  maxDataX <- max(log(p[[x@number]]@xyzData@seaLevel$V3))
+  if(minDataX < minData) minData <- minDataX
+  if(maxDataX > maxData) maxData <- maxDataX
+}
+
 #save.image(file="eichig.RData", ascii = TRUE)

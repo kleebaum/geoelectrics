@@ -183,6 +183,9 @@ getGpsData <- function(Profile) {
     lm.profile <- lm(Profile@gpsCoordinates@exact$lat ~ Profile@gpsCoordinates@exact$lon)
     slot(Profile@gpsCoordinates, "lm") <- lm.profile
     
+    minLat <- 49.42661
+    minLon <- 11.32517
+    
     # latitude and longitude
     if(max(Profile@gpsCoordinates@exact$lat) < 180) {
       # grad
@@ -348,12 +351,10 @@ pointsize <- 10
 colors <- c("blue", "green", "yellow", "orange", "red", "purple")
 
 # Funktion zur Farb-Wertzuweisung
+
 myColorRamp <- function(colors, values) { 
-  #all_values <- c(min(p[[1]]@xyzData@heightAdaption$V3), max(p[[1]]@xyzData@heightAdaption$V3))
-  v <- (values - min(values))/diff(range(values))
-  #v <- (values - min(values))/diff(range(c(log(0.01),log(12000))))
-  #v <- (values - min(log(p[[1]]@xyzData@heightAdaption$V3)))/diff(range(values))
-  #v <- (values - min(values))/diff(range(log(p[[2]]@xyzData@heightAdaption$V3)))
+  #v <- (values - min(values))/diff(range(values)) # only single profile
+  v <- (values - minData)/diff(range(minData,maxData)) # same colors for all profiles
   x <- colorRamp(colors)(v) 
   rgb(x[,1], x[,2], x[,3], maxColorValue = 255) 
 } 
