@@ -1,7 +1,9 @@
-# Script for plotting an example measurement
-# Doline bei Eichig
-p <- list()
+# Script for plotting three profiles of an example measurement
+# Sinkhole
 
+p <- list() # a list has to be initialized to combine all profiles
+
+# a new object is created for each profile and stored within the list p
 p[1] <- new("Profile", 
             number = 1,
             xyzData = 
@@ -42,22 +44,18 @@ p[3] <- new("Profile",
                   address ="example/gps/p3.txt")) 
 
 # Nullpunkte fuer 3D Darstellung
+#findMinMaxValues(p)
+
 minLon <- 653737
 minLat <- 5547494
 
 for(x in p) { 
-  p[x@number] <- getXyzData(p[[x@number]])
-  p[x@number] <- getGpsData(p[[x@number]])
-  try(p[x@number] <- getRawData(p[[x@number]]))
+  p[x@number] <- parseXyzData(p[[x@number]])
+  p[x@number] <- parseGpsData(p[[x@number]])
+  try(p[x@number] <- parseRawData(p[[x@number]]))
 }
 
 heightAdjustment(p[[3]], -10)
-
-for(x in p) { 
-  p[x@number] <- getXyzData(p[[x@number]])
-  p[x@number] <- getGpsData(p[[x@number]])
-  try(p[x@number] <- getRawData(p[[x@number]]))
-}
 
 minData <- 9999999
 maxData <- 0
