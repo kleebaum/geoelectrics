@@ -58,7 +58,6 @@ comboMenuProfiles <- function(widget) {
     items <- c(items, x@number)
   }    
   number <<- tclVar()
-  #assign("number", tclVar(), .GlobalEnv)
   return(ttkcombobox(widget, values=items, textvariable=number, width=3))  
 }
 
@@ -384,8 +383,8 @@ newFrame <- function(frameName) {
 }
 
 resetFrames <- function() {
-  #deleteFrame(frameLeft)
-  #deleteFrame(frameRight)
+  deleteFrame(frameLeft)
+  deleteFrame(frameRight)
   frameLeft <<- newFrame("frameLeft")
   frameRight <<- newFrame("frameRight")
   return(tkgrid(frameLeft, frameRight))
@@ -393,8 +392,7 @@ resetFrames <- function() {
 
 # left frame
 frameLeft <<- newFrame("frameLeft")
-tkgrid(tklabel(frameLeft, 
-               text="test"))
+tkgrid(tklabel(frameLeft, text=""))
 
 # right frame
 frameRight <<- newFrame("frameRight")

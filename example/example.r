@@ -44,10 +44,6 @@ p[3] <- new("Profile",
                   address ="example/gps/p3.txt")) 
 
 # Nullpunkte fuer 3D Darstellung
-#findMinMaxValues(p)
-
-minLon <- 653737
-minLat <- 5547494
 
 for(x in p) { 
   p[x@number] <- parseXyzData(p[[x@number]])
@@ -56,15 +52,6 @@ for(x in p) {
 }
 
 heightAdjustment(p[[3]], -10)
-
-minData <- 9999999
-maxData <- 0
-
-for(x in p) {
-  minDataX <- min(log(p[[x@number]]@xyzData@seaLevel$V3))
-  maxDataX <- max(log(p[[x@number]]@xyzData@seaLevel$V3))
-  if(minDataX < minData) minData <- minDataX
-  if(maxDataX > maxData) maxData <- maxDataX
-}
+findMinMaxValues(p)
 
 #save.image(file="eichig.RData", ascii = TRUE)
