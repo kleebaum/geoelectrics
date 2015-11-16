@@ -43,8 +43,7 @@ p[3] <- new("Profile",
               new("GpsCoordinates",
                   address ="example/gps/p3.txt")) 
 
-
-heightAdjustment(p[[3]], -10)
 findMinMaxValues(p)
+heightAdjustment(p[[3]], -10)
 
 #save.image(file="eichig.RData", ascii = TRUE)

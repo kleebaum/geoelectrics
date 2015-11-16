@@ -37,11 +37,14 @@ setMethod("initialize", "RawData",
                 numberOfRows1 <- numberOfRows1 + 1
               }
               
-              profile <- read.table(file=address, skip=skipLines1, header=F, nrows=numberOfRows1)
+              profile <- read.table(file=address, skip=skipLines1, 
+                                    header=F, nrows=numberOfRows1)
               
               .Object@seaLevel <- data.frame(
-                profile[1],profile[2],
-                profile[4])
+                "dist"=profile[1],
+                "depth"=profile[2],
+                "val"=profile[4])
+              colnames(.Object@seaLevel) <- c("dist", "depth", "val")
               
               close(con)              
             }
@@ -64,27 +67,12 @@ setMethod("initialize", "GpsCoordinates",
             if(nchar(address) == 0) {
               print("GPS coordinates address is missing.")
             } else {
-              gpsData <- read.table(file=address, header=T) 
-              
-              .Object@exact <- data.frame("lat"=gpsData[1],"lon"=gpsData[2])
-              
+              gpsData <- read.table(file=address, header=T)               
+              .Object@exact <- data.frame(
+                "lat"=gpsData[1],
+                "lon"=gpsData[2])
+              colnames(.Object@exact) <- c("lat", "lon")
               .Object@lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
-              
-              # latitude and longitude
-              if(max(.Object@exact$lat) < 180) {
-                # grad
-                profile.m <- data.frame(lat=(.Object@exact$lat-minLat)*111000,
-                                        lon=(.Object@exact$lon-minLon)*72000)
-              }
-              else {
-                # utm
-                profile.m <- data.frame(lat=(.Object@exact$lat-minLat),
-                                        lon=(.Object@exact$lon-minLon))
-              }     
-              
-              .Object@relative <- profile.m
-              
-              .Object@lmRelative <- lm(.Object@relative$lat ~ .Object@relative$lon)
             }
             return(.Object)
           })
@@ -128,15 +116,22 @@ setMethod("initialize", "XyzData",
                 numberOfRows2 <- numberOfRows2 + 1    
               }
               
-              profile_without_topo <- read.table(file=address, skip=skipLines1, header=F, nrows=numberOfRows)
+              profile_without_topo <- read.table(file=address, skip=skipLines1, 
+                                                 header=F, nrows=numberOfRows)
               .Object@seaLevel <- data.frame(
-                profile_without_topo[1],profile_without_topo[2],
-                profile_without_topo[3])#,profile_without_topo[5])
+                "dist"=profile_without_topo[1],
+                "depth"=profile_without_topo[2],
+                "val"=profile_without_topo[3])
+              colnames(.Object@seaLevel) <- c("dist", "depth", "val")
               
-              profile <- read.table(file=address, skip=skipLines2, header=F, nrows=numberOfRows2)
+              profile <- read.table(file=address, skip=skipLines2, 
+                                    header=F, nrows=numberOfRows2)
               
               .Object@heightAdaption <- data.frame(
-                profile[1],profile[2],profile[3])#,profile[5])
+                "dist"=profile[1],
+                "depth"=profile[2],
+                "val"=profile[3])
+              colnames(.Object@heightAdaption) <- c("dist", "depth", "val")
               
               close(con)
             }
@@ -191,8 +186,8 @@ findMinMaxValues <- function(Profiles) {
   minLon <- 100000000000
   
   for (Profile in Profiles) {
-    minDataX <- min(log(Profile@xyzData@seaLevel$V3))
-    maxDataX <- max(log(Profile@xyzData@seaLevel$V3))
+    minDataX <- min(log(Profile@xyzData@seaLevel$val))
+    maxDataX <- max(log(Profile@xyzData@seaLevel$val))
     if(minDataX < minData) minData <- minDataX
     if(maxDataX > maxData) maxData <- maxDataX
     
@@ -208,35 +203,52 @@ findMinMaxValues <- function(Profiles) {
   maxData <<- maxData
 }
 
+calculateRelativeCoordinates <- function(Profile) {
+    # latitude and longitude
+    if(max(Profile@gpsCoordinates@exact$lat) < 180) {
+      # grad
+      profile.m <- data.frame(lat=(Profile@gpsCoordinates@exact$lat-minLat)*111000,
+                              lon=(Profile@gpsCoordinates@exact$lon-minLon)*72000)
+    }
+    else {
+      # utm
+      profile.m <- data.frame(lat=(Profile@gpsCoordinates@exact$lat-minLat),
+                              lon=(Profile@gpsCoordinates@exact$lon-minLon))
+    }     
+    slot(Profile@gpsCoordinates, "relative") <- profile.m
+    slot(Profile@gpsCoordinates, "lmRelative") <- lm(profile.m$lat ~ profile.m$lon)
+    return(Profile)
+}
+
 ###---Plotting functions---####   
 plotXyz <- function(Profile) {
-  plot(Profile@xyzData@seaLevel$V1, Profile@xyzData@seaLevel$V2, 
+  plot(Profile@xyzData@seaLevel$dist, Profile@xyzData@seaLevel$depth, 
        xlab="Laenge [m]", ylab="Tiefe [m]", 
        main=paste("Profil", Profile@number, "mit Hoehenanpassung"), asp=1)
 }
 
 levelplotXyz <- function(Profile) {
-  levelplot(log(Profile@xyzData@seaLevel$V3) ~ Profile@xyzData@seaLevel$V1 * Profile@xyzData@seaLevel$V2, 
+  levelplot(log(Profile@xyzData@seaLevel$val) ~ Profile@xyzData@seaLevel$dist * Profile@xyzData@seaLevel$depth, 
             col.regions = colorRampPalette(colors), interpolate=T, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "ohne Hoehenanpassung"))
 }
 
 plotXyzHeight <- function(Profile) {
-  plot(data.frame(Profile@xyzData@heightAdaption$V1, Profile@xyzData@heightAdaption$V2), 
+  plot(data.frame(Profile@xyzData@heightAdaption$dist, Profile@xyzData@heightAdaption$depth), 
        xlab="Laenge [m]", ylab="Tiefe [m]", 
        main=paste("Profil", Profile@number, "mit Hoehenanpassung"), asp=1)
 }
 
 levelplotXyzHeight <- function(Profile) {
-  levelplot(log(Profile@xyzData@heightAdaption$V3) ~ round(Profile@xyzData@heightAdaption$V1) * round(Profile@xyzData@heightAdaption$V2), 
+  levelplot(log(Profile@xyzData@heightAdaption$val) ~ round(Profile@xyzData@heightAdaption$dist) * round(Profile@xyzData@heightAdaption$depth), 
             col.regions = colorRampPalette(colors), interpolate=F, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "mit Hoehenanpassung"))
 }
 
 levelplotRaw <- function(Profile) {
-  levelplot(round(log(Profile@rawData@seaLevel$V4)) ~ round(Profile@rawData@seaLevel$V1) * round(-1*Profile@rawData@seaLevel$V2), 
+  levelplot(round(log(Profile@rawData@seaLevel$val)) ~ round(Profile@rawData@seaLevel$dist) * round(-1*Profile@rawData@seaLevel$depth), 
             col.regions = colorRampPalette(colors), interpolate=T, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), aspect="iso",
@@ -244,44 +256,45 @@ levelplotRaw <- function(Profile) {
 }
 
 plotRaw <- function(Profile) {  
-  plot(Profile@rawData@seaLevel$V1, -1*(Profile@rawData@seaLevel$V2), 
+  plot(Profile@rawData@seaLevel$dist, -1*(Profile@rawData@seaLevel$depth), 
        xlab="Länge [m]", ylab="Tiefe [m]", 
        main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), asp=1) 
 }
 
 plot3dXyz <- function(Profile) {
-  colorAssignment <- myColorRamp(colors, log(Profile@xyzData@heightAdaption$V3))
+  colorAssignment <- myColorRamp(colors, log(Profile@xyzData@heightAdaption$val))
   
-  l <- Profile@xyzData@heightAdaption$V1 # length of profile 
+  l <- Profile@xyzData@heightAdaption$dist # hypotenuse
   m <- Profile@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
   n <- Profile@gpsCoordinates@lmRelative$coefficients[1]
   alpha <- atan(m)
   
-  # Berechung von x und y ueber Winkel
+  # calculate adjacent leg
   x <- cos(alpha) * l
   
-  # Anpassung Startpunkte
+  # get starting point and adjust
   s.x <- min(Profile@gpsCoordinates@relative$lon)
-  
   x <- x + s.x
+  
+  # calculate opposite leg
   y <- m*x + n
   
-  # Plot 3D    
+  # plot 3D    
   rgl.bg(color="white")
-  points3d(y, Profile@xyzData@heightAdaption$V2, x, color=colorAssignment, size=pointsize)  
+  points3d(y, Profile@xyzData@heightAdaption$depth, x, color=colorAssignment, size=pointsize)  
   rgl.bbox()  
-  rgl.texts(y[1], Profile@xyzData@heightAdaption$V2[1]+5, x[1], 
+  rgl.texts(y[1], Profile@xyzData@heightAdaption$depth[1]+5, x[1], 
             text=paste("Profil", Profile@number), cex=1, color="black")
   axes3d(edges="bbox",  yunit=25, expand=1.2)
   #title3d('main','sub','xlab','ylab','zlab')
-  #title3d('Geoelektrik Eichig 2013','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
+  #title3d('Sinkhole','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
   #title3d('','','[m]','','[m]')
   #title3d('','','','Hoehe [m]','')
 }  
 
-heightAdjustment <- function(Profile, height) {
-  Profile@xyzData@heightAdaption$V2 <- 
-    Profile@xyzData@heightAdaption$V2 + height
+heightAdjustment <- function(Profile, deltaMeter) {
+  Profile@xyzData@heightAdaption$depth <- 
+    Profile@xyzData@heightAdaption$depth + deltaMeter
   p[Profile@number] <- Profile
   p <<- p
 }
@@ -291,10 +304,7 @@ pointsize <- 10
 colors <- c("blue", "green", "yellow", "orange", "red", "purple")
 
 myColorRamp <- function(colors, values) { # maps color to resistivity value
-  #v <- (values - min(values))/diff(range(values)) # only single profile
   v <- (values - minData)/diff(range(minData,maxData)) # same colors for all profiles
   x <- colorRamp(colors)(v)
-  #x <- x[!rowSums(!is.finite(x)),]
-  x[!is.finite(x)] <- 0
   rgb(x[,1], x[,2], x[,3], maxColorValue = 255) 
 } 
