@@ -16,6 +16,37 @@ setClass("RawData",
          representation = representation(
            address = "character",
            seaLevel = "data.frame"))
+setMethod("initialize", "RawData",
+          function(.Object, address) {
+            if(nchar(address) == 0) {
+              print("Raw Data address is missing.")
+            } else {
+              con  <- file(address, open = "r")
+              
+              skipLines1 <- 9
+              skipLines2 <- 0
+              numberOfRows1 <- 0
+              numberOfRows2 <- 0
+              
+              for(i in 1:10) {
+                oneLine <- readLines(con, n=1)
+              }
+              
+              while(grepl(".", oneLine, fixed=T)) {
+                oneLine <- readLines(con, n=1)
+                numberOfRows1 <- numberOfRows1 + 1
+              }
+              
+              profile <- read.table(file=address, skip=skipLines1, header=F, nrows=numberOfRows1)
+              
+              .Object@seaLevel <- data.frame(
+                profile[1],profile[2],
+                profile[4])
+              
+              close(con)              
+            }
+            return(.Object)
+          })
 
 setClass("GpsCoordinates",
          representation = representation(
@@ -28,12 +59,94 @@ setClass("GpsCoordinates",
          prototype = prototype(
            lm = lm(1~1),
            lmRelative = lm (1~1)))
+setMethod("initialize", "GpsCoordinates", 
+          function(.Object, address) {
+            if(nchar(address) == 0) {
+              print("GPS coordinates address is missing.")
+            } else {
+              gpsData <- read.table(file=address, header=T) 
+              
+              .Object@exact <- data.frame(gpsData[1],gpsData[2])
+              colnames(.Object$exact) <- c("lat", "lon")
+              
+              .Object@lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
+              
+              minLat <- 49.42661
+              minLon <- 11.32517
+              
+              # latitude and longitude
+              if(max(.Object@exact$lat) < 180) {
+                # grad
+                profile.m <- data.frame(lat=(.Object@exact$lat-minLat)*111000,
+                                        lon=(.Object@exact$lon-minLon)*72000)
+              }
+              else {
+                # utm
+                profile.m <- data.frame(lat=(.Object@exact$lat-minLat),
+                                        lon=(.Object@exact$lon-minLon))
+              }     
+              
+              .Object@relative <- profile.m
+              
+              .Object@lmRelative <- lm(.Object@relative$lat ~ .Object@relative$lon)
+            }
+            return(.Object)
+          })
 
 setClass("XyzData",
          representation = representation(
            address = "character",
            seaLevel = "data.frame",
            heightAdaption = "data.frame"))
+setMethod("initialize", "XyzData",
+          function(.Object, address) {
+            if(nchar(address) == 0) {
+              print("XYZ data address is missing.")
+            } else {
+              con  <- file(address, open = "r")
+              
+              skipLines1 <- 0
+              numberOfRows <- 0
+              numberOfRows2 <- 0
+              
+              oneLine <- readLines(con, n=1)
+              while(grepl("/", oneLine)) {
+                oneLine <- readLines(con, n=1)
+                skipLines1 <- skipLines1 + 1
+              }
+              
+              while(!grepl("/", oneLine)) {
+                oneLine <- readLines(con, n=1)
+                numberOfRows <- numberOfRows + 1    
+              }
+              
+              skipLines2 <- skipLines1 + numberOfRows
+              
+              while(grepl("/", oneLine)) {
+                oneLine <- readLines(con, n=1)
+                skipLines2 <- skipLines2 + 1
+              }
+              
+              while(!grepl("/", oneLine)) {
+                oneLine <- readLines(con, n=1)
+                numberOfRows2 <- numberOfRows2 + 1    
+              }
+              
+              profile_without_topo <- read.table(file=address, skip=skipLines1, header=F, nrows=numberOfRows)
+              .Object@seaLevel <- data.frame(
+                profile_without_topo[1],profile_without_topo[2],
+                profile_without_topo[3])#,profile_without_topo[5])
+              
+              profile <- read.table(file=address, skip=skipLines2, header=F, nrows=numberOfRows2)
+              
+              .Object@heightAdaption <- data.frame(
+                profile[1],profile[2],profile[3])#,profile[5])
+              
+              close(con)
+            }
+              
+            return(.Object)               
+            })
 
 setClass("Profile",
          representation = representation(
@@ -75,127 +188,6 @@ setGpsAddress <- function(Profile, address) {
 getGpsAddress <- function(Profile) {
   return(Profile@gpsCoordinates@address)
 }
-
-###----Parsing text files----####
-parseXyzData <- function(Profile) {
-  if(length(Profile@xyzData@address) == 0) {
-    print("address missing")
-  } else {
-    con  <- file(Profile@xyzData@address, open = "r")
-    
-    skipLines1 <- 0
-    numberOfRows <- 0
-    numberOfRows2 <- 0
-    
-    oneLine <- readLines(con, n=1)
-    while(grepl("/", oneLine)) {
-      oneLine <- readLines(con, n=1)
-      skipLines1 <- skipLines1 + 1
-    }
-    
-    while(!grepl("/", oneLine)) {
-      oneLine <- readLines(con, n=1)
-      numberOfRows <- numberOfRows + 1    
-    }
-    
-    skipLines2 <- skipLines1 + numberOfRows
-    
-    while(grepl("/", oneLine)) {
-      oneLine <- readLines(con, n=1)
-      skipLines2 <- skipLines2 + 1
-    }
-    
-    while(!grepl("/", oneLine)) {
-      oneLine <- readLines(con, n=1)
-      numberOfRows2 <- numberOfRows2 + 1    
-    }
-    
-    profile_without_topo <- read.table(file=Profile@xyzData@address, skip=skipLines1, header=F, nrows=numberOfRows)
-    slot(Profile@xyzData, "seaLevel") <- data.frame(
-      profile_without_topo[1],profile_without_topo[2],
-      profile_without_topo[3])#,profile_without_topo[5])
-    
-    profile <- read.table(file=Profile@xyzData@address, skip=skipLines2, header=F, nrows=numberOfRows2)
-    
-    slot(Profile@xyzData, "heightAdaption") <- data.frame(
-      profile[1],profile[2],profile[3])#,profile[5])
-    
-    close(con)
-    
-    return(Profile)
-  }
-}
-
-parseRawData <- function(Profile) {
-  if(length(Profile@rawData@address) == 0) {
-    print("address missing")
-  } else {
-    con  <- file(Profile@rawData@address, open = "r")
-    
-    skipLines1 <- 9
-    skipLines2 <- 0
-    numberOfRows1 <- 0
-    numberOfRows2 <- 0
-    
-    for(i in 1:10) {
-      oneLine <- readLines(con, n=1)
-    }
-    
-    while(grepl(".", oneLine, fixed=T)) {
-      oneLine <- readLines(con, n=1)
-      numberOfRows1 <- numberOfRows1 + 1
-    }
-    
-    profile <- read.table(file=Profile@rawData@address, skip=skipLines1, header=F, nrows=numberOfRows1)
-    
-    Profile@rawData@seaLevel <- data.frame(
-      profile[1],profile[2],
-      profile[4])
-    
-    close(con)
-    
-    return(Profile)
-  }
-}
-
-parseGpsData <- function(Profile) {
-  # latitude and longitude
-  if(length(Profile@gpsCoordinates@address) == 0) {
-    print("address missing (gps-file)")
-  } else {
-    gpsData <- read.table(file=Profile@gpsCoordinates@address, header=T) 
-    
-    slot(Profile@gpsCoordinates, "exact") <- data.frame(
-      gpsData[1],gpsData[2])
-    
-    lm.profile <- lm(Profile@gpsCoordinates@exact$lat ~ Profile@gpsCoordinates@exact$lon)
-    slot(Profile@gpsCoordinates, "lm") <- lm.profile
-    
-    minLat <- 49.42661
-    minLon <- 11.32517
-    
-    # latitude and longitude
-    if(max(Profile@gpsCoordinates@exact$lat) < 180) {
-      # grad
-      profile.m <- data.frame(lat=(Profile@gpsCoordinates@exact$lat-minLat)*111000,
-                              lon=(Profile@gpsCoordinates@exact$lon-minLon)*72000)
-    }
-    else {
-      # utm
-      profile.m <- data.frame(lat=(Profile@gpsCoordinates@exact$lat-minLat),
-                              lon=(Profile@gpsCoordinates@exact$lon-minLon))
-    }     
-    
-    slot(Profile@gpsCoordinates, "relative") <- profile.m
-    
-    lm.profile.relative <- lm(Profile@gpsCoordinates@relative$lat ~ Profile@gpsCoordinates@relative$lon)
-    
-    slot(Profile@gpsCoordinates, "lmRelative") <- lm.profile.relative
-    
-    return(Profile)
-  }
-}
-
 
 findMinMaxValues <- function(Profiles) {
   minData <- 9999999

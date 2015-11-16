@@ -1,5 +1,5 @@
 # Script for plotting three profiles of an example measurement
-# Sinkhole
+# filled sinkhole
 
 p <- list() # a list has to be initialized to combine all profiles
 
@@ -43,13 +43,6 @@ p[3] <- new("Profile",
               new("GpsCoordinates",
                   address ="example/gps/p3.txt")) 
 
-# Nullpunkte fuer 3D Darstellung
-
-for(x in p) { 
-  p[x@number] <- parseXyzData(p[[x@number]])
-  p[x@number] <- parseGpsData(p[[x@number]])
-  try(p[x@number] <- parseRawData(p[[x@number]]))
-}
 
 heightAdjustment(p[[3]], -10)
 findMinMaxValues(p)
