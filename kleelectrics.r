@@ -66,13 +66,9 @@ setMethod("initialize", "GpsCoordinates",
             } else {
               gpsData <- read.table(file=address, header=T) 
               
-              .Object@exact <- data.frame(gpsData[1],gpsData[2])
-              colnames(.Object$exact) <- c("lat", "lon")
+              .Object@exact <- data.frame("lat"=gpsData[1],"lon"=gpsData[2])
               
               .Object@lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
-              
-              minLat <- 49.42661
-              minLon <- 11.32517
               
               # latitude and longitude
               if(max(.Object@exact$lat) < 180) {
@@ -144,9 +140,8 @@ setMethod("initialize", "XyzData",
               
               close(con)
             }
-              
             return(.Object)               
-            })
+          })
 
 setClass("Profile",
          representation = representation(
@@ -264,14 +259,12 @@ plot3dXyz <- function(Profile) {
   
   # Berechung von x und y ueber Winkel
   x <- cos(alpha) * l
-  y <- sin(alpha) * l
   
   # Anpassung Startpunkte
-  s.y <- Profile@gpsCoordinates@relative$lat[1]
-  s.x <- Profile@gpsCoordinates@relative$lon[1]
+  s.x <- min(Profile@gpsCoordinates@relative$lon)
   
-  y <- y + s.y
   x <- x + s.x
+  y <- m*x + n
   
   # Plot 3D    
   rgl.bg(color="white")
