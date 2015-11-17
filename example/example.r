@@ -1,11 +1,9 @@
 # Script for plotting three profiles of an example measurement
 # filled sinkhole
 
-p <- list() # a list has to be initialized to combine all profiles
-
 # a new object is created for each profile and stored within the list p
-p[1] <- new("Profile", 
-            number = 1,
+p1 <- new("Profile",
+            title = "Profile 1",
             xyzData = 
               new("XyzData", 
                   address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
@@ -17,8 +15,8 @@ p[1] <- new("Profile",
               new("GpsCoordinates",
                   address = "../example/gps/p1.txt"))
 
-p[2] <- new("Profile", 
-            number = 2,
+p2 <- new("Profile",
+            title = "Profile 2",
             xyzData = 
               new("XyzData", 
                   address = "../example/xyzFiles/p2_DipolDipol_SSW-NNE.xyz"),
@@ -30,8 +28,8 @@ p[2] <- new("Profile",
               new("GpsCoordinates",
                   address = "../example/gps/p2.txt")) 
 
-p[3] <- new("Profile", 
-            number = 3,
+p3 <- new("Profile",
+            title = "Profile 3",
             xyzData = 
               new("XyzData", 
                   address = "../example/xyzFiles/p3_DipolDipol_S-N.xyz"),
@@ -43,10 +41,10 @@ p[3] <- new("Profile",
               new("GpsCoordinates",
                   address = "../example/gps/p3.txt")) 
 
-heightAdjustment(p[[3]], -10)
+p3 <- heightAdjustment(p3, -10)
 
 sampleProfileSet <- new("ProfileSet",
-                       profiles = p,
+                       profiles = list(p1, p2, p3),
                        title="Sinkhole")
 
 plot3dXyz(sampleProfileSet)

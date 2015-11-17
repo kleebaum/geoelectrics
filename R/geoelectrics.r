@@ -187,13 +187,15 @@ setMethod("initialize", "XyzData",
 #'             address ="../example/gps/p1.txt"))
 setClass("Profile",
          representation = representation(
+           title = "character",
            number = "numeric",
            xyzData = "XyzData",
            rawData = "RawData", 
            measurementType = "character",
            gpsCoordinates = "GpsCoordinates"),
          prototype = prototype(
-           number = 0))
+           number = 0,
+           title = ""))
 
 #' A class to handle a collection of many profiles
 #'
@@ -213,18 +215,15 @@ setClass("ProfileSet",
            minData = "numeric",
            maxData = "numeric"))
 setMethod("initialize", "ProfileSet",
-          function(.Object, profiles=list(), title="") {
+          function(.Object, profiles=list(), title="",
+                   minData=9999999, maxData=0,
+                   minLat=100000000000, minLon=100000000000) {
             .Object@profiles <- profiles
-            .Object@title <- title
-            
-            minData <- 9999999
-            maxData <- 0  
-            minLat <- 100000000000
-            minLon <- 100000000000            
+            .Object@title <- title         
             
             for (profile in profiles) {
-              minDataX <- min(log(profile@xyzData@seaLevel$val))
-              maxDataX <- max(log(profile@xyzData@seaLevel$val))
+              minDataX <- min(trafo(profile@xyzData@seaLevel$val))
+              maxDataX <- max(trafo(profile@xyzData@seaLevel$val))
               if(minDataX < minData) minData <- minDataX
               if(maxDataX > maxData) maxData <- maxDataX
               
@@ -244,7 +243,10 @@ setMethod("initialize", "ProfileSet",
             minData <<- minData
             maxData <<- maxData
             
+            number <- 1
             for(profile in profiles) {
+              .Object@profiles[[number]]@number <- number
+              
               # latitude and longitude
               if(max(profile@gpsCoordinates@exact$lat) < 180) {
                 # grad
@@ -256,8 +258,10 @@ setMethod("initialize", "ProfileSet",
                 profile.m <- data.frame(lat=(profile@gpsCoordinates@exact$lat-minLat),
                                         lon=(profile@gpsCoordinates@exact$lon-minLon))
               }     
-              .Object@profiles[[profile@number]]@gpsCoordinates@relative <- profile.m
-              .Object@profiles[[profile@number]]@gpsCoordinates@lmRelative <- lm(profile.m$lat ~ profile.m$lon)
+              .Object@profiles[[number]]@gpsCoordinates@relative <- profile.m
+              .Object@profiles[[number]]@gpsCoordinates@lmRelative <- lm(profile.m$lat ~ profile.m$lon)
+              
+              number <- number + 1
             }
             return(.Object)
           })
@@ -266,12 +270,15 @@ setMethod("initialize", "ProfileSet",
 #' Plot Xyz points
 #' 
 #' Plots the interpolated points of the xyz data. 
-#' @param Profile profile.
+#' @param Profile profile
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @export
-plotXyz <- function(Profile) {
+plotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "without topography")) {
   plot(Profile@xyzData@seaLevel$dist, Profile@xyzData@seaLevel$depth, 
-       xlab="Laenge [m]", ylab="Tiefe [m]", 
-       main=paste("Profil", Profile@number, "mit Hoehenanpassung"), asp=1)
+       xlab=xlab, ylab=ylab, main=main, asp=1)
 }
 
 #' Plot levels of xyz data
@@ -281,7 +288,7 @@ plotXyz <- function(Profile) {
 #' @param Profile profile.
 #' @export
 levelplotXyz <- function(Profile) {
-  levelplot(log(Profile@xyzData@seaLevel$val) ~ Profile@xyzData@seaLevel$dist * Profile@xyzData@seaLevel$depth, 
+  levelplot(trafo(Profile@xyzData@seaLevel$val) ~ Profile@xyzData@seaLevel$dist * Profile@xyzData@seaLevel$depth, 
             col.regions = colorRampPalette(colors), interpolate=T, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "ohne Hoehenanpassung"))
@@ -306,7 +313,7 @@ plotXyzHeight <- function(Profile) {
 #' @param Profile profile.
 #' @export
 levelplotXyzHeight <- function(Profile) {
-  levelplot(log(Profile@xyzData@heightAdaption$val) ~ round(Profile@xyzData@heightAdaption$dist) * round(Profile@xyzData@heightAdaption$depth), 
+  levelplot(trafo(Profile@xyzData@heightAdaption$val) ~ round(Profile@xyzData@heightAdaption$dist) * round(Profile@xyzData@heightAdaption$depth), 
             col.regions = colorRampPalette(colors), interpolate=F, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "mit Hoehenanpassung"))
@@ -319,7 +326,7 @@ levelplotXyzHeight <- function(Profile) {
 #' @param Profile profile.
 #' @export
 levelplotRaw <- function(Profile) {
-  levelplot(round(log(Profile@rawData@seaLevel$val)) ~ round(Profile@rawData@seaLevel$dist) * round(-1*Profile@rawData@seaLevel$depth), 
+  levelplot(round(trafo(Profile@rawData@seaLevel$val)) ~ round(Profile@rawData@seaLevel$dist) * round(-1*Profile@rawData@seaLevel$depth), 
             col.regions = colorRampPalette(colors), interpolate=T, 
             regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
             main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), aspect="iso",
@@ -345,60 +352,70 @@ plotRaw <- function(Profile) {
 #' @param .Object either a single Profile or a ProfileSet
 #' @export
 setGeneric("plot3dXyz", function(.Object){
-    standardGeneric("plot3dXyz")
+  standardGeneric("plot3dXyz")
 })
 
-#' @rdname plot3dXyz-methods
+#' @rdname plot3dXyz
 #' @aliases plot3dxyz, ProfileSet
 setMethod("plot3dXyz", signature(.Object="ProfileSet"),
           function(.Object) {
             lapply(.Object@profiles, plot3dXyz)
+            title3d(.Object@title)
+            #title3d('main','sub','xlab','ylab','zlab')
+            #title3d('Sinkhole','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
           })
 
-#' @rdname plot3dXyz-methods
+#' @rdname plot3dXyz
 #' @aliases plot3dxyz, Profile
 setMethod("plot3dXyz", signature(.Object="Profile"),
           function(.Object) {
-  colorAssignment <- myColorRamp(colors, log(.Object@xyzData@heightAdaption$val))
-  
-  l <- .Object@xyzData@heightAdaption$dist # hypotenuse
-  m <- .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
-  n <- .Object@gpsCoordinates@lmRelative$coefficients[1]
-  alpha <- atan(m)
-  
-  # calculate adjacent leg
-  x <- cos(alpha) * l
-  
-  # get starting point and adjust
-  s.x <- min(.Object@gpsCoordinates@relative$lon)
-  x <- x + s.x
-  
-  # calculate opposite leg
-  y <- m*x + n
-  
-  # plot 3D    
-  rgl.bg(color="white")
-  points3d(y, .Object@xyzData@heightAdaption$depth, x, color=colorAssignment, size=pointsize)  
-  rgl.bbox()  
-  rgl.texts(y[1], .Object@xyzData@heightAdaption$depth[1]+20, x[1], 
-            text=paste("Profil", .Object@number), cex=1, color="black")
-  axes3d(edges="bbox",  yunit=25, expand=1.2)
-  #title3d('main','sub','xlab','ylab','zlab')
-  #title3d('Sinkhole','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
-  #title3d('','','[m]','','[m]')
-  #title3d('','','','Hoehe [m]','')
-})
+            colorAssignment <- myColorRamp(colors, trafo(.Object@xyzData@heightAdaption$val))
+            
+            l <- .Object@xyzData@heightAdaption$dist # hypotenuse
+            m <- .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
+            n <- .Object@gpsCoordinates@lmRelative$coefficients[1]
+            alpha <- atan(m)
+            
+            # calculate adjacent leg
+            x <- cos(alpha) * l
+            
+            # get starting point and adjust
+            s.x <- min(.Object@gpsCoordinates@relative$lon)
+            x <- x + s.x
+            
+            # calculate opposite leg
+            y <- m*x + n
+            
+            # plot 3D    
+            rgl.bg(color="white")
+            points3d(y, .Object@xyzData@heightAdaption$depth, x, color=colorAssignment, size=pointsize)  
+            rgl.bbox()  
+            rgl.texts(y[1], .Object@xyzData@heightAdaption$depth[1]+20, x[1], 
+                      text=paste(.Object@title), cex=1, color="black")
+            axes3d(edges="bbox", yunit=25, expand=1.2)
+          })
 
+#' Method to adjust height of a single profile
+#' 
+#' GPS measurements might differ otherwise.
+#' 
+#' @param Profile a single Profile
+#' @param deltaMeter positive or negative value
+#' @export
 heightAdjustment <- function(Profile, deltaMeter) {
   Profile@xyzData@heightAdaption$depth <- 
     Profile@xyzData@heightAdaption$depth + deltaMeter
-  p[Profile@number] <- Profile
-  p <<- p
+  return(Profile)
 }
 
 ###---Settings---####
 pointsize <- 10
 colors <- c("blue", "green", "yellow", "orange", "red", "purple")
+
+logBase <- 10
+trafo <- function(x, base=logBase) {
+  log(x, base)
+}
 
 myColorRamp <- function(colors, values) { # maps color to resistivity value
   v <- (values - minData)/diff(range(minData,maxData)) # same colors for all profiles
