@@ -337,37 +337,40 @@ plotRaw <- function(Profile) {
        main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), asp=1) 
 }
 
-# plot3dXyz <- function(ProfileSet) {
-#   #lapply(ProfileSet$profiles, plot3dXyz)
-#   for (profile in ProfileSet@profiles)
-#     plot3dXyz(profile)
-# }
-
-setMethod("plot3dXyz", "ProfileSet",
-          function(ProfileSet) {
-            lapply(ProfileSet@profiles, plot3dXyz)
-          })
-
 #' Plots profiles 3D
 #' 
 #' Plots the interpolated resistance values of the 
 #' xyz data for all profiles.
-#' @param Profile profile.
+#' 
+#' @param .Object either a single Profile or a ProfileSet
 #' @export
-setMethod("plot3dXyz", "Profile",
-          function(Profile) {
-  colorAssignment <- myColorRamp(colors, log(Profile@xyzData@heightAdaption$val))
+setGeneric("plot3dXyz", function(.Object){
+    standardGeneric("plot3dXyz")
+})
+
+#' @rdname plot3dXyz-methods
+#' @aliases plot3dxyz, ProfileSet
+setMethod("plot3dXyz", signature(.Object="ProfileSet"),
+          function(.Object) {
+            lapply(.Object@profiles, plot3dXyz)
+          })
+
+#' @rdname plot3dXyz-methods
+#' @aliases plot3dxyz, Profile
+setMethod("plot3dXyz", signature(.Object="Profile"),
+          function(.Object) {
+  colorAssignment <- myColorRamp(colors, log(.Object@xyzData@heightAdaption$val))
   
-  l <- Profile@xyzData@heightAdaption$dist # hypotenuse
-  m <- Profile@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
-  n <- Profile@gpsCoordinates@lmRelative$coefficients[1]
+  l <- .Object@xyzData@heightAdaption$dist # hypotenuse
+  m <- .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
+  n <- .Object@gpsCoordinates@lmRelative$coefficients[1]
   alpha <- atan(m)
   
   # calculate adjacent leg
   x <- cos(alpha) * l
   
   # get starting point and adjust
-  s.x <- min(Profile@gpsCoordinates@relative$lon)
+  s.x <- min(.Object@gpsCoordinates@relative$lon)
   x <- x + s.x
   
   # calculate opposite leg
@@ -375,10 +378,10 @@ setMethod("plot3dXyz", "Profile",
   
   # plot 3D    
   rgl.bg(color="white")
-  points3d(y, Profile@xyzData@heightAdaption$depth, x, color=colorAssignment, size=pointsize)  
+  points3d(y, .Object@xyzData@heightAdaption$depth, x, color=colorAssignment, size=pointsize)  
   rgl.bbox()  
-  rgl.texts(y[1], Profile@xyzData@heightAdaption$depth[1]+20, x[1], 
-            text=paste("Profil", Profile@number), cex=1, color="black")
+  rgl.texts(y[1], .Object@xyzData@heightAdaption$depth[1]+20, x[1], 
+            text=paste("Profil", .Object@number), cex=1, color="black")
   axes3d(edges="bbox",  yunit=25, expand=1.2)
   #title3d('main','sub','xlab','ylab','zlab')
   #title3d('Sinkhole','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')

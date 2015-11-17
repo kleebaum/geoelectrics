@@ -4,13 +4,9 @@
 \alias{plot3dXyz}
 \title{Plots profiles 3D}
 \usage{
-plot3dXyz(Profile)
-}
-\arguments{
-\item{Profile}{profile.}
+plot3dXyz(.Object)
 }
 \description{
-Plots the interpolated resistance values of the 
-xyz data for all profiles.
+Plots profiles 3D
 }
 

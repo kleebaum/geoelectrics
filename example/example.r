@@ -45,10 +45,10 @@ p[3] <- new("Profile",
 
 heightAdjustment(p[[3]], -10)
 
-exampleProfiles <- new("ProfileSet",
+sampleProfileSet <- new("ProfileSet",
                        profiles = p,
                        title="Sinkhole")
 
-plot3dXyzAll(exampleProfiles)
+plot3dXyz(sampleProfileSet)
 
-#save.image(file="eichig.RData", ascii = TRUE)
+#save.image(file="sinkhole.RData", ascii = TRUE)
