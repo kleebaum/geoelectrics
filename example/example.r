@@ -8,40 +8,40 @@ p[1] <- new("Profile",
             number = 1,
             xyzData = 
               new("XyzData", 
-                  address = "example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+                  address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
             rawData = 
               new("RawData",
-                  address ="example/rawdata/p1_DipolDipol_SW-NE.dat"),
+                  address ="../example/rawdata/p1_DipolDipol_SW-NE.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="example/gps/p1.txt"))
+                  address ="../example/gps/p1.txt"))
 
 p[2] <- new("Profile", 
             number = 2,
             xyzData = 
               new("XyzData", 
-                  address = "example/xyzFiles/p2_DipolDipol_SSW-NNE.xyz"),
+                  address = "../example/xyzFiles/p2_DipolDipol_SSW-NNE.xyz"),
             rawData = 
               new("RawData",
-                  address ="example/rawdata/p2_DipolDipol_SSW-NNE.dat"),
+                  address ="../example/rawdata/p2_DipolDipol_SSW-NNE.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="example/gps/p2.txt")) 
+                  address ="../example/gps/p2.txt")) 
 
 p[3] <- new("Profile", 
             number = 3,
             xyzData = 
               new("XyzData", 
-                  address = "example/xyzFiles/p3_DipolDipol_S-N.xyz"),
+                  address = "../example/xyzFiles/p3_DipolDipol_S-N.xyz"),
             rawData = 
               new("RawData",
-                  address ="example/rawdata/p3_DipolDipol_S-N.dat"),
+                  address ="../example/rawdata/p3_DipolDipol_S-N.dat"),
             measurementType = "DipolDipol",
             gpsCoordinates = 
               new("GpsCoordinates",
-                  address ="example/gps/p3.txt")) 
+                  address ="../example/gps/p3.txt")) 
 
 findMinMaxValues(p)
 heightAdjustment(p[[3]], -10)

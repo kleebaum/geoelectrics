@@ -2,7 +2,7 @@
 # Graphical User Interface
 # Anja Kleebaum
 
-source("kleelectrics.r")
+source("geoelectrics.r")
 
 ### load packages
 require(tcltk)
@@ -371,7 +371,7 @@ tkadd(plot2dXyz, "command", label = "Levels", command = function() choosePlottin
 tkadd(plot2dXyz, "command", label = "Points with Topography", command = function() choosePlottingProfile(plotXyzHeightGui))
 tkadd(plot2dXyz, "command", label = "Levels with Topography", command = function() choosePlottingProfile(levelplotXyzHeightGui))
 
-tkadd(example, "command", label = "Sinkhole", command = function() source("example/example.r"))
+tkadd(example, "command", label = "Sinkhole", command = function() source("../example/example.r"))
 
 ### frames
 deleteFrame <- function(frameName) {
