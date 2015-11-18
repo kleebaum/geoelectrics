@@ -4,10 +4,17 @@
 \alias{plotXyzHeight}
 \title{Plot Xyz points}
 \usage{
-plotXyzHeight(Profile)
+plotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
+  main = paste(Profile@title, "with topography"))
 }
 \arguments{
 \item{Profile}{profile.}
+
+\item{xlab}{label for x-axes}
+
+\item{ylab}{label for y-axes}
+
+\item{main}{title to be plotted}
 }
 \description{
 Plots the interpolated points of the xyz data

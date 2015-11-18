@@ -2,22 +2,33 @@
 % Please edit documentation in R/geoelectrics.r
 \docType{methods}
 \name{plot3dXyz}
-\alias{Profile}
-\alias{ProfileSet}
+\alias{plot3d}
 \alias{plot3dXyz}
 \alias{plot3dXyz,Profile-method}
 \alias{plot3dXyz,ProfileSet-method}
-\alias{plot3dxyz,}
 \title{Plots profiles 3D}
 \usage{
-plot3dXyz(.Object)
+plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
+  zlab = "")
 
-\S4method{plot3dXyz}{ProfileSet}(.Object)
+\S4method{plot3dXyz}{ProfileSet}(.Object, title = .Object@title, sub = "",
+  xlab = "", ylab = "", zlab = "")
 
-\S4method{plot3dXyz}{Profile}(.Object)
+\S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "", xlab = "",
+  ylab = "", zlab = "")
 }
 \arguments{
 \item{.Object}{either a single Profile or a ProfileSet}
+
+\item{title}{title to be plotted}
+
+\item{sub}{subtitle to be plotted}
+
+\item{xlab}{label of the x-axes, e.g. length [m]}
+
+\item{ylab}{label of the y-axes, e.g. height above sea level [m]}
+
+\item{zlab}{label of the z-axes, e.g. length [m]}
 }
 \description{
 Plots the interpolated resistance values of the 

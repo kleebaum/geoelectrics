@@ -286,12 +286,15 @@ plotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
 #' Plots the interpolated resistance values of the xyz 
 #' data without height adjustment.
 #' @param Profile profile.
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @export
-levelplotXyz <- function(Profile) {
+levelplotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "without topography")) {
   levelplot(trafo(Profile@xyzData@seaLevel$val) ~ Profile@xyzData@seaLevel$dist * Profile@xyzData@seaLevel$depth, 
             col.regions = colorRampPalette(colors), interpolate=T, 
-            regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
-            main=paste("Profil", Profile@number, "ohne Hoehenanpassung"))
+            regions=T, xlab=xlab, ylab=ylab, main=main)
 }
 
 #' Plot Xyz points
@@ -299,37 +302,46 @@ levelplotXyz <- function(Profile) {
 #' Plots the interpolated points of the xyz data
 #' after height adjustment. 
 #' @param Profile profile.
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @export
-plotXyzHeight <- function(Profile) {
+plotXyzHeight <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "with topography")) {
   plot(data.frame(Profile@xyzData@heightAdaption$dist, Profile@xyzData@heightAdaption$depth), 
-       xlab="Laenge [m]", ylab="Tiefe [m]", 
-       main=paste("Profil", Profile@number, "mit Hoehenanpassung"), asp=1)
+       xlab=xlab, ylab=ylab, main=main, asp=1)
 }
 
 #' Plot levels of xyz data
 #' 
 #' Plots the interpolated resistance values of the 
 #' xyz data after height adjustment.
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @param Profile profile.
 #' @export
-levelplotXyzHeight <- function(Profile) {
+levelplotXyzHeight <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "with topography")) {
   levelplot(trafo(Profile@xyzData@heightAdaption$val) ~ round(Profile@xyzData@heightAdaption$dist) * round(Profile@xyzData@heightAdaption$depth), 
             col.regions = colorRampPalette(colors), interpolate=F, 
-            regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
-            main=paste("Profil", Profile@number, "mit Hoehenanpassung"))
+            regions=T, xlab=xlab, ylab=ylab, main=main)
 }
 
 #' Plot raw data levels
 #' 
 #' Plots the interpolated resistance values of the
-#' raw data without height adjustment. 
+#' raw data without height adjustment.
 #' @param Profile profile.
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @export
-levelplotRaw <- function(Profile) {
+levelplotRaw <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "without topography")) {
   levelplot(round(trafo(Profile@rawData@seaLevel$val)) ~ round(Profile@rawData@seaLevel$dist) * round(-1*Profile@rawData@seaLevel$depth), 
             col.regions = colorRampPalette(colors), interpolate=T, 
-            regions=T, xlab="Laenge [m]", ylab="Tiefe [m]", 
-            main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), aspect="iso",
+            regions=T, xlab=xlab, ylab=ylab, main=main, aspect="iso",
             panel = lattice.getOption("panel.levelplot"))
 }
 
@@ -337,11 +349,14 @@ levelplotRaw <- function(Profile) {
 #' 
 #' Plots points of the raw data to show measurement gaps. 
 #' @param Profile profile.
+#' @param xlab label for x-axes
+#' @param ylab label for y-axes
+#' @param main title to be plotted
 #' @export
-plotRaw <- function(Profile) {  
+plotRaw <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
+                    main=paste(Profile@title, "without topography")) {  
   plot(Profile@rawData@seaLevel$dist, -1*(Profile@rawData@seaLevel$depth), 
-       xlab="Länge [m]", ylab="Tiefe [m]", 
-       main=paste("Profil", Profile@number, "ohne Hoehenanpassung"), asp=1) 
+       xlab=xlab, ylab=ylab, main=main, asp=1) 
 }
 
 #' Plots profiles 3D
@@ -350,25 +365,34 @@ plotRaw <- function(Profile) {
 #' xyz data for all profiles.
 #' 
 #' @param .Object either a single Profile or a ProfileSet
+#' @param title title to be plotted
+#' @param sub subtitle to be plotted
+#' @param xlab label of the x-axes, e.g. length [m]
+#' @param ylab label of the y-axes, e.g. height above sea level [m]
+#' @param zlab label of the z-axes, e.g. length [m]
 #' @export
-setGeneric("plot3dXyz", function(.Object){
+setGeneric("plot3dXyz", function(.Object, title="", sub="",
+                                 xlab="", ylab="", zlab=""){
   standardGeneric("plot3dXyz")
 })
 
 #' @rdname plot3dXyz
-#' @aliases plot3dxyz, ProfileSet
+#' @aliases plot3d
+#' @export
 setMethod("plot3dXyz", signature(.Object="ProfileSet"),
-          function(.Object) {
+          function(.Object, title=.Object@title, sub="",
+                   xlab="", ylab="", zlab="") {
             lapply(.Object@profiles, plot3dXyz)
-            title3d(.Object@title)
-            #title3d('main','sub','xlab','ylab','zlab')
-            #title3d('Sinkhole','','Strecke [m]','Hoehe ueber NN [m]','Strecke [m]')
+            title3d(title, sub, xlab, ylab, zlab)
           })
 
 #' @rdname plot3dXyz
-#' @aliases plot3dxyz, Profile
+#' @aliases plot3d
+#' @export
 setMethod("plot3dXyz", signature(.Object="Profile"),
-          function(.Object) {
+          function(.Object, title="", sub="",
+                   xlab="", ylab="", zlab="") {
+            title3d(title, sub, xlab, ylab, zlab)
             colorAssignment <- myColorRamp(colors, trafo(.Object@xyzData@heightAdaption$val))
             
             l <- .Object@xyzData@heightAdaption$dist # hypotenuse
@@ -393,6 +417,24 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
             rgl.texts(y[1], .Object@xyzData@heightAdaption$depth[1]+20, x[1], 
                       text=paste(.Object@title), cex=1, color="black")
             axes3d(edges="bbox", yunit=25, expand=1.2)
+          })
+
+setGeneric("plotLegend", function(.Object){
+  standardGeneric("plotLegend")
+})
+
+setMethod("plotLegend", signature(.Object="ProfileSet"),
+          function(.Object) {
+            image.plot(legend.only=TRUE, zlim= c(minData, maxData), 
+                       legend.lab = "resistivity",
+                       nlevel=128, col=colorRampPalette(colors)(127))
+          })
+
+setMethod("plotLegend", signature(.Object="Profile"),
+          function(.Object) {
+            image.plot(legend.only=TRUE, zlim= c(minData, maxData),
+                       legend.lab = "resistivity",
+                       nlevel=128, col=colorRampPalette(colors)(127))
           })
 
 #' Method to adjust height of a single profile

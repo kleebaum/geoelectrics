@@ -4,10 +4,17 @@
 \alias{plotRaw}
 \title{Plot raw points}
 \usage{
-plotRaw(Profile)
+plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
+  main = paste(Profile@title, "without topography"))
 }
 \arguments{
 \item{Profile}{profile.}
+
+\item{xlab}{label for x-axes}
+
+\item{ylab}{label for y-axes}
+
+\item{main}{title to be plotted}
 }
 \description{
 Plots points of the raw data to show measurement gaps.
