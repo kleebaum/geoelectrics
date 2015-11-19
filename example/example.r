@@ -51,9 +51,10 @@ sampleProfileSet <- new("ProfileSet",
 #           xlab="length [m]", 
 #           ylab="height above sea level [m]",
 #           zlab="length [m]")
-# 
+
 # plotLegend(sampleProfileSet)
 
-plotIntersect(p1, p2)
+plotIntersect(sampleProfileSet)
+plotIntersect(sampleProfileSet@profiles[[1]], sampleProfileSet@profiles[[2]])
 
 #save.image(file="sinkhole.RData", ascii = TRUE)

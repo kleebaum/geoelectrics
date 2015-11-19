@@ -420,10 +420,18 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
             axes3d(edges="bbox", yunit=25, expand=1.2)
           })
 
+#' Plots the legend 
+#' 
+#' Plots the legend for resistivity values.
+#' 
+#' @param .Object either a single Profile or a ProfileSet
+#' @export
 setGeneric("plotLegend", function(.Object) {
   standardGeneric("plotLegend")
 })
 
+#' @rdname plotLegend
+#' @export
 setMethod("plotLegend", signature(.Object="ProfileSet"),
           function(.Object) {
             image.plot(legend.only=TRUE, zlim= c(minData, maxData), 
@@ -431,6 +439,8 @@ setMethod("plotLegend", signature(.Object="ProfileSet"),
                        nlevel=128, col=colorRampPalette(colors)(127))
           })
 
+#' @rdname plotLegend
+#' @export
 setMethod("plotLegend", signature(.Object="Profile"),
           function(.Object) {
             image.plot(legend.only=TRUE, zlim= c(minData, maxData),
@@ -438,11 +448,24 @@ setMethod("plotLegend", signature(.Object="Profile"),
                        nlevel=128, col=colorRampPalette(colors)(127))
           })
 
+#' Plots resistance agains depth
+#' 
+#' Plots resistance agains depth on and next to the intersection line 
+#' between two profiles.
+#' 
+#' @param .Object1 either a single Profile or a ProfileSet
+#' @param .Object2 either a second single Profile or NULL if .Object1 is of type ProfileSet
+#' @param main title to be plotted
+#' @param xlab label of the x-axes, e.g. length [m]
+#' @param ylab label of the y-axes, e.g. height above sea level [m]
+#' @export
 setGeneric("plotIntersect", function(.Object1, .Object2=NULL, 
                                      xlab="Length [m]", ylab="Resistivity", main="") {
   standardGeneric("plotIntersect")  
 })
 
+#' @rdname plotIntersect
+#' @export
 setMethod("plotIntersect", signature(.Object1="ProfileSet"),
           function(.Object1) {
             for(i in 1:(length(.Object1@profiles)-1)) 
@@ -450,6 +473,8 @@ setMethod("plotIntersect", signature(.Object1="ProfileSet"),
                 plotIntersect(.Object1@profiles[[i]], .Object1@profiles[[j]])
 })
 
+#' @rdname plotIntersect
+#' @export
 setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
           function(.Object1, .Object2, xlab, ylab, main) {
             # slopes m
@@ -464,7 +489,7 @@ setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
             # m1 * x.intersect + n1 = m2 * x.intersect + n2
             x.intersect <- (n2 - n1)/(m1 - m2)
             y.intersect <- m1 * x.intersect + n1
-
+            
             # starting points of Profile 1 and 2
             x.start1 <- min(.Object1@gpsCoordinates@relative$lon)
             y.start1 <- m1 * x.start1 + n1            
@@ -488,6 +513,12 @@ setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
             indices2 <- c(which(round(.Object2@xyzData@heightAdaption$dist) == round(length2, 0)),
                           which(round(.Object2@xyzData@heightAdaption$dist) == round(length2 + 1, 0)),
                           which(round(.Object2@xyzData@heightAdaption$dist) == round(length2 - 1, 0)))
+            
+            # check whether there is an intersection
+            if(length(indices1) == 0 |length(indices2) == 0) {
+                print(paste("No intersection between ", .Object1@title, " and ", .Object2@title, ".", sep=""))
+                return()
+            }
             
             # identify xyz values for these indices
             res1 <- data.frame(
