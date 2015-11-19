@@ -47,11 +47,13 @@ sampleProfileSet <- new("ProfileSet",
                        profiles = list(p1, p2, p3),
                        title="Sinkhole")
 
-plot3dXyz(sampleProfileSet,
-          xlab="length [m]", 
-          ylab="height above sea level [m]",
-          zlab="length [m]")
+# plot3dXyz(sampleProfileSet,
+#           xlab="length [m]", 
+#           ylab="height above sea level [m]",
+#           zlab="length [m]")
+# 
+# plotLegend(sampleProfileSet)
 
-plotLegend(sampleProfileSet)
+plotIntersect(p1, p2)
 
 #save.image(file="sinkhole.RData", ascii = TRUE)

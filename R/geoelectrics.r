@@ -7,6 +7,7 @@ whereFrom=as.character(sys.calls()[[1]][2])
 ### load packages
 library(lattice) # for levelplots
 library(rgl)
+library(fields)
 
 ### change working directory to location of this file
 try(setwd(dirname(whereFrom)))
@@ -404,11 +405,11 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
             x <- cos(alpha) * l
             
             # get starting point and adjust
-            s.x <- min(.Object@gpsCoordinates@relative$lon)
-            x <- x + s.x
+            start.x <- min(.Object@gpsCoordinates@relative$lon)
+            x <- x + start.x
             
             # calculate opposite leg
-            y <- m*x + n
+            y <- m * x + n
             
             # plot 3D    
             rgl.bg(color="white")
@@ -419,7 +420,7 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
             axes3d(edges="bbox", yunit=25, expand=1.2)
           })
 
-setGeneric("plotLegend", function(.Object){
+setGeneric("plotLegend", function(.Object) {
   standardGeneric("plotLegend")
 })
 
@@ -436,6 +437,76 @@ setMethod("plotLegend", signature(.Object="Profile"),
                        legend.lab = "resistivity",
                        nlevel=128, col=colorRampPalette(colors)(127))
           })
+
+setGeneric("plotIntersect", function(.Object1, .Object2=NULL, 
+                                     xlab="Length [m]", ylab="Resistivity", main="") {
+  standardGeneric("plotIntersect")  
+})
+
+setMethod("plotIntersect", signature(.Object1="ProfileSet"),
+          function(.Object1) {
+            for(i in 1:(length(.Object1@profiles)-1)) 
+              for(j in (i+1):length(.Object1@profiles))
+                plotIntersect(.Object1@profiles[[i]], .Object1@profiles[[j]])
+})
+
+setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
+          function(.Object1, .Object2, xlab, ylab, main) {
+            # slopes m
+            m1 <- .Object1@gpsCoordinates@lmRelative$coefficients[2]
+            m2 <- .Object2@gpsCoordinates@lmRelative$coefficients[2]
+            
+            # intercepts n
+            n1 <- .Object1@gpsCoordinates@lmRelative$coefficients[1]
+            n2 <- .Object2@gpsCoordinates@lmRelative$coefficients[1]
+            
+            # calculate intersection point
+            # m1 * x.intersect + n1 = m2 * x.intersect + n2
+            x.intersect <- (n2 - n1)/(m1 - m2)
+            y.intersect <- m1 * x.intersect + n1
+
+            # starting points of Profile 1 and 2
+            x.start1 <- min(.Object1@gpsCoordinates@relative$lon)
+            y.start1 <- m1 * x.start1 + n1            
+            x.start2 <- min(.Object2@gpsCoordinates@relative$lon)
+            y.start2 <- m2 * x.start2 + n2
+            
+            # calculate length (hypotenuse) from starting to intersection point
+            x.diff1 <- x.intersect - x.start1
+            y.diff1 <- y.intersect - y.start1
+            x.diff2 <- x.intersect - x.start2
+            y.diff2 <- y.intersect - y.start2
+            
+            length1 <- sqrt(x.diff1^2 + y.diff1^2)
+            length2 <- sqrt(x.diff2^2 + y.diff2^2)
+
+            # identify point indices on intersection line and next to it            
+            indices1 <- c(which(round(.Object1@xyzData@heightAdaption$dist) == round(length1)),
+                          which(round(.Object1@xyzData@heightAdaption$dist) == round(length1 + 1)),
+                          which(round(.Object1@xyzData@heightAdaption$dist) == round(length1 - 1)))
+            
+            indices2 <- c(which(round(.Object2@xyzData@heightAdaption$dist) == round(length2, 0)),
+                          which(round(.Object2@xyzData@heightAdaption$dist) == round(length2 + 1, 0)),
+                          which(round(.Object2@xyzData@heightAdaption$dist) == round(length2 - 1, 0)))
+            
+            # identify xyz values for these indices
+            res1 <- data.frame(
+              "dist" = .Object1@xyzData@heightAdaption$dist[indices1],
+              "depth" = .Object1@xyzData@heightAdaption$depth[indices1],
+              "val" = .Object1@xyzData@heightAdaption$val[indices1])
+            
+            res2 <- data.frame(
+              "dist" = .Object2@xyzData@heightAdaption$dist[indices2],
+              "depth" = .Object2@xyzData@heightAdaption$depth[indices2],
+              "val" = .Object2@xyzData@heightAdaption$val[indices2])
+            
+            #boxplot(trafo(res1$val)~round(res1$depth))
+            plot(res1$depth, trafo(res1$val),
+                 xlim=c(min(res1$depth, res2$depth), max(res1$depth, res2$depth)),
+                 ylim=c(trafo(min(res1$val, res2$val)), trafo(max(res1$val, res2$val))),
+                 xlab=xlab, ylab=ylab, main=main)
+            points(res2$depth, trafo(res2$val))            
+})
 
 #' Method to adjust height of a single profile
 #' 
