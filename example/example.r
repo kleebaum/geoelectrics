@@ -1,6 +1,13 @@
 # Script for plotting three profiles of an example measurement
 # filled sinkhole
 
+### looking for working directory
+whereFrom=as.character(sys.calls()[[1]][2]) 
+try(setwd(dirname(whereFrom)))
+
+### load packages
+library(geoelectrics)
+
 # a new object is created for each profile and stored within the list p
 p1 <- new("Profile",
             title = "Profile 1",
@@ -47,12 +54,16 @@ sampleProfileSet <- new("ProfileSet",
                        profiles = list(p1, p2, p3),
                        title="Sinkhole")
 
-# plot3dXyz(sampleProfileSet,
-#           xlab="length [m]", 
-#           ylab="height above sea level [m]",
-#           zlab="length [m]")
+plot3dXyz(p3)
+plot3dXyz(sampleProfileSet@profiles[[3]])
 
-# plotLegend(sampleProfileSet)
+plot3dXyz(sampleProfileSet,
+          xlab="length [m]", 
+          ylab="height above sea level [m]",
+          zlab="length [m]")
+
+plotLegend(sampleProfileSet)
+plotLegend(p3)
 
 plotIntersect(sampleProfileSet)
 plotIntersect(sampleProfileSet@profiles[[1]], sampleProfileSet@profiles[[2]])
