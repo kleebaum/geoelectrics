@@ -17,6 +17,10 @@ inverted resistance values. This class parses this kind of files.
 \item{\code{seaLevel}}{data frame that contains positions and values withouth height adjustment}
 
 \item{\code{heightAdaption}}{data frame that contains positions and values after height adjustment}
+
+\item{\code{minData}}{minimum value}
+
+\item{\code{maxData}}{maximum value}
 }}
 \examples{
 new("XyzData", address="../example/xyzFiles/p1_DipolDipol_SW-NE.xyz")

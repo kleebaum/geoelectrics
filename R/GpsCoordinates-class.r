@@ -23,8 +23,10 @@ setMethod("initialize", "GpsCoordinates",
             if(nchar(address) == 0) {
               print("GPS coordinates address is missing.")
             } else {
-              gpsData <- read.table(file=address, header=T)  
+              .Object@address = address
               
+              gpsData <- read.table(file=address, header=T)  
+                
               .Object@exact <- data.frame(
                 "lat"=gpsData[1],
                 "lon"=gpsData[2])

@@ -5,6 +5,7 @@
 #' @param x values to be transformed
 #' @param base logarithmic base
 #' @export
-trafo <- function(x, base=logBase) {
+trafoLog <- function(x, base=logBase) {
   log(x, base)
 }
+

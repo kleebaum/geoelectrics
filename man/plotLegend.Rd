@@ -8,8 +8,9 @@
 \title{Plots the legend}
 \usage{
 plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
-  " m]")), minData = 0, maxData = 999999, lab.breaks = c(),
-  nlevel = 128, col = colors)
+  " m]")), minData = 0, maxData = 999999, breaks = NULL,
+  legend.line = 2.2, lab.breaks = c(), nlevel = 128, midpoint = F,
+  horizontal = T, col = colors)
 
 \S4method{plotLegend}{ProfileSet}(.Object, legend.lab,
   minData = .Object@minData, maxData = .Object@maxData, lab.breaks, nlevel)

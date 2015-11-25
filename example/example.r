@@ -7,6 +7,9 @@ try(setwd(dirname(whereFrom)))
 
 ### load packages
 library(geoelectrics)
+library(lattice) # for levelplots
+library(rgl)
+library(fields)
 
 # a new object is created for each profile and stored within the list p
 p1 <- new("Profile",

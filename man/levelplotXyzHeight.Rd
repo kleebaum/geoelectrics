@@ -5,7 +5,8 @@
 \title{Plot levels of xyz data}
 \usage{
 levelplotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "with topography"))
+  main = paste(Profile@title, "with topography"), col = colors,
+  breaks = 18, trafo = log, backtrafo = exp)
 }
 \arguments{
 \item{Profile}{profile.}
@@ -15,6 +16,14 @@ levelplotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \item{ylab}{label for y-axes}
 
 \item{main}{title to be plotted}
+
+\item{col}{vector of colors}
+
+\item{breaks}{number of color breaks}
+
+\item{trafo}{transformation to be done on data (default log)}
+
+\item{backtrafo}{back transformation to plot correct labels (default exp)}
 }
 \description{
 Plots the interpolated resistance values of the 

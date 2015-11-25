@@ -13,18 +13,21 @@
 setGeneric("plotLegend", function(.Object, 
                                   legend.lab=expression(paste("Resistivity [", Omega, " m]")),
                                   minData=0, maxData=999999,
+                                  breaks = NULL, legend.line=2.2,
                                   lab.breaks=c(), nlevel=128,
+                                  midpoint=F, horizontal=T,
                                   col=colors) {    
   if(length(lab.breaks) > 0)
     nlevel <- length(lab.breaks)
   standardGeneric("plotLegend")
-  image.plot(legend.only=TRUE, add=F,
+  image.plot(legend.only=TRUE, add=F, breaks=breaks,
              zlim= c(minData, maxData),
+             legend.line = legend.line,
              legend.lab = legend.lab,
              nlevel=nlevel, 
-             col=colorRampPalette(colors)(nlevel-1),
-             lab.breaks=lab.breaks, midpoint=T, 
-             legend.mar=10, horizontal=T)
+             col=colorRampPalette(col)(nlevel-1),
+             lab.breaks=lab.breaks, midpoint=midpoint, 
+             horizontal=horizontal)
   print(maxData)
 })
 

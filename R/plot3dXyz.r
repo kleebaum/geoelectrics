@@ -9,10 +9,12 @@
 #' @param xlab label of the x-axes, e.g. length [m]
 #' @param ylab label of the y-axes, e.g. height above sea level [m]
 #' @param zlab label of the z-axes, e.g. length [m]
+#' @param col vector of colors
 #' @export
 setGeneric("plot3dXyz", function(.Object, title="", sub="",
                                  xlab="", ylab="", zlab="",
-                                 minData=0, maxData=9999999){
+                                 minData=0, maxData=9999999, 
+                                 col=colors){
   standardGeneric("plot3dXyz")
 })
 
@@ -23,9 +25,9 @@ setMethod("plot3dXyz", signature(.Object="ProfileSet"),
           function(.Object, title=.Object@title, sub="",
                    xlab="", ylab="", zlab="",
                    minData=.Object@minData,
-                   maxData=.Object@maxData) {
-            lapply(.Object@profiles, plot3dXyz, 
-                   minData=minData, maxData=maxData)
+                   maxData=.Object@maxData, col) {
+            lapply(.Object@profiles, plot3dXyz,
+                   minData=minData, maxData=maxData, col=col)
             title3d(title, sub, xlab, ylab, zlab)
           })
 
@@ -36,10 +38,10 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
           function(.Object, title="", sub="",
                    xlab="", ylab="", zlab="",
                    minData=.Object@xyzData@minData, 
-                   maxData=.Object@xyzData@maxData) {
+                   maxData=.Object@xyzData@maxData, col) {
             title3d(title, sub, xlab, ylab, zlab)
             values <- trafo(.Object@xyzData@heightAdaption$val)
-            colorAssignment <- myColorRamp(colors, values, minData, maxData)
+            colorAssignment <- myColorRamp(col, values, minData, maxData)
             
             l <- .Object@xyzData@heightAdaption$dist # hypotenuse
             m <- .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n

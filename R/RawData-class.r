@@ -16,6 +16,7 @@ setMethod("initialize", "RawData",
             if(nchar(address) == 0) {
               print("Raw Data address is missing.")
             } else {
+              .Object@address = address
               con  <- file(address, open = "r")
               
               skipLines1 <- 9

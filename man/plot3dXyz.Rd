@@ -9,15 +9,15 @@
 \title{Plots profiles 3D}
 \usage{
 plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
-  zlab = "", minData = 0, maxData = 9999999)
+  zlab = "", minData = 0, maxData = 9999999, col = colors)
 
 \S4method{plot3dXyz}{ProfileSet}(.Object, title = .Object@title, sub = "",
   xlab = "", ylab = "", zlab = "", minData = .Object@minData,
-  maxData = .Object@maxData)
+  maxData = .Object@maxData, col = colors)
 
 \S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "", xlab = "",
   ylab = "", zlab = "", minData = .Object@xyzData@minData,
-  maxData = .Object@xyzData@maxData)
+  maxData = .Object@xyzData@maxData, col = colors)
 }
 \arguments{
 \item{.Object}{either a single Profile or a ProfileSet}
@@ -31,6 +31,8 @@ plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
 \item{ylab}{label of the y-axes, e.g. height above sea level [m]}
 
 \item{zlab}{label of the z-axes, e.g. length [m]}
+
+\item{col}{vector of colors}
 }
 \description{
 Plots the interpolated resistance values of the 

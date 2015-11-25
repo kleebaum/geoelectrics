@@ -6,6 +6,8 @@
 #' @param address address of the xyz ascii file
 #' @slot seaLevel data frame that contains positions and values withouth height adjustment
 #' @slot heightAdaption data frame that contains positions and values after height adjustment 
+#' @slot minData minimum value
+#' @slot maxData maximum value
 #' @export
 #' @examples new("XyzData", address="../example/xyzFiles/p1_DipolDipol_SW-NE.xyz")
 setClass("XyzData",
@@ -20,6 +22,7 @@ setMethod("initialize", "XyzData",
             if(nchar(address) == 0) {
               print("XYZ data address is missing.")
             } else {
+              .Object@address = address
               con  <- file(address, open = "r")
               
               skipLines1 <- 0

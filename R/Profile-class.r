@@ -29,4 +29,6 @@ setClass("Profile",
            gpsCoordinates = "GpsCoordinates"),
          prototype = prototype(
            number = 0,
-           title = ""))
+           title = "",
+           xyzData = NULL,
+           rawData = NULL))

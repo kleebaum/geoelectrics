@@ -2,15 +2,15 @@
 # Anja Kleebaum
 
 ### looking for working directory
-whereFrom=as.character(sys.calls()[[1]][2]) 
+#whereFrom=as.character(sys.calls()[[1]][2]) 
 
 ### load packages
-library(lattice) # for levelplots
-library(rgl)
-library(fields)
+#library(lattice) # for levelplots
+#library(rgl)
+#library(fields)
 
 ### change working directory to location of this file
-try(setwd(dirname(whereFrom)))
+#try(setwd(dirname(whereFrom)))
 
 ###---Settings---####
 pointsize <- 10

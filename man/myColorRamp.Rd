@@ -4,10 +4,10 @@
 \alias{myColorRamp}
 \title{Maps color to resistivity value}
 \usage{
-myColorRamp(colors, values, minData, maxData)
+myColorRamp(col, values, minData, maxData)
 }
 \arguments{
-\item{colors}{vector of colors}
+\item{col}{vector of colors}
 
 \item{values}{vector of values}
 
