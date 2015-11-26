@@ -15,7 +15,4 @@ A class to handle geoelectrics raw data
 \describe{
 \item{\code{seaLevel}}{data frame that contains raw data positions and resitance values}
 }}
-\examples{
-rawDataObject <- new("RawData", address="../example/rawdata/p1_DipolDipol_SW-NE.dat")
-}
 

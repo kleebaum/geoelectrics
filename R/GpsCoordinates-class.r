@@ -6,8 +6,6 @@
 #' @slot relative relative coordinates
 #' @slot lmRelative linear model of relative coordinates  
 #' @export
-#' @examples
-#' new("GpsCoordinates", address="../example/gps/p1.txt")
 setClass("GpsCoordinates",
          representation = representation(
            address = "character",

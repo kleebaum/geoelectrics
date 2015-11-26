@@ -8,18 +8,29 @@
 #' @param maxData maximum value
 #' @param lab.breaks number of breaks
 #' @param nlevel number of color levels
-#' @param col colors
+#' @param col vector of colors
+#' @param trafo transformation to be done on data (default log)
+#' @param backtrafo back transformation to plot correct labels (default exp)
 #' @export
 setGeneric("plotLegend", function(.Object, 
                                   legend.lab=expression(paste("Resistivity [", Omega, " m]")),
                                   minData=0, maxData=999999,
                                   breaks = NULL, legend.line=2.2,
-                                  lab.breaks=c(), nlevel=128,
+                                  nlevel=18,
+                                  lab.breaks=c(),                                   
                                   midpoint=F, horizontal=T,
-                                  col=colors) {    
+                                  col=colors, trafo=log, backtrafo=exp) { 
+  
+  standardGeneric("plotLegend")
   if(length(lab.breaks) > 0)
     nlevel <- length(lab.breaks)
-  standardGeneric("plotLegend")
+  if(length(lab.breaks) == 0)
+    lab.breaks <- round(backtrafo(seq(trafo(minData),
+                                      trafo(maxData), 
+                                      length.out=nlevel)))
+  print(minData)
+  print(maxData)
+  print(lab.breaks)
   image.plot(legend.only=TRUE, add=F, breaks=breaks,
              zlim= c(minData, maxData),
              legend.line = legend.line,
@@ -35,8 +46,7 @@ setGeneric("plotLegend", function(.Object,
 #' @export
 setMethod("plotLegend", signature(.Object="ProfileSet"),
           function(.Object, legend.lab,
-                   minData=.Object@minData, maxData=.Object@maxData,
-                   lab.breaks, nlevel) {
+                   minData=.Object@minData, maxData=.Object@maxData) {
           })
 
 #' @rdname plotLegend
@@ -44,6 +54,5 @@ setMethod("plotLegend", signature(.Object="ProfileSet"),
 setMethod("plotLegend", signature(.Object="Profile"),
           function(.Object, legend.lab,
                    minData=.Object@xyzData@minData, 
-                   maxData=.Object@xyzData@maxData,
-                   lab.breaks, nlevel) {
+                   maxData=.Object@xyzData@maxData) {
           })

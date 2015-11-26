@@ -9,7 +9,6 @@
 #' @slot minData minimum value
 #' @slot maxData maximum value
 #' @export
-#' @examples new("XyzData", address="../example/xyzFiles/p1_DipolDipol_SW-NE.xyz")
 setClass("XyzData",
          representation = representation(
            address = "character",
@@ -69,8 +68,8 @@ setMethod("initialize", "XyzData",
                 val=profile[3])
               colnames(.Object@heightAdaption) <- c("dist", "depth", "val")
               
-              .Object@minData <- min(trafo(profile[3]))
-              .Object@maxData <- max(trafo(profile[3]))
+              .Object@minData <- min(profile[3])
+              .Object@maxData <- max(profile[3])
               
               close(con)
             }

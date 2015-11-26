@@ -14,7 +14,7 @@
 setGeneric("plot3dXyz", function(.Object, title="", sub="",
                                  xlab="", ylab="", zlab="",
                                  minData=0, maxData=9999999, 
-                                 col=colors){
+                                 col=colors, trafo=log){
   standardGeneric("plot3dXyz")
 })
 
@@ -25,9 +25,9 @@ setMethod("plot3dXyz", signature(.Object="ProfileSet"),
           function(.Object, title=.Object@title, sub="",
                    xlab="", ylab="", zlab="",
                    minData=.Object@minData,
-                   maxData=.Object@maxData, col) {
+                   maxData=.Object@maxData, col, trafo) {
             lapply(.Object@profiles, plot3dXyz,
-                   minData=minData, maxData=maxData, col=col)
+                   minData=minData, maxData=maxData, col=col, trafo=trafo)
             title3d(title, sub, xlab, ylab, zlab)
           })
 
@@ -38,10 +38,11 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
           function(.Object, title="", sub="",
                    xlab="", ylab="", zlab="",
                    minData=.Object@xyzData@minData, 
-                   maxData=.Object@xyzData@maxData, col) {
+                   maxData=.Object@xyzData@maxData, 
+                   col, trafo) {
             title3d(title, sub, xlab, ylab, zlab)
             values <- trafo(.Object@xyzData@heightAdaption$val)
-            colorAssignment <- myColorRamp(col, values, minData, maxData)
+            colorAssignment <- myColorRamp(col, values, trafo(minData), trafo(maxData))
             
             l <- .Object@xyzData@heightAdaption$dist # hypotenuse
             m <- .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n

@@ -22,7 +22,4 @@ inverted resistance values. This class parses this kind of files.
 
 \item{\code{maxData}}{maximum value}
 }}
-\examples{
-new("XyzData", address="../example/xyzFiles/p1_DipolDipol_SW-NE.xyz")
-}
 

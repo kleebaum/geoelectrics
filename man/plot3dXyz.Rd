@@ -9,15 +9,16 @@
 \title{Plots profiles 3D}
 \usage{
 plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
-  zlab = "", minData = 0, maxData = 9999999, col = colors)
+  zlab = "", minData = 0, maxData = 9999999, col = colors,
+  trafo = log)
 
 \S4method{plot3dXyz}{ProfileSet}(.Object, title = .Object@title, sub = "",
   xlab = "", ylab = "", zlab = "", minData = .Object@minData,
-  maxData = .Object@maxData, col = colors)
+  maxData = .Object@maxData, col = colors, trafo = log)
 
 \S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "", xlab = "",
   ylab = "", zlab = "", minData = .Object@xyzData@minData,
-  maxData = .Object@xyzData@maxData, col = colors)
+  maxData = .Object@xyzData@maxData, col = colors, trafo = log)
 }
 \arguments{
 \item{.Object}{either a single Profile or a ProfileSet}

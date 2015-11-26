@@ -18,18 +18,4 @@
 \description{
 A class to handle a single profile
 }
-\examples{
-new("Profile", 
-     number = 1,
-     xyzData = 
-       new("XyzData", 
-            address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
-     rawData = 
-       new("RawData",
-            address ="../example/rawdata/p1_DipolDipol_SW-NE.dat"),
-     measurementType = "DipolDipol",
-     gpsCoordinates = 
-       new("GpsCoordinates",
-            address ="../example/gps/p1.txt"))
-}
 

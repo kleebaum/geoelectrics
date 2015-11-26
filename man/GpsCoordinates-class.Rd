@@ -21,7 +21,4 @@ A class to handle gps coordinates
 
 \item{\code{lmRelative}}{linear model of relative coordinates}
 }}
-\examples{
-new("GpsCoordinates", address="../example/gps/p1.txt")
-}
 

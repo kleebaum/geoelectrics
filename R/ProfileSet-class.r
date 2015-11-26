@@ -23,8 +23,8 @@ setMethod("initialize", "ProfileSet",
             .Object@title <- title         
             
             for (profile in profiles) {
-              minDataX <- min(trafo(profile@xyzData@seaLevel$val))
-              maxDataX <- max(trafo(profile@xyzData@seaLevel$val))
+              minDataX <- min(profile@xyzData@seaLevel$val)
+              maxDataX <- max(profile@xyzData@seaLevel$val)
               if(minDataX < minData) minData <- minDataX
               if(maxDataX > maxData) maxData <- maxDataX
               

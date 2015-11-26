@@ -9,15 +9,14 @@
 \usage{
 plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
   " m]")), minData = 0, maxData = 999999, breaks = NULL,
-  legend.line = 2.2, lab.breaks = c(), nlevel = 128, midpoint = F,
-  horizontal = T, col = colors)
+  legend.line = 2.2, nlevel = 18, lab.breaks = c(), midpoint = F,
+  horizontal = T, col = colors, trafo = log, backtrafo = exp)
 
 \S4method{plotLegend}{ProfileSet}(.Object, legend.lab,
-  minData = .Object@minData, maxData = .Object@maxData, lab.breaks, nlevel)
+  minData = .Object@minData, maxData = .Object@maxData)
 
 \S4method{plotLegend}{Profile}(.Object, legend.lab,
-  minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData,
-  lab.breaks, nlevel)
+  minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData)
 }
 \arguments{
 \item{.Object}{either a single Profile or a ProfileSet}
@@ -28,11 +27,15 @@ plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
 
 \item{maxData}{maximum value}
 
-\item{lab.breaks}{number of breaks}
-
 \item{nlevel}{number of color levels}
 
-\item{col}{colors}
+\item{lab.breaks}{number of breaks}
+
+\item{col}{vector of colors}
+
+\item{trafo}{transformation to be done on data (default log)}
+
+\item{backtrafo}{back transformation to plot correct labels (default exp)}
 }
 \description{
 Plots the legend for resistivity values.

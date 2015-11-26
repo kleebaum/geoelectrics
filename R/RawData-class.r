@@ -5,8 +5,6 @@
 #' @param address address of the raw data ascii file
 #' @slot seaLevel data frame that contains raw data positions and resitance values 
 #' @export
-#' @examples 
-#' rawDataObject <- new("RawData", address="../example/rawdata/p1_DipolDipol_SW-NE.dat")
 setClass("RawData",
          representation = representation(
            address = "character",

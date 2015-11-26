@@ -4,18 +4,21 @@
 \alias{myColorRamp}
 \title{Maps color to resistivity value}
 \usage{
-myColorRamp(col, values, minData, maxData)
+myColorRamp(col, values, minData = min(values), maxData = max(values))
 }
 \arguments{
-\item{col}{vector of colors}
+\item{col}{Character vector of colors.}
 
-\item{values}{vector of values}
+\item{values}{Numeric vector of values.}
 
-\item{minData}{minimum value}
+\item{minData}{Minimum value (default min(values)). 
+All smaller values will assigned to the first color in vector col.}
 
-\item{maxData}{maximum value}
+\item{maxData}{Maximum value (default max(values)).
+All higher values will assigned to the last color in vector col.}
 }
 \description{
-Maps color to resistivity values.
+Maps color to (resistivity) values. 
+A minimum and maximum value can be specified.
 }
 

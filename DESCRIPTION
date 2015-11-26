@@ -2,8 +2,9 @@ Package: geoelectrics
 Title: 3D-Presentation of Geoelectric Profiles
 Version: 0.1.2
 Author: Anja Kleebaum <anja.kleebaum@stmail.uni-bayreuth.de>
+Maintainer: Anja Kleebaum <anja.kleebaum@stmail.uni-bayreuth.de>
 Description: Plots geoelectrics data.
 Depends:
-    R (>= 3.0.1)
+    R (>= 2.0)
 License: GPL
 RoxygenNote: 5.0.1
