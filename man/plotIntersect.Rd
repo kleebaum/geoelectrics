@@ -10,15 +10,17 @@
 plotIntersect(.Object1, .Object2 = NULL,
   xlab = "Height above sea level [m]",
   ylab = expression(paste("Resistivity [", Omega, "m]")), main = "",
-  col = colors, pch = c(20, 20), type = "p", legendLoc = "bottomleft")
+  trafo = log, backtrafo = exp, col = colors, pch = c(20, 20),
+  type = "p", legendLoc = "bottomleft")
 
-\S4method{plotIntersect}{ProfileSet,ANY}(.Object1, xlab, ylab, main, col, pch,
-  type, legendLoc)
+\S4method{plotIntersect}{ProfileSet,ANY}(.Object1, xlab, ylab, main, trafo,
+  backtrafo, col, pch, type, legendLoc)
 
 \S4method{plotIntersect}{Profile,Profile}(.Object1, .Object2 = NULL,
   xlab = "Height above sea level [m]",
   ylab = expression(paste("Resistivity [", Omega, "m]")), main = "",
-  col = colors, pch = c(20, 20), type = "p", legendLoc = "bottomleft")
+  trafo = log, backtrafo = exp, col = colors, pch = c(20, 20),
+  type = "p", legendLoc = "bottomleft")
 }
 \arguments{
 \item{.Object1}{either a single Profile or a ProfileSet}

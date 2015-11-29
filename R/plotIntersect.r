@@ -20,7 +20,7 @@
 setGeneric("plotIntersect", function(.Object1, .Object2=NULL, 
                                      xlab="Height above sea level [m]", 
                                      ylab=expression(paste("Resistivity [", Omega, "m]")), 
-                                     main="",
+                                     main="", trafo=log, backtrafo=exp,
                                      col=colors, pch=c(20,20), type="p",
                                      legendLoc="bottomleft") {
   standardGeneric("plotIntersect")  
@@ -29,17 +29,19 @@ setGeneric("plotIntersect", function(.Object1, .Object2=NULL,
 #' @rdname plotIntersect
 #' @export
 setMethod("plotIntersect", signature(.Object1="ProfileSet"),
-          function(.Object1, xlab, ylab, main, col, pch, type, legendLoc) {
+          function(.Object1, xlab, ylab, main, trafo, backtrafo, col, pch, type, 
+                   legendLoc) {
             for(i in 1:(length(.Object1@profiles)-1)) 
               for(j in (i+1):length(.Object1@profiles))
                 plotIntersect(.Object1@profiles[[i]], .Object1@profiles[[j]],
-                              xlab, ylab, main, col, pch, type, legendLoc)
+                              xlab, ylab, main, trafo, backtrafo, col, pch, type, legendLoc)
           })
 
 #' @rdname plotIntersect
 #' @export
 setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
-          function(.Object1, .Object2, xlab, ylab, main, col, pch, type, legendLoc) {
+          function(.Object1, .Object2, xlab, ylab, main, trafo, backtrafo, 
+                   col, pch, type, legendLoc) {
             # slopes m
             m1 <- .Object1@gpsCoordinates@lmRelative$coefficients[2]
             m2 <- .Object2@gpsCoordinates@lmRelative$coefficients[2]
@@ -95,11 +97,20 @@ setMethod("plotIntersect", signature(.Object1="Profile", .Object2="Profile"),
               "val" = .Object2@xyzData@heightAdaption$val[indices2])
             
             #boxplot(trafo(res1$val)~round(res1$depth))
+            lab.breaks <- round(backtrafo(seq(trafo(min(res1$val, res2$val)),
+                                      trafo(max(res1$val, res2$val)), 
+                                      length.out=6)))
+            at.breaks <- seq(trafo(min(res1$val, res2$val)),
+                                      trafo(max(res1$val, res2$val)), 
+                                      length.out=6)
+            
             plot(res1$depth, trafo(res1$val),
                  xlim=c(min(res1$depth, res2$depth), max(res1$depth, res2$depth)),
                  ylim=c(trafo(min(res1$val, res2$val)), trafo(max(res1$val, res2$val))),
-                 xlab=xlab, ylab=ylab, main=main, col=col[1], pch=pch[1], type=type)
+                 xlab=xlab, ylab=ylab, main=main, col=col[1], pch=pch[1], type=type,
+                 yaxt="n")
             points(res2$depth, trafo(res2$val), col=col[2], pch=pch[2], type=type)   
             legend(legendLoc, col=col, pch=pch, 
                    legend=c(.Object1@title, .Object2@title))
+            axis(side=2, at=at.breaks, labels=lab.breaks)
           })

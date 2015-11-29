@@ -7,9 +7,9 @@ try(setwd(dirname(whereFrom)))
 
 ### load packages
 library(geoelectrics)
-library(lattice) # for levelplots
-library(rgl)
-library(fields)
+# library(lattice) # for levelplots
+# library(rgl)
+# library(fields)
 
 # a new object is created for each profile and stored within the list p
 p1 <- new("Profile",
@@ -53,22 +53,23 @@ p3 <- new("Profile",
 
 p3 <- heightAdjustment(p3, -10)
 
-sampleProfileSet <- new("ProfileSet",
-                       profiles = list(p1, p2, p3),
-                       title="Sinkhole")
+sinkhole <- new("ProfileSet",
+                profiles = list(p1, p2, p3),
+                title="Sinkhole")
 
 plot3dXyz(p3)
-plot3dXyz(sampleProfileSet@profiles[[3]])
+plot3dXyz(sinkhole@profiles[[3]])
 
-plot3dXyz(sampleProfileSet,
+plot3dXyz(sinkhole,
           xlab="length [m]", 
           ylab="height above sea level [m]",
           zlab="length [m]")
 
-plotLegend(sampleProfileSet)
+plotLegend(sinkhole)
 plotLegend(p3)
 
-plotIntersect(sampleProfileSet)
-plotIntersect(sampleProfileSet@profiles[[1]], sampleProfileSet@profiles[[2]])
+plotIntersect(sinkhole)
+plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 
-#save.image(file="sinkhole.RData", ascii = TRUE)
+#save.image(file="../data/sinkhole.RData", ascii = TRUE)
+
