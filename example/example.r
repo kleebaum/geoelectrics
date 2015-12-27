@@ -71,5 +71,6 @@ plotLegend(p3)
 plotIntersect(sinkhole)
 plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 
-#save.image(file="../data/sinkhole.RData", ascii = TRUE)
+plotRawHeight(p2)
 
+#save.image(file="../data/sinkhole.RData", ascii = TRUE)

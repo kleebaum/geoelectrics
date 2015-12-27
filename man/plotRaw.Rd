@@ -5,7 +5,7 @@
 \title{Plot raw points}
 \usage{
 plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "without topography"))
+  main = paste(Profile@title, "without topography"), ...)
 }
 \arguments{
 \item{Profile}{profile.}
@@ -15,6 +15,14 @@ plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \item{ylab}{label for y-axes}
 
 \item{main}{title to be plotted}
+
+\item{col}{color code or name, see \code{\link{par}}.}
+
+\item{pch}{pplotting ‘character’, i.e., symbol to use. 
+This can either be a single character or an integer code for one of a set of graphics symbols.}
+
+\item{cex}{character (or symbol) expansion: a numerical vector. 
+This works as a multiple of \code{\link{par}}("cex").}
 }
 \description{
 Plots points of the raw data to show measurement gaps.

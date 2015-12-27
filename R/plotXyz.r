@@ -23,6 +23,6 @@ plotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
 #' @export
 plotXyzHeight <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
                           main=paste(Profile@title, "with topography")) {
-  plot(data.frame(Profile@xyzData@heightAdaption$dist, Profile@xyzData@heightAdaption$depth), 
+  plot(Profile@xyzData@heightAdaption$dist, Profile@xyzData@heightAdaption$depth, 
        xlab=xlab, ylab=ylab, main=main, asp=1)
 }
