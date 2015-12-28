@@ -1,4 +1,6 @@
-#' A class to handle gps coordinates
+#' GPS Coordinates Class
+#'
+#' A class to handle gps coordinates.
 #'
 #' @param address address of the gps ascii file
 #' @slot exact data frame that contains measured gps coordinates
@@ -6,6 +8,18 @@
 #' @slot relative relative coordinates
 #' @slot lmRelative linear model of relative coordinates  
 #' @export
+#' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+#' \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
+#' @examples 
+#' gpsCoordinates = new("GpsCoordinates",
+#'                      address = "../example/gps/p1.txt")
+#' data(sinkhole)
+#' sinkhole@profiles[[1]]@gpsCoordinates
+#' sinkhole@profiles[[1]]@gpsCoordinates@address
+#' sinkhole@profiles[[1]]@gpsCoordinates@exact
+#' sinkhole@profiles[[1]]@gpsCoordinates@lm
+#' sinkhole@profiles[[1]]@gpsCoordinates@relative
+#' sinkhole@profiles[[1]]@gpsCoordinates@lmRelative
 setClass("GpsCoordinates",
          representation = representation(
            address = "character",

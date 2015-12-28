@@ -2,15 +2,15 @@
 % Please edit documentation in R/levelplotXyz.r
 \name{levelplotLegendLabel}
 \alias{levelplotLegendLabel}
-\title{Plot levelplot legend label}
+\title{Levelplot Legend Label}
 \usage{
 levelplotLegendLabel(legend.lab = "Resistivity",
   unit = expression(paste("[", Omega, "m]")))
 }
 \arguments{
-\item{legend.lab}{label (default "Resistivity")}
+\item{legend.lab}{label (default "Resistivity").}
 
-\item{unit}{unit (default "Ohm*m")}
+\item{unit}{unit (default "Ohm*m").}
 }
 \description{
 Plots the label of the levelplot.

@@ -3,12 +3,12 @@
 \docType{class}
 \name{GpsCoordinates-class}
 \alias{GpsCoordinates-class}
-\title{A class to handle gps coordinates}
+\title{GPS Coordinates Class}
 \arguments{
 \item{address}{address of the gps ascii file}
 }
 \description{
-A class to handle gps coordinates
+A class to handle gps coordinates.
 }
 \section{Slots}{
 
@@ -21,4 +21,19 @@ A class to handle gps coordinates
 
 \item{\code{lmRelative}}{linear model of relative coordinates}
 }}
+\examples{
+gpsCoordinates = new("GpsCoordinates",
+                     address = "../example/gps/p1.txt")
+data(sinkhole)
+sinkhole@profiles[[1]]@gpsCoordinates
+sinkhole@profiles[[1]]@gpsCoordinates@address
+sinkhole@profiles[[1]]@gpsCoordinates@exact
+sinkhole@profiles[[1]]@gpsCoordinates@lm
+sinkhole@profiles[[1]]@gpsCoordinates@relative
+sinkhole@profiles[[1]]@gpsCoordinates@lmRelative
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+\code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
+}
 

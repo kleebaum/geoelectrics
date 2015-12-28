@@ -1,21 +1,37 @@
-#' A class to handle xyz data
+#' XYZ Data Class
 #' 
+#' A class to handle xyz data. 
 #' The software Res2DInv produces .xyz-files that contain the
-#' inverted resistance values. This class parses this kind of files.
+#' inverted resistance values. The xyz class parses .xyz files.
 #'
 #' @param address address of the xyz ascii file
 #' @slot seaLevel data frame that contains positions and values withouth height adjustment
 #' @slot heightAdaption data frame that contains positions and values after height adjustment 
+#' @slot height data frame that contains topography information (distances and heights). 
+#' It is reconstructed from .xyz-file.
 #' @slot minData minimum value
 #' @slot maxData maximum value
 #' @export
+#' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}, 
+#' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
+#' @examples 
+#' xyzData = new("XyzData", 
+#'                address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+#' data(sinkhole)
+#' sinkhole@profiles[[1]]@xyzData
+#' sinkhole@profiles[[1]]@xyzData@seaLevel
+#' sinkhole@profiles[[1]]@xyzData@heightAdaption
+#' sinkhole@profiles[[1]]@xyzData@height
+#' sinkhole@profiles[[1]]@xyzData@minData
+#' sinkhole@profiles[[1]]@xyzData@maxData
 setClass("XyzData",
          representation = representation(
            address = "character",
            seaLevel = "data.frame",
            heightAdaption = "data.frame",
            minData = "numeric",
-           maxData = "numeric"))
+           maxData = "numeric",
+           height = "data.frame"))
 setMethod("initialize", "XyzData",
           function(.Object, address) {
             if(nchar(address) == 0) {
@@ -70,6 +86,22 @@ setMethod("initialize", "XyzData",
               
               .Object@minData <- min(profile[3])
               .Object@maxData <- max(profile[3])
+              
+              height <- data.frame(
+                dist=1,
+                height=1)
+            
+              j <- 1
+              for (i in 1:max(profile[1])) {
+                indices <- which(round(profile[1])==i)
+                if (length(indices)>0) {
+                  index <- min(indices)
+                  height[j,] <- c(profile[index,1], profile[index,2])
+                  j <- j + 1
+                }
+              }
+              
+              .Object@height <- height
               
               close(con)
             }

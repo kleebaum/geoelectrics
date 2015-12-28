@@ -1,11 +1,12 @@
-#' Method to transform values
+#' Transform Values
 #' 
-#' Does a logarithmic transformation on the values.
+#' Transforms values. Does a logarithmic transformation on the values.
+#' Can be overwritten.
 #' 
 #' @param x values to be transformed
 #' @param base logarithmic base
 #' @export
-trafoLog <- function(x, base=logBase) {
+trafo <- function(x, base=logBase) {
   log(x, base)
 }
 

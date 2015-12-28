@@ -2,16 +2,36 @@
 % Please edit documentation in R/heightAdjustment.r
 \name{heightAdjustment}
 \alias{heightAdjustment}
-\title{Method to adjust height of a single profile}
+\title{Adjust Profile Height}
 \usage{
 heightAdjustment(Profile, deltaMeter)
 }
 \arguments{
-\item{Profile}{a single Profile}
+\item{Profile}{a single Profile.}
 
-\item{deltaMeter}{positive or negative value}
+\item{deltaMeter}{positive or negative value.}
 }
 \description{
-GPS measurements might differ otherwise.
+Adjusts the height of a single profile.
+GPS measurement heights might differ otherwise.
+}
+\examples{
+p3 <- new("Profile",
+           title = "Profile 3",
+           xyzData = 
+             new("XyzData", 
+                 address = "../example/xyzFiles/p3_DipolDipol_S-N.xyz"),
+           rawData = 
+             new("RawData",
+                 address = "../example/rawdata/p3_DipolDipol_S-N.dat"),
+           measurementType = "DipolDipol",
+           gpsCoordinates = 
+             new("GpsCoordinates",
+                 address = "../example/gps/p3.txt")) 
+
+p3 <- heightAdjustment(p3, -10)
+}
+\seealso{
+\code{\link{GpsCoordinates-class}}, \code{\link{Profile-class}}
 }
 

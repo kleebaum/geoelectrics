@@ -2,7 +2,7 @@
 % Please edit documentation in R/levelplotXyz.r
 \name{levelplotXyzHeight}
 \alias{levelplotXyzHeight}
-\title{Plot levels of xyz data}
+\title{Levelplot of XYZ Data regarding Topography}
 \usage{
 levelplotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(Profile@title, "with topography"), col = colors,
@@ -11,22 +11,27 @@ levelplotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \arguments{
 \item{Profile}{profile.}
 
-\item{xlab}{label for x-axes}
+\item{xlab}{label for x-axes.}
 
-\item{ylab}{label for y-axes}
+\item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
 
-\item{col}{vector of colors}
+\item{col}{vector of colors.}
 
-\item{breaks}{number of color breaks}
+\item{breaks}{number of color breaks.}
 
-\item{trafo}{transformation to be done on data (default log)}
+\item{trafo}{transformation to be done on data (default log).}
 
-\item{backtrafo}{back transformation to plot correct labels (default exp)}
+\item{backtrafo}{back transformation to plot correct labels (default exp).}
 }
 \description{
 Plots the interpolated resistance values of the 
 xyz data after height adjustment.
+The xyz values are obtained through inversion of the raw values.
+}
+\seealso{
+\code{\link{Xyz-class}}, \code{\link{levelplotXyz}},
+\code{\link{levelplotRaw}}
 }
 

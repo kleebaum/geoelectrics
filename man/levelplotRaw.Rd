@@ -2,22 +2,33 @@
 % Please edit documentation in R/levelplotRaw.r
 \name{levelplotRaw}
 \alias{levelplotRaw}
-\title{Plot raw data levels}
+\title{Levelplot of Raw Data}
 \usage{
 levelplotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "without topography"))
+  main = paste(Profile@title, "without topography"), col = colors,
+  trafo = log, ...)
 }
 \arguments{
 \item{Profile}{profile.}
 
-\item{xlab}{label for x-axes}
+\item{xlab}{label for x-axes.}
 
-\item{ylab}{label for y-axes}
+\item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
+
+\item{col}{vector of colors.}
+
+\item{trafo}{function to transform raw data values (default log).}
 }
 \description{
-Plots the interpolated resistance values of the
-raw data without height adjustment.
+Plots raw data values without topography (height adjustment). -
+The raw data values have not been inverted yet.
+}
+\examples{
+data(sinkhole)
+levelplotRaw(sinkhole@profiles[[1]])
+levelplotRaw(sinkhole@profiles[[2]])
+levelplotRaw(sinkhole@profiles[[3]])
 }
 

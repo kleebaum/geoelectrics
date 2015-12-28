@@ -3,16 +3,30 @@
 \docType{class}
 \name{RawData-class}
 \alias{RawData-class}
-\title{A class to handle geoelectrics raw data}
+\title{Raw Data Class}
 \arguments{
-\item{address}{address of the raw data ascii file}
+\item{address}{address of the raw data ascii file.}
 }
 \description{
-A class to handle geoelectrics raw data
+A class to handle geoelectrics raw data.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{seaLevel}}{data frame that contains raw data positions and resitance values}
+\item{\code{seaLevel}}{data frame that contains raw data positions and resitance values.}
+
+\item{\code{height}}{data frame that contains topography information (distance and height).}
 }}
+\examples{
+rawData = new("RawData",
+               address = "../example/rawdata/p1_DipolDipol_SW-NE.dat")
+data(sinkhole)
+sinkhole@profile[[2]]@rawData
+sinkhole@profile[[2]]@rawData@address
+sinkhole@profile[[2]]@rawData@height
+sinkhole@profile[[2]]@rawData@seaLevel
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
+}
 

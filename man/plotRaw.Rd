@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotRaw.r
 \name{plotRaw}
 \alias{plotRaw}
-\title{Plot raw points}
+\title{Plot Raw Data Points}
 \usage{
 plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(Profile@title, "without topography"), ...)
@@ -10,21 +10,29 @@ plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \arguments{
 \item{Profile}{profile.}
 
-\item{xlab}{label for x-axes}
+\item{xlab}{label for x-axes.}
 
-\item{ylab}{label for y-axes}
+\item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
 
-\item{col}{color code or name, see \code{\link{par}}.}
+\item{col}{color code or name.}
 
-\item{pch}{pplotting ‘character’, i.e., symbol to use. 
+\item{pch}{plotting character, i.e., symbol to use. 
 This can either be a single character or an integer code for one of a set of graphics symbols.}
 
-\item{cex}{character (or symbol) expansion: a numerical vector. 
-This works as a multiple of \code{\link{par}}("cex").}
+\item{cex}{character (or symbol) expansion: a numerical vector.}
 }
 \description{
-Plots points of the raw data to show measurement gaps.
+Plots raw data points of a single profile (e.g. to show measurement gaps).
+}
+\examples{
+data(sinkhole) 
+plotRaw(sinkhole@profiles[[1]])
+plotRaw(sinkhole@profiles[[2]])
+plotRaw(sinkhole@profiles[[3]])
+}
+\seealso{
+\code{\link{plotRawHeight}}, \code{\link{RawData-class}}
 }
 

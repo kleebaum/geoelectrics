@@ -2,19 +2,26 @@
 % Please edit documentation in R/calcRelativeCoords.r
 \name{calcRelativeCoords}
 \alias{calcRelativeCoords}
-\title{Method to calculate relative coordinates}
+\title{Calculate Relative Coordinates}
 \usage{
 calcRelativeCoords(coords, minLat, minLon)
 }
 \arguments{
-\item{coords}{exact coordinates of a single Profile}
+\item{coords}{exact coordinates of a single Profile.}
 
-\item{minLat}{starting point (latititude)}
+\item{minLat}{starting point (latititude).}
 
-\item{minLon}{starting point (longitude)}
+\item{minLon}{starting point (longitude).}
+}
+\value{
+data frame that contains the relative coordinates (latitude and longitude).
 }
 \description{
-Calculates relative coordinates in meter from GPS coordinates 
-(either in UTM or Gauss Krueger).
+Calculates relative coordinates (unity: meters) from GPS coordinates 
+(either given in UTM or Gauss Krueger).
+This method is used when a profile set of many profiles is instantiated.
+}
+\seealso{
+\code{\link{ProfileSet-class}}, \code{\link{GpsCoordinates-class}}
 }
 

@@ -3,13 +3,14 @@
 \docType{class}
 \name{XyzData-class}
 \alias{XyzData-class}
-\title{A class to handle xyz data}
+\title{XYZ Data Class}
 \arguments{
 \item{address}{address of the xyz ascii file}
 }
 \description{
+A class to handle xyz data. 
 The software Res2DInv produces .xyz-files that contain the
-inverted resistance values. This class parses this kind of files.
+inverted resistance values. The xyz class parses .xyz files.
 }
 \section{Slots}{
 
@@ -18,8 +19,26 @@ inverted resistance values. This class parses this kind of files.
 
 \item{\code{heightAdaption}}{data frame that contains positions and values after height adjustment}
 
+\item{\code{height}}{data frame that contains topography information (distances and heights). 
+It is reconstructed from .xyz-file.}
+
 \item{\code{minData}}{minimum value}
 
 \item{\code{maxData}}{maximum value}
 }}
+\examples{
+xyzData = new("XyzData", 
+               address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+data(sinkhole)
+sinkhole@profiles[[1]]@xyzData
+sinkhole@profiles[[1]]@xyzData@seaLevel
+sinkhole@profiles[[1]]@xyzData@heightAdaption
+sinkhole@profiles[[1]]@xyzData@height
+sinkhole@profiles[[1]]@xyzData@minData
+sinkhole@profiles[[1]]@xyzData@maxData
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{ProfileSet-class}}, 
+\code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
+}
 
