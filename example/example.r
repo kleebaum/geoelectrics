@@ -2,8 +2,8 @@
 # filled sinkhole
 
 ### looking for working directory
-whereFrom=as.character(sys.calls()[[1]][2]) 
-try(setwd(dirname(whereFrom)))
+#whereFrom=as.character(sys.calls()[[1]][2]) 
+#try(setwd(dirname(whereFrom)))
 
 ### load packages
 library(geoelectrics)
