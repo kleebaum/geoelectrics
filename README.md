@@ -15,3 +15,48 @@ In most cases 2D electrical resistivity tomography is used to obtain two-dimensi
   - rgl
   - lattice
   - fields
+  
+## Example Usage
+### Profile
+An object of the Profile class is created for each profile:
+```
+p1 <- new("Profile",
+            title = "Profile 1",
+            xyzData = 
+              new("XyzData", 
+                  address = "example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+            rawData = 
+              new("RawData",
+                  address = "example/rawdata/p1_DipolDipol_SW-NE.dat"),
+            measurementType = "DipolDipol",
+            gpsCoordinates = 
+              new("GpsCoordinates",
+                  address = "example/gps/p1.txt"))
+```
+
+### Profile Set
+An instance of the ProfileSet class is created using a list of single profiles.
+```
+sinkhole <- new("ProfileSet",
+                profiles = list(p1, p2, p3),
+                title="Sinkhole")
+```
+
+### Adjust Profile Height
+GPS measurement heights might differ. Therefore, the height of a single profile can be adjusted.
+```
+p3 <- heightAdjustment(p3, -10)
+```
+
+### Plotting Methods
+- ```plotRaw()```
+- ```plotRawHeight()```
+- ```plotXyz()```
+- ```plotXyzHeight()```
+- ```levelplotRaw()```
+- ```levelplotXyz()```
+- ```levelplotXyzHeight()```
+- ```levelplotLegendLabel()```
+- ```plotLegend()```
+- ```plotIntersect()```
+- ```plot3dXyz()```
