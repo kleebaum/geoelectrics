@@ -8,11 +8,27 @@ levelplotLegendLabel(legend.lab = "Resistivity",
   unit = expression(paste("[", Omega, "m]")))
 }
 \arguments{
-\item{legend.lab}{label (default "Resistivity").}
+\item{legend.lab}{label (default: "Resistivity").}
 
-\item{unit}{unit (default "Ohm*m").}
+\item{unit}{unit (default: "Ohm*m").}
 }
 \description{
 Plots the label of the levelplot.
+}
+\examples{
+data(sinkhole)
+
+levelplotRaw(sinkhole@profiles[[1]])
+levelplotLegendLabel()
+
+levelplotXyz(sinkhole@profiles[[2]])
+levelplotLegendLabel()
+
+levelplotXyzHeight(sinkhole@profiles[[3]])
+levelplotLegendLabel()
+}
+\seealso{
+\code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}},
+\code{\link{levelplotRaw}}
 }
 

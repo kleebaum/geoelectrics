@@ -5,12 +5,12 @@
 \alias{plotLegend}
 \alias{plotLegend,Profile-method}
 \alias{plotLegend,ProfileSet-method}
-\title{Plots the legend}
+\title{Plots Legend}
 \usage{
 plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
   " m]")), minData = 0, maxData = 999999, breaks = NULL,
-  legend.line = 2.2, nlevel = 18, lab.breaks = c(), midpoint = F,
-  horizontal = T, col = colors, trafo = log, backtrafo = exp)
+  legend.line = 2.2, nlevel = 18, lab.breaks = c(), horizontal = T,
+  col = colors, trafo = log, backtrafo = exp, ...)
 
 \S4method{plotLegend}{ProfileSet}(.Object, legend.lab,
   minData = .Object@minData, maxData = .Object@maxData)
@@ -19,25 +19,49 @@ plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
   minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData)
 }
 \arguments{
-\item{.Object}{either a single Profile or a ProfileSet}
+\item{.Object}{either a single Profile or a ProfileSet.}
 
-\item{legend.lab}{label of legend (default: expression(paste("Resistivity [", Omega, "]")))}
+\item{legend.lab}{label of legend (default: expression(paste("Resistivity [", Omega, "]"))).}
 
-\item{minData}{minimum value}
+\item{minData}{minimum value.}
 
-\item{maxData}{maximum value}
+\item{maxData}{maximum value.}
 
-\item{nlevel}{number of color levels}
+\item{legend.line}{distance in units of character height (as in mtext) of the legend label from the color bar. 
+Make this larger if the label collides with the color axis labels.}
 
-\item{lab.breaks}{number of breaks}
+\item{nlevel}{number of color levels.}
 
-\item{col}{vector of colors}
+\item{lab.breaks}{number of breaks.}
 
-\item{trafo}{transformation to be done on data (default log)}
+\item{horizontal}{If false legend will be a vertical strip on the right side. If true (default) the legend strip will be along the bottom.}
 
-\item{backtrafo}{back transformation to plot correct labels (default exp)}
+\item{col}{vector of colors.}
+
+\item{trafo}{transformation to be done on data (default: log).
+For linear scale: function(x) x.}
+
+\item{backtrafo}{back transformation to plot correct labels (default: exp).
+For linear scale: function(x) x.}
+
+\item{...}{image.plot arguments.}
 }
 \description{
 Plots the legend for resistivity values.
+}
+\examples{
+data(sinkhole)
+
+plotLegend(sinkhole)
+
+# for linear scale:
+plotLegend(sinkhole@profiles[[1]], 
+           trafo=function(x) x, 
+           backtrafo=function(x) x,
+           minData=100, maxData=50000)
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+\code{\link{plot3dXyz}},
 }
 

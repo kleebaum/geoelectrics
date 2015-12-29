@@ -11,8 +11,8 @@
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
 #' @examples 
-#' gpsCoordinates = new("GpsCoordinates",
-#'                      address = "../example/gps/p1.txt")
+#' # gpsCoordinates = new("GpsCoordinates",
+#' #                      address = "../example/gps/p1.txt")
 #' data(sinkhole)
 #' sinkhole@profiles[[1]]@gpsCoordinates
 #' sinkhole@profiles[[1]]@gpsCoordinates@address

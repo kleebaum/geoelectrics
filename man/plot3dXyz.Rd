@@ -6,7 +6,7 @@
 \alias{plot3dXyz}
 \alias{plot3dXyz,Profile-method}
 \alias{plot3dXyz,ProfileSet-method}
-\title{Plots profiles 3D}
+\title{Plots Profiles 3D}
 \usage{
 plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
   zlab = "", minData = 0, maxData = 9999999, col = colors,
@@ -21,22 +21,32 @@ plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
   maxData = .Object@xyzData@maxData, col = colors, trafo = log)
 }
 \arguments{
-\item{.Object}{either a single Profile or a ProfileSet}
+\item{.Object}{either an object of a single Profile or a ProfileSet.}
 
-\item{title}{title to be plotted}
+\item{title}{title to be plotted.}
 
-\item{sub}{subtitle to be plotted}
+\item{sub}{subtitle to be plotted.}
 
-\item{xlab}{label of the x-axes, e.g. length [m]}
+\item{xlab}{label of the x-axes, e.g. length [m].}
 
-\item{ylab}{label of the y-axes, e.g. height above sea level [m]}
+\item{ylab}{label of the y-axes, e.g. height above sea level [m].}
 
-\item{zlab}{label of the z-axes, e.g. length [m]}
+\item{zlab}{label of the z-axes, e.g. length [m].}
 
-\item{col}{vector of colors}
+\item{col}{vector of colors.}
 }
 \description{
 Plots the interpolated resistance values of the 
 xyz data for all profiles.
+}
+\examples{
+data(sinkhole)
+
+plot3dXyz(sinkhole@profiles[[1]])
+plot3dXyz(sinkhole)
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+\code{\link{plotXyz}}, \code{\link{levelplotXyz}}
 }
 

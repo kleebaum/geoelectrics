@@ -2,21 +2,35 @@
 % Please edit documentation in R/plotXyz.r
 \name{plotXyz}
 \alias{plotXyz}
-\title{Plot Xyz points}
+\title{Plot XYZ Points}
 \usage{
 plotXyz(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "without topography"))
+  main = paste(Profile@title, "without topography"), asp = 1, ...)
 }
 \arguments{
-\item{Profile}{profile}
+\item{Profile}{profile.}
 
-\item{xlab}{label for x-axes}
+\item{xlab}{label for x-axes.}
 
-\item{ylab}{label for y-axes}
+\item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
+
+\item{asp}{the y/x aspect ratio (default: 1).}
+
+\item{...}{plot parameters}
 }
 \description{
 Plots the interpolated points of the xyz data.
+}
+\examples{
+data(sinkhole)
+
+plotXyz(sinkhole@profiles[[1]])
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{plotXyzHeight}}, 
+\code{\link{plot3dXyz}}, 
+\code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}}
 }
 

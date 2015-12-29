@@ -5,7 +5,7 @@
 \alias{plotIntersect}
 \alias{plotIntersect,Profile,Profile-method}
 \alias{plotIntersect,ProfileSet,ANY-method}
-\title{Plots resistivity against depth}
+\title{Plot Profile Intersection}
 \usage{
 plotIntersect(.Object1, .Object2 = NULL,
   xlab = "Height above sea level [m]",
@@ -23,30 +23,39 @@ plotIntersect(.Object1, .Object2 = NULL,
   type = "p", legendLoc = "bottomleft")
 }
 \arguments{
-\item{.Object1}{either a single Profile or a ProfileSet}
+\item{.Object1}{either a single Profile or a ProfileSet.}
 
-\item{.Object2}{either a second single Profile or NULL if .Object1 is of type ProfileSet}
+\item{.Object2}{either a second single Profile or NULL if .Object1 is of type ProfileSet.}
 
-\item{xlab}{label of the x-axes, e.g. length [m]}
+\item{xlab}{label of the x-axes, e.g. length [m].}
 
-\item{ylab}{label of the y-axes, e.g. height above sea level [m]}
+\item{ylab}{label of the y-axes, e.g. height above sea level [m].}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
 
-\item{col}{character vector of colors}
+\item{col}{character vector of colors.}
 
-\item{pch}{numeric vector of plotting symbols}
+\item{pch}{numeric vector of plotting symbols.}
 
-\item{type}{plot type (default "p" for points) 
+\item{type}{plot type (default "p" for points).
 "b" for both points and lines, "c" for empty points joined by lines, 
 "o" for overplotted points and lines, 
 "s" and "S" for stair steps and "h" for histogram-like vertical lines. 
 Finally, "n" does not produce any points or lines.}
 
-\item{legendLoc}{legendLocation (default "bottomleft")}
+\item{legendLoc}{legendLocation (default "bottomleft").}
 }
 \description{
 Plots resistivity against depth on and next to the intersection line 
 between two profiles.
+}
+\examples{
+data(sinkhole)
+
+plotIntersect(sinkhole)
+plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
+}
+\seealso{
+\code{\link{ProfileSet-class}}
 }
 

@@ -3,19 +3,44 @@
 \docType{class}
 \name{Profile-class}
 \alias{Profile-class}
-\title{A class to handle a single profile}
+\title{Profile Class}
 \arguments{
-\item{number}{number of the profile}
+\item{number}{index of the profile.}
 
-\item{xyzData}{object of XyzData class}
+\item{xyzData}{object of Xyz Data Class (\code{\link{XyzData-class}}).}
 
-\item{rawData}{object of rawData class}
+\item{rawData}{object of Raw Data Class (\code{\link{RawData-class}}).}
 
-\item{measurementType}{type of measurement (e.g. Dipole Dipole, Wenner, ...)}
+\item{measurementType}{type of measurement (e.g. Dipole Dipole, Wenner, ...).}
 
-\item{gpsCoordinates}{object of GpsCoordinates class}
+\item{gpsCoordinates}{object of GpsCoordinates Class (\code{\link{GpsCoordinates-class}}).}
 }
 \description{
-A class to handle a single profile
+A class to handle a single profile.
+}
+\examples{
+# p1 <- new("Profile",
+#           title = "Profile 1",
+#           xyzData = 
+#             new("XyzData", 
+#           rawData = 
+#             new("RawData",
+#                 address = "../example/rawdata/p1_DipolDipol_SW-NE.dat"),
+#           measurementType = "DipolDipol",
+#           gpsCoordinates = 
+#             new("GpsCoordinates",
+#                 address = "../example/gps/p1.txt"))
+#
+# p1@title
+# p1@xyzData
+# p1@rawData
+# p1@measurementType
+# p1@gpsCoordinates
+#
+# plot3dXyz(p1)
+}
+\seealso{
+\code{\link{XyzData-class}}, \code{\link{RawData-class}},
+\code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
 }
 

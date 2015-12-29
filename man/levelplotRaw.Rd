@@ -5,8 +5,8 @@
 \title{Levelplot of Raw Data}
 \usage{
 levelplotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "without topography"), col = colors,
-  trafo = log, ...)
+  main = paste(Profile@title, "without topography (raw data)"),
+  col = colors, trafo = log, ...)
 }
 \arguments{
 \item{Profile}{profile.}
@@ -19,16 +19,24 @@ levelplotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 
 \item{col}{vector of colors.}
 
-\item{trafo}{function to transform raw data values (default log).}
+\item{trafo}{function to transform raw data values (default: log).}
+
+\item{...}{lattice levelplot arguments.}
 }
 \description{
-Plots raw data values without topography (height adjustment). -
+Plots raw data values without topography (height adjustment).
 The raw data values have not been inverted yet.
 }
 \examples{
 data(sinkhole)
+
 levelplotRaw(sinkhole@profiles[[1]])
+levelplotLegendLabel()
+
 levelplotRaw(sinkhole@profiles[[2]])
+levelplotLegendLabel()
+
 levelplotRaw(sinkhole@profiles[[3]])
+levelplotLegendLabel()
 }
 

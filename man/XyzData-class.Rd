@@ -27,9 +27,10 @@ It is reconstructed from .xyz-file.}
 \item{\code{maxData}}{maximum value}
 }}
 \examples{
-xyzData = new("XyzData", 
-               address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
-data(sinkhole)
+# xyzData = new("XyzData", 
+#                address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+
+data(sinkhole) 
 sinkhole@profiles[[1]]@xyzData
 sinkhole@profiles[[1]]@xyzData@seaLevel
 sinkhole@profiles[[1]]@xyzData@heightAdaption

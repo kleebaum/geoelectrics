@@ -15,9 +15,10 @@
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}, 
 #' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
 #' @examples 
-#' xyzData = new("XyzData", 
-#'                address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
-#' data(sinkhole)
+#' # xyzData = new("XyzData", 
+#' #                address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+#' 
+#' data(sinkhole) 
 #' sinkhole@profiles[[1]]@xyzData
 #' sinkhole@profiles[[1]]@xyzData@seaLevel
 #' sinkhole@profiles[[1]]@xyzData@heightAdaption

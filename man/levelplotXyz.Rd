@@ -6,7 +6,7 @@
 \usage{
 levelplotXyz(Profile, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(Profile@title, "without topography"), col = colors,
-  breaks = 18, trafo = log, backtrafo = exp)
+  breaks = 18, trafo = log, backtrafo = exp, ...)
 }
 \arguments{
 \item{Profile}{profile.}
@@ -21,14 +21,28 @@ levelplotXyz(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 
 \item{breaks}{number of color breaks.}
 
-\item{trafo}{transformation to be done on data (default log).}
+\item{trafo}{transformation to be done on data (default: log).}
 
-\item{backtrafo}{back transformation to plot correct labels (default exp).}
+\item{backtrafo}{back transformation to plot correct labels (default: exp).}
+
+\item{...}{lattice levelplot arguments.}
 }
 \description{
 Plots the interpolated resistance values of the xyz 
 data without topography (height adjustment).
 The xyz values are obtained through inversion of the raw values.
+}
+\examples{
+data(sinkhole)
+
+levelplotXyz(sinkhole@profiles[[1]])
+levelplotLegendLabel()
+
+levelplotXyz(sinkhole@profiles[[2]])
+levelplotLegendLabel()
+
+levelplotXyz(sinkhole@profiles[[3]])
+levelplotLegendLabel()
 }
 \seealso{
 \code{\link{Xyz-class}}, \code{\link{levelplotXyzHeight}},

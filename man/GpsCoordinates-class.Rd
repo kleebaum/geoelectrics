@@ -22,8 +22,8 @@ A class to handle gps coordinates.
 \item{\code{lmRelative}}{linear model of relative coordinates}
 }}
 \examples{
-gpsCoordinates = new("GpsCoordinates",
-                     address = "../example/gps/p1.txt")
+# gpsCoordinates = new("GpsCoordinates",
+#                      address = "../example/gps/p1.txt")
 data(sinkhole)
 sinkhole@profiles[[1]]@gpsCoordinates
 sinkhole@profiles[[1]]@gpsCoordinates@address

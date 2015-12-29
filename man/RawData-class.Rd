@@ -18,13 +18,14 @@ A class to handle geoelectrics raw data.
 \item{\code{height}}{data frame that contains topography information (distance and height).}
 }}
 \examples{
-rawData = new("RawData",
-               address = "../example/rawdata/p1_DipolDipol_SW-NE.dat")
+# rawData = new("RawData",
+#                address = "../example/rawdata/p1_DipolDipol_SW-NE.dat")
+
 data(sinkhole)
-sinkhole@profile[[2]]@rawData
-sinkhole@profile[[2]]@rawData@address
-sinkhole@profile[[2]]@rawData@height
-sinkhole@profile[[2]]@rawData@seaLevel
+sinkhole@profiles[[2]]@rawData
+sinkhole@profiles[[2]]@rawData@address
+sinkhole@profiles[[2]]@rawData@height
+sinkhole@profiles[[2]]@rawData@seaLevel
 }
 \seealso{
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}

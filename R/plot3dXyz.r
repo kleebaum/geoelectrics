@@ -1,16 +1,23 @@
-#' Plots profiles 3D
+#' Plots Profiles 3D
 #' 
 #' Plots the interpolated resistance values of the 
 #' xyz data for all profiles.
 #' 
-#' @param .Object either a single Profile or a ProfileSet
-#' @param title title to be plotted
-#' @param sub subtitle to be plotted
-#' @param xlab label of the x-axes, e.g. length [m]
-#' @param ylab label of the y-axes, e.g. height above sea level [m]
-#' @param zlab label of the z-axes, e.g. length [m]
-#' @param col vector of colors
+#' @param .Object either an object of a single Profile or a ProfileSet.
+#' @param title title to be plotted.
+#' @param sub subtitle to be plotted.
+#' @param xlab label of the x-axes, e.g. length [m].
+#' @param ylab label of the y-axes, e.g. height above sea level [m].
+#' @param zlab label of the z-axes, e.g. length [m].
+#' @param col vector of colors.
 #' @export
+#' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+#' \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
+#' @examples
+#' data(sinkhole)
+#' 
+#' plot3dXyz(sinkhole@profiles[[1]])
+#' plot3dXyz(sinkhole)
 setGeneric("plot3dXyz", function(.Object, title="", sub="",
                                  xlab="", ylab="", zlab="",
                                  minData=0, maxData=9999999, 

@@ -3,14 +3,14 @@
 \docType{class}
 \name{ProfileSet-class}
 \alias{ProfileSet-class}
-\title{A class to handle a collection of many profiles}
+\title{Profile Set Class}
 \arguments{
 \item{title}{title to plot}
 
-\item{profiles}{list that contains objects of class Profile}
+\item{profiles}{list that contains objects of class Profile (\code{\link{Profile-class}})}
 }
 \description{
-A class to handle a collection of many profiles
+A class to handle a collection of many profiles.
 }
 \section{Slots}{
 
@@ -23,4 +23,15 @@ A class to handle a collection of many profiles
 
 \item{\code{maxData}}{maximum data value of all profiles}
 }}
+\examples{
+# sinkhole <- new("ProfileSet",
+#                profiles = list(p1, p2, p3),
+#                title="Sinkhole")
+
+data(sinkhole)
+plot3dXyz(sinkhole)
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{plot3dXyz}}
+}
 

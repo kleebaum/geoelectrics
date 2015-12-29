@@ -2,22 +2,36 @@
 % Please edit documentation in R/plotXyz.r
 \name{plotXyzHeight}
 \alias{plotXyzHeight}
-\title{Plot Xyz points}
+\title{Plot XYZ Points considering Topography}
 \usage{
 plotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "with topography"))
+  main = paste(Profile@title, "with topography"), asp = 1, ...)
 }
 \arguments{
 \item{Profile}{profile.}
 
-\item{xlab}{label for x-axes}
+\item{xlab}{label for x-axes.}
 
-\item{ylab}{label for y-axes}
+\item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted}
+\item{main}{title to be plotted.}
+
+\item{asp}{the y/x aspect ratio (default: 1).}
+
+\item{...}{plot parameters.}
 }
 \description{
 Plots the interpolated points of the xyz data
 after height adjustment.
+}
+\examples{
+data(sinkhole)
+
+plotXyzHeight(sinkhole@profiles[[1]])
+}
+\seealso{
+\code{\link{Profile-class}}, \code{\link{plotXyz}}, 
+\code{\link{plot3dXyz}}, 
+\code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}}
 }
 

@@ -1,12 +1,22 @@
-#' A class to handle a collection of many profiles
+#' Profile Set Class
+#'
+#' A class to handle a collection of many profiles.
 #'
 #' @param title title to plot
-#' @param profiles list that contains objects of class Profile
+#' @param profiles list that contains objects of class Profile (\code{\link{Profile-class}})
 #' @slot minLat minimum latitude value of all profiles
 #' @slot minLon minimum longitude value of all profiles
 #' @slot minData minimum data value of all profiles
 #' @slot maxData maximum data value of all profiles
 #' @export
+#' @seealso \code{\link{Profile-class}}, \code{\link{plot3dXyz}}
+#' @examples 
+#' # sinkhole <- new("ProfileSet",
+#' #                profiles = list(p1, p2, p3),
+#' #                title="Sinkhole")
+#' 
+#' data(sinkhole)
+#' plot3dXyz(sinkhole)
 setClass("ProfileSet",
          representation = representation(
            profiles = "list",
