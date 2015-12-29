@@ -1,5 +1,5 @@
 # geoelectrics
-R package to plot geoelectric resistivity measurement profiles.
+R package to visualize geoelectric resistivity measurement profiles.
 
 ![example plot](https://github.com/kleebaum/geoelectrics/blob/master/example/sinkhole.png)
 
