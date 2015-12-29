@@ -89,8 +89,15 @@ heightAdjustmentGui <- function() {
 
 ###---GUI methods---####
 settings <- function() {
+  if (file.exists("config")) {
+    config <- read.table("config")
+    pointsize <- as.character(config[1,2])
+  } else {
+    pointsize <- 10
+  }
+  
   s <- tktoplevel(tt)
-  tktitle(s) <- "GE3D Settings"
+  tktitle(s) <- "Settings"
   
   SliderValue <- tclVar(pointsize)
   slider <- tkscale(s, from=0, to=20,
@@ -115,14 +122,14 @@ settings <- function() {
     colors <<- ramp
     
     # save settings to file
-    write.table(c("Pointsize" = pointsize, "Color" = as.vector(colors)), file="ge3dSettings", quote=FALSE, col.names=FALSE)
+    write.table(c("Pointsize" = pointsize, "Color" = as.vector(colors)), file="config", quote=FALSE, col.names=FALSE)
   }
   
   tkgrid(tkbutton(s, text="OK", command=onOK))
 }
 
 info <- function() {
-  tkmessageBox(title = "About GE3D",
+  tkmessageBox(title = "About this program",
                message = "Developed by Anja Kleebaum \n
 Thanks to Prof. Dr. Klaus Bitzer & Richard Regner", 
                icon = "info", type = "ok")
@@ -376,7 +383,7 @@ tkadd(plot2dXyz, "command", label = "Levels", command = function() choosePlottin
 tkadd(plot2dXyz, "command", label = "Points with Topography", command = function() choosePlottingProfile(plotXyzHeightGui))
 tkadd(plot2dXyz, "command", label = "Levels with Topography", command = function() choosePlottingProfile(levelplotXyzHeightGui))
 
-tkadd(example, "command", label = "Sinkhole", command = function() data(sinkhole))
+tkadd(example, "command", label = "Sinkhole", command = function() {data(sinkhole); p<<-list(sinkhole@profiles[[1]],sinkhole@profiles[[2]],sinkhole@profiles[[3]])})
 
 ### frames
 deleteFrame <- function(frameName) {

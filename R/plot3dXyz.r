@@ -10,6 +10,7 @@
 #' @param ylab label of the y-axes, e.g. height above sea level [m].
 #' @param zlab label of the z-axes, e.g. length [m].
 #' @param col vector of colors.
+#' @param psize size of value points (default: 10)
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
@@ -21,7 +22,7 @@
 setGeneric("plot3dXyz", function(.Object, title="", sub="",
                                  xlab="", ylab="", zlab="",
                                  minData=0, maxData=9999999, 
-                                 col=colors, trafo=log){
+                                 col=colors, trafo=log, psize=pointsize){
   standardGeneric("plot3dXyz")
 })
 
@@ -32,7 +33,7 @@ setMethod("plot3dXyz", signature(.Object="ProfileSet"),
           function(.Object, title=.Object@title, sub="",
                    xlab="", ylab="", zlab="",
                    minData=.Object@minData,
-                   maxData=.Object@maxData, col, trafo) {
+                   maxData=.Object@maxData, col, trafo, psize) {
             lapply(.Object@profiles, plot3dXyz,
                    minData=minData, maxData=maxData, col=col, trafo=trafo)
             title3d(title, sub, xlab, ylab, zlab)
@@ -46,7 +47,7 @@ setMethod("plot3dXyz", signature(.Object="Profile"),
                    xlab="", ylab="", zlab="",
                    minData=.Object@xyzData@minData, 
                    maxData=.Object@xyzData@maxData, 
-                   col, trafo) {
+                   col, trafo, psize) {
             title3d(title, sub, xlab, ylab, zlab)
             values <- trafo(.Object@xyzData@heightAdaption$val)
             colorAssignment <- myColorRamp(col, values, trafo(minData), trafo(maxData))

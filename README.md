@@ -62,11 +62,10 @@ p3 <- heightAdjustment(p3, -10)
 - ```plot3dXyz()```
 
 ## Graphical User Interface (GUI)
-packages from CRAN:
-- tcltk
-- tkrplot
-
-do one of the following steps:
-- execute start_gui.sh
-- open R in console and type ```source("gui.r")```
-- open an R GUI like RStudio and source gui.r
+- the following packages from CRAN:
+  - tcltk
+  - tkrplot
+- do one of the following steps:
+  - execute start_gui.sh
+  - open R in console and type ```source("gui.r")```
+  - open an R GUI like RStudio and source gui.r
