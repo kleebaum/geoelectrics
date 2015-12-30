@@ -6,6 +6,9 @@
 #' @param legend.lab label of legend (default: expression(paste("Resistivity [", Omega, "]"))).
 #' @param minData minimum value.
 #' @param maxData maximum value.
+#' @param breaks Break points in sorted order to indicate the intervals for assigning the colors. 
+#' Note that if there are nlevel colors there should be (nlevel+1) breakpoints. 
+#' If breaks is not specified (nlevel+1) equally spaced breaks are created where the first and last bin have their midpoints at the minimum and maximum values in z or at zlim.
 #' @param lab.breaks number of breaks.
 #' @param legend.line distance in units of character height (as in mtext) of the legend label from the color bar. 
 #' Make this larger if the label collides with the color axis labels.
@@ -21,15 +24,15 @@
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plot3dXyz}},
 #' @examples 
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' plotLegend(sinkhole)
+#' # plotLegend(sinkhole)
 #' 
 #' # for linear scale:
-#' plotLegend(sinkhole@profiles[[1]], 
-#'            trafo=function(x) x, 
-#'            backtrafo=function(x) x,
-#'            minData=100, maxData=50000)
+#' # plotLegend(sinkhole@profiles[[1]], 
+#' #            trafo=function(x) x, 
+#' #            backtrafo=function(x) x,
+#' #            minData=100, maxData=50000)
 setGeneric("plotLegend", function(.Object, 
                                   legend.lab=expression(paste("Resistivity [", Omega, " m]")),
                                   minData=0, maxData=999999,

@@ -14,14 +14,10 @@ plotRaw(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 
 \item{ylab}{label for y-axes.}
 
-\item{main}{title to be plotted.}
-
-\item{col}{color code or name.}
-
-\item{pch}{plotting character, i.e., symbol to use. 
+\item{main}{title to be plotted.
 This can either be a single character or an integer code for one of a set of graphics symbols.}
 
-\item{cex}{character (or symbol) expansion: a numerical vector.}
+\item{...}{plot arguments (like pch, cex, col,...).}
 }
 \description{
 Plots raw data points of a single profile (e.g. to show measurement gaps).

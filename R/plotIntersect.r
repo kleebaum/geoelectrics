@@ -16,13 +16,15 @@
 #' "s" and "S" for stair steps and "h" for histogram-like vertical lines. 
 #' Finally, "n" does not produce any points or lines.
 #' @param legendLoc legendLocation (default "bottomleft").
+#' @param trafo transformation to be done on data (default: log).
+#' @param backtrafo back transformation to plot correct labels (default: exp).
 #' @export
 #' @seealso \code{\link{ProfileSet-class}}
 #' @examples 
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' plotIntersect(sinkhole)
-#' plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
+#' # plotIntersect(sinkhole)
+#' # plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 setGeneric("plotIntersect", function(.Object1, .Object2=NULL, 
                                      xlab="Height above sea level [m]", 
                                      ylab=expression(paste("Resistivity [", Omega, "m]")), 

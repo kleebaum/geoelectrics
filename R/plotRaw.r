@@ -5,10 +5,8 @@
 #' @param xlab label for x-axes.
 #' @param ylab label for y-axes.
 #' @param main title to be plotted.
-#' @param col color code or name.
-#' @param pch plotting character, i.e., symbol to use. 
 #' This can either be a single character or an integer code for one of a set of graphics symbols.
-#' @param cex character (or symbol) expansion: a numerical vector. 
+#' @param ... plot arguments (like pch, cex, col,...).
 #' @export
 #' @seealso \code{\link{plotRawHeight}}, \code{\link{RawData-class}}
 #' @examples
@@ -33,10 +31,7 @@ plotRaw <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
 #' @param xlab label for x-axes.
 #' @param ylab label for y-axes.
 #' @param main title to be plotted.
-#' @param col color code or name.
-#' @param pch plotting character, i.e., symbol to use. 
-#' This can either be a single character or an integer code for one of a set of graphics symbols.
-#' @param cex character (or symbol) expansion: a numerical vector. 
+#' @param ... plot arguments (like pch, cex, col,...).
 #' @export
 #' @seealso \code{\link{plotRaw}}, \code{\link{RawData-class}}
 #' @examples 

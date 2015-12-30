@@ -13,19 +13,19 @@
 #' @param backtrafo back transformation to plot correct labels (default: exp).
 #' @param ... lattice levelplot arguments.
 #' @export
-#' @seealso \code{\link{Xyz-class}}, \code{\link{levelplotXyzHeight}},
+#' @seealso \code{\link{XyzData-class}}, \code{\link{levelplotXyzHeight}},
 #' \code{\link{levelplotRaw}}
 #' @examples 
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' levelplotXyz(sinkhole@profiles[[1]])
-#' levelplotLegendLabel()
+#' # levelplotXyz(sinkhole@profiles[[1]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyz(sinkhole@profiles[[2]])
-#' levelplotLegendLabel()
+#' # levelplotXyz(sinkhole@profiles[[2]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyz(sinkhole@profiles[[3]])
-#' levelplotLegendLabel()
+#' # levelplotXyz(sinkhole@profiles[[3]])
+#' # levelplotLegendLabel()
 levelplotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
                          main=paste(Profile@title, "without topography"),
                          col = colors, breaks=18, trafo=log, backtrafo=exp, ...) {
@@ -57,19 +57,19 @@ levelplotXyz <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
 #' @param backtrafo back transformation to plot correct labels (default: exp).
 #' @param ... lattice levelplot arguments.
 #' @export
-#' @seealso \code{\link{Xyz-class}}, \code{\link{levelplotXyz}},
+#' @seealso \code{\link{XyzData-class}}, \code{\link{levelplotXyz}},
 #' \code{\link{levelplotRaw}}
 #' @examples 
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' levelplotXyzHeight(sinkhole@profiles[[1]])
-#' levelplotLegendLabel()
+#' # levelplotXyzHeight(sinkhole@profiles[[1]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyzHeight(sinkhole@profiles[[2]])
-#' levelplotLegendLabel()
+#' # levelplotXyzHeight(sinkhole@profiles[[2]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyzHeight(sinkhole@profiles[[3]])
-#' levelplotLegendLabel()
+#' # levelplotXyzHeight(sinkhole@profiles[[3]])
+#' # levelplotLegendLabel()
 levelplotXyzHeight <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
                                main=paste(Profile@title, "with topography"),
                                col = colors, breaks=18, trafo=log, backtrafo=exp, ...) {
@@ -95,16 +95,16 @@ levelplotXyzHeight <- function(Profile, xlab="Length [m]", ylab="Depth [m]",
 #' @seealso \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}},
 #' \code{\link{levelplotRaw}}
 #' @examples 
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' levelplotRaw(sinkhole@profiles[[1]])
-#' levelplotLegendLabel()
+#' # levelplotRaw(sinkhole@profiles[[1]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyz(sinkhole@profiles[[2]])
-#' levelplotLegendLabel()
+#' # levelplotXyz(sinkhole@profiles[[2]])
+#' # levelplotLegendLabel()
 #' 
-#' levelplotXyzHeight(sinkhole@profiles[[3]])
-#' levelplotLegendLabel()
+#' # levelplotXyzHeight(sinkhole@profiles[[3]])
+#' # levelplotLegendLabel()
 levelplotLegendLabel <- function(legend.lab="Resistivity", 
                                   unit=expression(paste("[", Omega, "m]"))) {
   trellis.focus("legend", side="right", clipp.off=TRUE, highlight=FALSE)

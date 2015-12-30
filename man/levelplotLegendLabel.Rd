@@ -16,16 +16,16 @@ levelplotLegendLabel(legend.lab = "Resistivity",
 Plots the label of the levelplot.
 }
 \examples{
-data(sinkhole)
+# data(sinkhole)
 
-levelplotRaw(sinkhole@profiles[[1]])
-levelplotLegendLabel()
+# levelplotRaw(sinkhole@profiles[[1]])
+# levelplotLegendLabel()
 
-levelplotXyz(sinkhole@profiles[[2]])
-levelplotLegendLabel()
+# levelplotXyz(sinkhole@profiles[[2]])
+# levelplotLegendLabel()
 
-levelplotXyzHeight(sinkhole@profiles[[3]])
-levelplotLegendLabel()
+# levelplotXyzHeight(sinkhole@profiles[[3]])
+# levelplotLegendLabel()
 }
 \seealso{
 \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}},

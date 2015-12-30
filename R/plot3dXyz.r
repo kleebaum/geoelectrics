@@ -9,16 +9,19 @@
 #' @param xlab label of the x-axes, e.g. length [m].
 #' @param ylab label of the y-axes, e.g. height above sea level [m].
 #' @param zlab label of the z-axes, e.g. length [m].
+#' @param minData mimimum value to adjust color bar.
+#' @param maxData maximum value to adjust color bar.
 #' @param col vector of colors.
-#' @param psize size of value points (default: 10)
+#' @param trafo transformation to be done on data (default: log).
+#' @param psize size of value points (default: 10).
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
 #' @examples
-#' data(sinkhole)
+#' # data(sinkhole)
 #' 
-#' plot3dXyz(sinkhole@profiles[[1]])
-#' plot3dXyz(sinkhole)
+#' # plot3dXyz(sinkhole@profiles[[1]])
+#' # plot3dXyz(sinkhole)
 setGeneric("plot3dXyz", function(.Object, title="", sub="",
                                  xlab="", ylab="", zlab="",
                                  minData=0, maxData=9999999, 

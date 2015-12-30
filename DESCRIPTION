@@ -1,5 +1,4 @@
 Package: geoelectrics
-Name: geoelectrics
 Title: 3D-Visualization of Geoelectric Resistivity Measurement Profiles
 Version: 0.1.4
 Author: Anja Kleebaum <anja.kleebaum@stmail.uni-bayreuth.de>
@@ -7,5 +6,7 @@ Maintainer: Anja Kleebaum <anja.kleebaum@stmail.uni-bayreuth.de>
 Description: This package enables to visualize two-dimensional geoelectric resistivity measurement profiles in three dimensions.
 Depends:
     R (>= 2.0), lattice, rgl, fields 
+Imports:
+    methods
 License: GPL
 RoxygenNote: 5.0.1

@@ -33,6 +33,10 @@ plotIntersect(.Object1, .Object2 = NULL,
 
 \item{main}{title to be plotted.}
 
+\item{trafo}{transformation to be done on data (default: log).}
+
+\item{backtrafo}{back transformation to plot correct labels (default: exp).}
+
 \item{col}{character vector of colors.}
 
 \item{pch}{numeric vector of plotting symbols.}
@@ -50,10 +54,10 @@ Plots resistivity against depth on and next to the intersection line
 between two profiles.
 }
 \examples{
-data(sinkhole)
+# data(sinkhole)
 
-plotIntersect(sinkhole)
-plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
+# plotIntersect(sinkhole)
+# plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 }
 \seealso{
 \code{\link{ProfileSet-class}}

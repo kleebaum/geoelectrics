@@ -35,19 +35,25 @@ plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
 
 \item{zlab}{label of the z-axes, e.g. length [m].}
 
+\item{minData}{mimimum value to adjust color bar.}
+
+\item{maxData}{maximum value to adjust color bar.}
+
 \item{col}{vector of colors.}
 
-\item{psize}{size of value points (default: 10)}
+\item{trafo}{transformation to be done on data (default: log).}
+
+\item{psize}{size of value points (default: 10).}
 }
 \description{
 Plots the interpolated resistance values of the 
 xyz data for all profiles.
 }
 \examples{
-data(sinkhole)
+# data(sinkhole)
 
-plot3dXyz(sinkhole@profiles[[1]])
-plot3dXyz(sinkhole)
+# plot3dXyz(sinkhole@profiles[[1]])
+# plot3dXyz(sinkhole)
 }
 \seealso{
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
