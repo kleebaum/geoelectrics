@@ -6,6 +6,10 @@
 #' @import fields
 #' @import methods
 #' @importFrom grid grid.text
+#' @importFrom grDevices colorRamp colorRampPalette rgb
+#' @importFrom graphics axis legend plot points
+#' @importFrom stats lm
+#' @importFrom utils read.table
 
 ###---Settings---####
 pointsize <- 10
