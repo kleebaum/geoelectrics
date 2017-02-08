@@ -1,6 +1,8 @@
 # geoelectrics
 R package to visualize geoelectric resistivity measurement profiles.
 
+[![Build Status](https://travis-ci.org/kleebaum/geoelectrics.svg?branch=master)](https://travis-ci.org/kleebaum/geoelectrics)
+
 ![example plot](https://github.com/kleebaum/geoelectrics/blob/master/example/sinkhole.png)
 
 Electrical resistivity tomography is an efficient geophysical technique to investigate the spatial extent of subsurface structures. Many scientific objectives in geology demand three-dimensional imaging. 
