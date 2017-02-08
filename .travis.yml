@@ -1,2 +1,5 @@
 language: r
 cache: packages
+directories:
+  - !example
+  - !gui
