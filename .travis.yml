@@ -3,3 +3,4 @@ cache: packages
 directories:
   - !example
   - !gui
+warnings_are_errors: false
