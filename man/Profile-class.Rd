@@ -24,25 +24,26 @@ A class to handle a single profile.
 }}
 
 \examples{
-# p1 <- new("Profile",
-#           title = "Profile 1",
-#           xyzData =
-#             new("XyzData",
-#           rawData =
-#             new("RawData",
-#                 address = "../example/rawdata/p1_DipolDipol_SW-NE.dat"),
-#           measurementType = "DipolDipol",
-#           gpsCoordinates =
-#             new("GpsCoordinates",
-#                 address = "../example/gps/p1.txt"))
-#
-# p1@title
-# p1@xyzData
-# p1@rawData
-# p1@measurementType
-# p1@gpsCoordinates
-#
-# plot3dXyz(p1)
+p1 <- new('Profile',
+           title = 'Profile 1',
+           xyzData =
+             new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+                                      package='geoelectrics')),
+           rawData =
+             new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+                                      package='geoelectrics')),
+           measurementType = "DipoleDipole",
+           gpsCoordinates =
+             new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+                                             package='geoelectrics')))
+
+p1@title
+p1@xyzData
+p1@rawData
+p1@measurementType
+p1@gpsCoordinates
+
+plot3dXyz(p1)
 }
 \seealso{
 \code{\link{XyzData-class}}, \code{\link{RawData-class}},

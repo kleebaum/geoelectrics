@@ -11,13 +11,13 @@ plot3dXyz(sinkhole,
           zlab = "length [m]")
 
 plotLegend(sinkhole)
-plotLegend(p3)
+plotLegend(sinkhole@profiles[[3]])
 
 plotIntersect(sinkhole)
 plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 
-plotRawHeight(p1, height = p1@xyzData@height)
-levelplotRaw(p1)
+plotRawHeight(sinkhole@profiles[[1]], height = sinkhole@profiles[[1]]@xyzData@height)
+levelplotRaw(sinkhole@profiles[[1]])
 levelplotLegendLabel()
 
-levelplotXyz(p1)
+levelplotXyz(sinkhole@profiles[[1]])

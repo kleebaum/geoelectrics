@@ -18,10 +18,10 @@
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
 #' @examples
-#' # data(sinkhole)
+#' data(sinkhole)
 #'
-#' # plot3dXyz(sinkhole@profiles[[1]])
-#' # plot3dXyz(sinkhole)
+#' plot3dXyz(sinkhole@profiles[[1]])
+#' plot3dXyz(sinkhole)
 setGeneric("plot3dXyz", function(.Object,
                                  title = "",
                                  sub = "",

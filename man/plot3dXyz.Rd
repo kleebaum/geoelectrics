@@ -50,10 +50,10 @@ Plots the interpolated resistance values of the
 xyz data for all profiles.
 }
 \examples{
-# data(sinkhole)
+data(sinkhole)
 
-# plot3dXyz(sinkhole@profiles[[1]])
-# plot3dXyz(sinkhole)
+plot3dXyz(sinkhole@profiles[[1]])
+plot3dXyz(sinkhole)
 }
 \seealso{
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},

@@ -18,8 +18,8 @@ A class to handle geoelectrics raw data.
 }}
 
 \examples{
-# rawData = new("RawData",
-#                address = "../example/rawdata/p1_DipolDipol_SW-NE.dat")
+rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+          package='geoelectrics'))
 
 data(sinkhole)
 sinkhole@profiles[[2]]@rawData

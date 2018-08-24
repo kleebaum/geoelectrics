@@ -414,4 +414,4 @@ tkgrid(tklabel(frameRight, text="Welcome to the Software for 3D-Presentation of 
 tkgrid(frameLeft, frameRight)
 
 # don't terminate 
-Sys.sleep(1e30)
+Sys.sleep(360000)

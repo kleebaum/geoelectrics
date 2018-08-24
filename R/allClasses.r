@@ -7,8 +7,8 @@
 #' @slot height data frame that contains topography information (distance and height).
 #' @export
 #' @examples
-#' # rawData = new("RawData",
-#' #                address = "./inst/extdata/raw/p1_DipolDipol_SW-NE.dat")
+#' rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+#'           package='geoelectrics'))
 #'
 #' data(sinkhole)
 #' sinkhole@profiles[[2]]@rawData
@@ -91,7 +91,7 @@ setMethod("initialize", "RawData",
 
 #' XYZ Data Class
 #'
-#' A class to handle xyz data.
+#' A class to handle processed geoelectrics data in the xyz format.
 #' The software Res2DInv produces .xyz-files that contain the
 #' inverted resistance values. The xyz class parses .xyz files.
 #'
@@ -106,8 +106,8 @@ setMethod("initialize", "RawData",
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
 #' @examples
-#' # xyzData = new("XyzData",
-#' #                address = "./inst/extdata/processed/p1_DipolDipol_SW-NE.xyz"),
+#' xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+#'           package='geoelectrics'))
 #'
 #' data(sinkhole)
 #' sinkhole@profiles[[1]]@xyzData
@@ -169,9 +169,10 @@ setMethod("initialize", "XyzData",
                   header = F,
                   nrows = numberOfRows
                 )
-              .Object@seaLevel <- data.frame(dist = profile_without_topo[1],
-                                             depth = profile_without_topo[2],
-                                             val = profile_without_topo[3])
+              .Object@seaLevel <-
+                data.frame(dist = profile_without_topo[1],
+                           depth = profile_without_topo[2],
+                           val = profile_without_topo[3])
               colnames(.Object@seaLevel) <-
                 c("dist", "depth", "val")
               
@@ -182,9 +183,10 @@ setMethod("initialize", "XyzData",
                 nrows = numberOfRows2
               )
               
-              .Object@heightAdaption <- data.frame(dist = profile[1],
-                                                   depth = profile[2],
-                                                   val = profile[3])
+              .Object@heightAdaption <-
+                data.frame(dist = profile[1],
+                           depth = profile[2],
+                           val = profile[3])
               colnames(.Object@heightAdaption) <-
                 c("dist", "depth", "val")
               
@@ -225,8 +227,9 @@ setMethod("initialize", "XyzData",
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
 #' @examples
-#' # gpsCoordinates = new("GpsCoordinates",
-#' #                      address = "./inst/extdata/gps/p1.txt")
+#' gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+#'                  package='geoelectrics'))
+#'
 #' data(sinkhole)
 #' sinkhole@profiles[[1]]@gpsCoordinates
 #' sinkhole@profiles[[1]]@gpsCoordinates@address
@@ -288,25 +291,26 @@ setMethod("initialize", "GpsCoordinates",
 #' @seealso \code{\link{XyzData-class}}, \code{\link{RawData-class}},
 #' \code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
 #' @examples
-#' # p1 <- new("Profile",
-#' #           title = "Profile 1",
-#' #           xyzData =
-#' #             new("XyzData",
-#' #           rawData =
-#' #             new("RawData",
-#' #                 address = "./inst/extdata/raw/p1_DipolDipol_SW-NE.dat"),
-#' #           measurementType = "DipolDipol",
-#' #           gpsCoordinates =
-#' #             new("GpsCoordinates",
-#' #                 address = "./inst/extdata/gps/p1.txt"))
-#' #
-#' # p1@title
-#' # p1@xyzData
-#' # p1@rawData
-#' # p1@measurementType
-#' # p1@gpsCoordinates
-#' #
-#' # plot3dXyz(p1)
+#' p1 <- new('Profile',
+#'            title = 'Profile 1',
+#'            xyzData =
+#'              new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+#'                                       package='geoelectrics')),
+#'            rawData =
+#'              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+#'                                       package='geoelectrics')),
+#'            measurementType = "DipoleDipole",
+#'            gpsCoordinates =
+#'              new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+#'                                              package='geoelectrics')))
+#'
+#' p1@title
+#' p1@xyzData
+#' p1@rawData
+#' p1@measurementType
+#' p1@gpsCoordinates
+#' 
+#' plot3dXyz(p1)
 setClass(
   "Profile",
   representation = representation(

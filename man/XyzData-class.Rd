@@ -5,7 +5,7 @@
 \alias{XyzData-class}
 \title{XYZ Data Class}
 \description{
-A class to handle xyz data.
+A class to handle processed geoelectrics data in the xyz format.
 The software Res2DInv produces .xyz-files that contain the
 inverted resistance values. The xyz class parses .xyz files.
 }
@@ -27,8 +27,8 @@ It is reconstructed from .xyz-file.}
 }}
 
 \examples{
-# xyzData = new("XyzData",
-#                address = "../example/xyzFiles/p1_DipolDipol_SW-NE.xyz"),
+xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+          package='geoelectrics'))
 
 data(sinkhole)
 sinkhole@profiles[[1]]@xyzData

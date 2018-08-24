@@ -22,8 +22,9 @@ A class to handle gps coordinates.
 }}
 
 \examples{
-# gpsCoordinates = new("GpsCoordinates",
-#                      address = "../example/gps/p1.txt")
+gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+                 package='geoelectrics'))
+
 data(sinkhole)
 sinkhole@profiles[[1]]@gpsCoordinates
 sinkhole@profiles[[1]]@gpsCoordinates@address
