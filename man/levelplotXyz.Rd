@@ -33,16 +33,16 @@ data without topography (height adjustment).
 The xyz values are obtained through inversion of the raw values.
 }
 \examples{
-# data(sinkhole)
+data(sinkhole)
 
-# levelplotXyz(sinkhole@profiles[[1]])
-# levelplotLegendLabel()
+levelplotXyz(sinkhole@profiles[[1]])
+levelplotLegendLabel()
 
-# levelplotXyz(sinkhole@profiles[[2]])
-# levelplotLegendLabel()
+levelplotXyz(sinkhole@profiles[[2]])
+levelplotLegendLabel()
 
-# levelplotXyz(sinkhole@profiles[[3]])
-# levelplotLegendLabel()
+levelplotXyz(sinkhole@profiles[[3]])
+levelplotLegendLabel()
 }
 \seealso{
 \code{\link{XyzData-class}}, \code{\link{levelplotXyzHeight}},

@@ -33,16 +33,16 @@ xyz data after height adjustment.
 The xyz values are obtained through inversion of the raw values.
 }
 \examples{
-# data(sinkhole)
+data(sinkhole)
 
-# levelplotXyzHeight(sinkhole@profiles[[1]])
-# levelplotLegendLabel()
+levelplotXyzHeight(sinkhole@profiles[[1]])
+levelplotLegendLabel()
 
-# levelplotXyzHeight(sinkhole@profiles[[2]])
-# levelplotLegendLabel()
+levelplotXyzHeight(sinkhole@profiles[[2]])
+levelplotLegendLabel()
 
-# levelplotXyzHeight(sinkhole@profiles[[3]])
-# levelplotLegendLabel()
+levelplotXyzHeight(sinkhole@profiles[[3]])
+levelplotLegendLabel()
 }
 \seealso{
 \code{\link{XyzData-class}}, \code{\link{levelplotXyz}},

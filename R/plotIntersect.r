@@ -21,10 +21,10 @@
 #' @export
 #' @seealso \code{\link{ProfileSet-class}}
 #' @examples
-#' # data(sinkhole)
+#' data(sinkhole)
 #'
-#' # plotIntersect(sinkhole)
-#' # plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
+#' plotIntersect(sinkhole)
+#' plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 setGeneric("plotIntersect", function(.Object1,
                                      .Object2 = NULL,
                                      xlab = "Height above sea level [m]",

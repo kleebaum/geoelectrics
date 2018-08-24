@@ -54,10 +54,10 @@ Plots resistivity against depth on and next to the intersection line
 between two profiles.
 }
 \examples{
-# data(sinkhole)
+data(sinkhole)
 
-# plotIntersect(sinkhole)
-# plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
+plotIntersect(sinkhole)
+plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 }
 \seealso{
 \code{\link{ProfileSet-class}}

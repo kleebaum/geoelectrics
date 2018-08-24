@@ -24,15 +24,15 @@
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plot3dXyz}},
 #' @examples
-#' # data(sinkhole)
+#' data(sinkhole)
 #'
-#' # plotLegend(sinkhole)
+#' plotLegend(sinkhole)
 #'
 #' # for linear scale:
-#' # plotLegend(sinkhole@profiles[[1]],
-#' #            trafo=function(x) x,
-#' #            backtrafo=function(x) x,
-#' #            minData=100, maxData=50000)
+#' plotLegend(sinkhole@profiles[[1]],
+#'            trafo=function(x) x,
+#'            backtrafo=function(x) x,
+#'            minData=100, maxData=50000)
 setGeneric("plotLegend", function(.Object,
                                   legend.lab = expression(paste("Resistivity [", Omega, " m]")),
                                   minData = 0,

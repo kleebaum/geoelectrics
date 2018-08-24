@@ -3,22 +3,58 @@ R package to visualize geoelectric resistivity measurement profiles.
 
 [![Build Status](https://travis-ci.org/kleebaum/geoelectrics.svg?branch=master)](https://travis-ci.org/kleebaum/geoelectrics)
 
-![example plot](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/sinkhole.png)
-
 Electrical resistivity tomography is an efficient geophysical technique to investigate the spatial extent of subsurface structures. Many scientific objectives in geology demand three-dimensional imaging. 
 3D electrical resistivity tomography provides a technique to survey three-dimensional structures. 
 Nonetheless, 3D electrical resistivity tomography requires an enormous amount of time as well as a high work load. 
 In most cases, 2D electrical resistivity tomography is used to obtain two-dimensional subsurface profiles. 
 This R package enables the user to visualize two-dimensional profiles in three dimensions.
  
-## Installation Prerequisites
-- R: http://www.r-project.org/
-- the following packages from CRAN:
-  - rgl
-  - lattice
-  - fields
+## Installation 
+
+### Prerequisites
+The following prerequisites are necessary for the *geoelectrics* R package:
+- the [R software environment](http://www.r-project.org/)
+- the following packages from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/):
+  - [rgl](https://cran.r-project.org/web/packages/rgl/)
+  - [lattice](https://cran.r-project.org/web/packages/lattice/)
+  - [fields](https://cran.r-project.org/web/packages/fields/)
+- optionally: an integrated development environment such as [RStudio](https://www.rstudio.com/)
   
+### Build from Source Code
+You need to install the *devtools* package to build the *geoelectrics* package from source code:
+```
+install.packages("devtools")
+library(devtools)
+```
+
+Perform ONE of the following steps to build the *geoelectrics* package:
+- Install the package from GitHub via ```install_github('kleebaum/geoelectrics')```
+- Clone the source code, navigate to the *geoelectrics* folder, open R in a terminal/RStudio and type ```build()```
+
+### Installation from CRAN
+[The *geoelectrics* package is available via the Comprehensive R Archive Network (CRAN).](https://cran.r-project.org/web/packages/geoelectrics/)
+```
+install.packages("geoelectrics")
+library(geoelectrics)
+```
+
+## Implementation Details
+The *geoelectrics* R package provides five model classes to represent geolectric resistivity measurement data:
+- The *Profile* class represents a 2D geolectric profile.
+- The *ProfileSet* class represents a set of 2D geolectric profiles in order to visualize them in three dimensions.
+- The *RawData* class represents geolectric raw data.
+- The *GpsCoordinates* class represents the GPS coordinates of a single profile.
+- The *XyzData* class represents processed (inverted) geolectric data.
+
+![UML class diagram](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/class_diagram.png)
+*Class diagram of the geoelectrics R package*
+
 ## Example Usage
+Run ```demo(geoelectrics)``` to get an impression of the *geoelectrics* R package.
+
+![Example plot created with the geoelectrics R package](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/sinkhole.png)
+*Example plot created with the geoelectrics R package.*
+
 ### Profile
 An object of the Profile class is created for each profile:
 ```
@@ -67,9 +103,12 @@ p3 <- heightAdjustment(p3, -10)
 
 ## Graphical User Interface
 This R package provides a graphical user interface (GUI). 
+![GUI](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/gui.png)
+
 The following packages from CRAN are needed for the GUI:
   - tcltk
   - tkrplot
-Please perform ONE of the following steps to start the GUI:
+
+Perform ONE of the following steps to start the GUI:
   - open R in a terminal and type ```source(system.file("gui/gui.r", package="geoelectrics"))```
   - navigate into the *gui* folder and execute *start_gui.sh* (Unix) or *start_gui.bat* (Windows, make sure that R is added to the PATH variable)
