@@ -23,7 +23,7 @@ This can either be a single character or an integer code for one of a set of gra
 Plots raw data points of a single profile (e.g. to show measurement gaps).
 }
 \examples{
-data(sinkhole) 
+data(sinkhole)
 plotRaw(sinkhole@profiles[[1]])
 plotRaw(sinkhole@profiles[[2]])
 plotRaw(sinkhole@profiles[[3]])
@@ -31,4 +31,3 @@ plotRaw(sinkhole@profiles[[3]])
 \seealso{
 \code{\link{plotRawHeight}}, \code{\link{RawData-class}}
 }
-

@@ -39,4 +39,3 @@ levelplotLegendLabel()
 levelplotRaw(sinkhole@profiles[[3]])
 levelplotLegendLabel()
 }
-

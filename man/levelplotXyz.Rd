@@ -28,7 +28,7 @@ levelplotXyz(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \item{...}{lattice levelplot arguments.}
 }
 \description{
-Plots the interpolated resistance values of the xyz 
+Plots the interpolated resistance values of the xyz
 data without topography (height adjustment).
 The xyz values are obtained through inversion of the raw values.
 }
@@ -48,4 +48,3 @@ The xyz values are obtained through inversion of the raw values.
 \code{\link{XyzData-class}}, \code{\link{levelplotXyzHeight}},
 \code{\link{levelplotRaw}}
 }
-

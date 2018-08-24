@@ -17,11 +17,10 @@ calcRelativeCoords(coords, minLat, minLon)
 data frame that contains the relative coordinates (latitude and longitude).
 }
 \description{
-Calculates relative coordinates (unity: meters) from GPS coordinates 
+Calculates relative coordinates (unity: meters) from GPS coordinates
 (either given in UTM or Gauss Krueger).
 This method is used when a profile set of many profiles is instantiated.
 }
 \seealso{
 \code{\link{ProfileSet-class}}, \code{\link{GpsCoordinates-class}}
 }
-

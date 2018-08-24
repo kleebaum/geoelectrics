@@ -20,6 +20,7 @@ A class to handle gps coordinates.
 
 \item{\code{lmRelative}}{linear model of relative coordinates}
 }}
+
 \examples{
 # gpsCoordinates = new("GpsCoordinates",
 #                      address = "../example/gps/p1.txt")
@@ -35,4 +36,3 @@ sinkhole@profiles[[1]]@gpsCoordinates@lmRelative
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
 }
-

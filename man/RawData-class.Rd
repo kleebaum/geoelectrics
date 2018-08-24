@@ -16,6 +16,7 @@ A class to handle geoelectrics raw data.
 
 \item{\code{height}}{data frame that contains topography information (distance and height).}
 }}
+
 \examples{
 # rawData = new("RawData",
 #                address = "../example/rawdata/p1_DipolDipol_SW-NE.dat")
@@ -29,4 +30,3 @@ sinkhole@profiles[[2]]@rawData@seaLevel
 \seealso{
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 }
-

@@ -18,20 +18,19 @@ GPS measurement heights might differ otherwise.
 \examples{
 # p3 <- new("Profile",
 #            title = "Profile 3",
-#            xyzData = 
-#              new("XyzData", 
+#            xyzData =
+#              new("XyzData",
 #                  address = "../example/xyzFiles/p3_DipolDipol_S-N.xyz"),
-#            rawData = 
+#            rawData =
 #              new("RawData",
 #                  address = "../example/rawdata/p3_DipolDipol_S-N.dat"),
 #            measurementType = "DipolDipol",
-#            gpsCoordinates = 
+#            gpsCoordinates =
 #              new("GpsCoordinates",
-#                  address = "../example/gps/p3.txt")) 
+#                  address = "../example/gps/p3.txt"))
 
 # p3 <- heightAdjustment(p3, -10)
 }
 \seealso{
 \code{\link{GpsCoordinates-class}}, \code{\link{Profile-class}}
 }
-

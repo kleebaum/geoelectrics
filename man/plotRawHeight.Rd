@@ -5,8 +5,8 @@
 \title{Plot Raw Data Points considering Topography}
 \usage{
 plotRawHeight(Profile, height = Profile@rawData@height, spline = TRUE,
-  xlab = "Length [m]", ylab = "Depth [m]", main = paste(Profile@title,
-  "without topography"), ...)
+  xlab = "Length [m]", ylab = "Depth [m]",
+  main = paste(Profile@title, "without topography"), ...)
 }
 \arguments{
 \item{Profile}{profile.}
@@ -36,4 +36,3 @@ plotRawHeight(sinkhole@profiles[[2]], sinkhole@profiles[[2]]@xyzData@height)
 \seealso{
 \code{\link{plotRaw}}, \code{\link{RawData-class}}
 }
-

@@ -2,25 +2,25 @@
 % Please edit documentation in R/plot3dXyz.r
 \docType{methods}
 \name{plot3dXyz}
-\alias{plot3d}
 \alias{plot3dXyz}
-\alias{plot3dXyz,Profile-method}
 \alias{plot3dXyz,ProfileSet-method}
+\alias{plot3d}
+\alias{plot3dXyz,Profile-method}
 \title{Plots Profiles 3D}
 \usage{
 plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
   zlab = "", minData = 0, maxData = 9999999, col = colors,
   trafo = log, psize = pointsize)
 
-\S4method{plot3dXyz}{ProfileSet}(.Object, title = .Object@title, sub = "",
-  xlab = "", ylab = "", zlab = "", minData = .Object@minData,
-  maxData = .Object@maxData, col = colors, trafo = log,
-  psize = pointsize)
+\S4method{plot3dXyz}{ProfileSet}(.Object, title = .Object@title,
+  sub = "", xlab = "", ylab = "", zlab = "",
+  minData = .Object@minData, maxData = .Object@maxData, col = colors,
+  trafo = log, psize = pointsize)
 
-\S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "", xlab = "",
-  ylab = "", zlab = "", minData = .Object@xyzData@minData,
-  maxData = .Object@xyzData@maxData, col = colors, trafo = log,
-  psize = pointsize)
+\S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "",
+  xlab = "", ylab = "", zlab = "",
+  minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData,
+  col = colors, trafo = log, psize = pointsize)
 }
 \arguments{
 \item{.Object}{either an object of a single Profile or a ProfileSet.}
@@ -46,7 +46,7 @@ plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
 \item{psize}{size of value points (default: 10).}
 }
 \description{
-Plots the interpolated resistance values of the 
+Plots the interpolated resistance values of the
 xyz data for all profiles.
 }
 \examples{
@@ -59,4 +59,3 @@ xyz data for all profiles.
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
 }
-

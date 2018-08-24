@@ -11,14 +11,13 @@ myColorRamp(col, values, minData = min(values), maxData = max(values))
 
 \item{values}{Numeric vector of values.}
 
-\item{minData}{Minimum value (default min(values)). 
+\item{minData}{Minimum value (default min(values)).
 All smaller values will assigned to the first color in vector col.}
 
 \item{maxData}{Maximum value (default max(values)).
 All higher values will assigned to the last color in vector col.}
 }
 \description{
-Maps color to (resistivity) values. 
+Maps color to (resistivity) values.
 A minimum and maximum value can be specified.
 }
-

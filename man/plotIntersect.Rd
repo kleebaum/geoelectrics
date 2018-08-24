@@ -3,8 +3,8 @@
 \docType{methods}
 \name{plotIntersect}
 \alias{plotIntersect}
-\alias{plotIntersect,Profile,Profile-method}
 \alias{plotIntersect,ProfileSet,ANY-method}
+\alias{plotIntersect,Profile,Profile-method}
 \title{Plot Profile Intersection}
 \usage{
 plotIntersect(.Object1, .Object2 = NULL,
@@ -42,15 +42,15 @@ plotIntersect(.Object1, .Object2 = NULL,
 \item{pch}{numeric vector of plotting symbols.}
 
 \item{type}{plot type (default "p" for points).
-"b" for both points and lines, "c" for empty points joined by lines, 
-"o" for overplotted points and lines, 
-"s" and "S" for stair steps and "h" for histogram-like vertical lines. 
+"b" for both points and lines, "c" for empty points joined by lines,
+"o" for overplotted points and lines,
+"s" and "S" for stair steps and "h" for histogram-like vertical lines.
 Finally, "n" does not produce any points or lines.}
 
 \item{legendLoc}{legendLocation (default "bottomleft").}
 }
 \description{
-Plots resistivity against depth on and next to the intersection line 
+Plots resistivity against depth on and next to the intersection line
 between two profiles.
 }
 \examples{
@@ -62,4 +62,3 @@ between two profiles.
 \seealso{
 \code{\link{ProfileSet-class}}
 }
-

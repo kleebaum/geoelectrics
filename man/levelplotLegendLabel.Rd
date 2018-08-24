@@ -31,4 +31,3 @@ Plots the label of the levelplot.
 \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}},
 \code{\link{levelplotRaw}}
 }
-

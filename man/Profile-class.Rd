@@ -22,16 +22,17 @@ A class to handle a single profile.
 
 \item{\code{gpsCoordinates}}{object of GpsCoordinates Class (\code{\link{GpsCoordinates-class}}).}
 }}
+
 \examples{
 # p1 <- new("Profile",
 #           title = "Profile 1",
-#           xyzData = 
-#             new("XyzData", 
-#           rawData = 
+#           xyzData =
+#             new("XyzData",
+#           rawData =
 #             new("RawData",
 #                 address = "../example/rawdata/p1_DipolDipol_SW-NE.dat"),
 #           measurementType = "DipolDipol",
-#           gpsCoordinates = 
+#           gpsCoordinates =
 #             new("GpsCoordinates",
 #                 address = "../example/gps/p1.txt"))
 #
@@ -47,4 +48,3 @@ A class to handle a single profile.
 \code{\link{XyzData-class}}, \code{\link{RawData-class}},
 \code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
 }
-

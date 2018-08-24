@@ -22,6 +22,7 @@ A class to handle a collection of many profiles.
 
 \item{\code{maxData}}{maximum data value of all profiles}
 }}
+
 \examples{
 # sinkhole <- new("ProfileSet",
 #                profiles = list(p1, p2, p3),
@@ -33,4 +34,3 @@ plot3dXyz(sinkhole)
 \seealso{
 \code{\link{Profile-class}}, \code{\link{plot3dXyz}}
 }
-
