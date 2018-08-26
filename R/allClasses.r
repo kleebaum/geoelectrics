@@ -4,7 +4,6 @@
 #'
 #' @slot address address of the raw data ascii file.
 #' @slot seaLevel data frame that contains raw data resistance values and their positions (distance and depth).
-#' @slot height data frame that contains topography information (distance and height).
 #' @export
 #' @examples
 #' rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
@@ -13,15 +12,13 @@
 #' data(sinkhole)
 #' sinkhole@profiles[[2]]@rawData
 #' sinkhole@profiles[[2]]@rawData@address
-#' sinkhole@profiles[[2]]@rawData@height
 #' sinkhole@profiles[[2]]@rawData@seaLevel
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 setClass(
   'RawData',
   representation = representation(
     address = 'character',
-    seaLevel = 'data.frame',
-    height = 'data.frame'
+    seaLevel = 'data.frame'
   )
 )
 setMethod('initialize', 'RawData',
@@ -34,9 +31,6 @@ setMethod('initialize', 'RawData',
             } else {
               .Object@address = address
               .Object@seaLevel <- parseRawDataFile(address, skip)
- 
-              skip <- skip + nrow(.Object@seaLevel)
-              .Object@height <- parseHeight(address, skip)
             }
             return(.Object)
           })

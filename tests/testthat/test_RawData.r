@@ -21,9 +21,6 @@ test_that('Test Parse Raw Data File Correct Address', {
   rawData = new('RawData')
   rawData@address = testFileAddress
   rawData@seaLevel <- parseRawDataFile(address = testFileAddress)
-  rawData@height <- parseHeight(address = testFileAddress, 9 +
-                                nrow(rawData@seaLevel))
-  
   expect_equal(rawData, new('RawData', address = testFileAddress))
 })
 
