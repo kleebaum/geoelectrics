@@ -45,7 +45,7 @@ library(geoelectrics)
 
 ## Domain Model
 The domain model shows the fundamental classes involved in electrical resistivity tomography.
-A 2D subsurface profile comprises GPS coordinates and raw data.
+A 2D subsurface profile comprises GPS coordinates (latitudinal, longitudinal, and height information) and raw data.
 The raw data is collected using a certain type of measurement (e.g., Dipole Dipole or Wenner). 
 The raw data needs to be processed resulting in processed data.
 A profile set comprises 2D profiles.
@@ -57,9 +57,9 @@ A profile set comprises 2D profiles.
 The *geoelectrics* R package provides five model classes to represent geolectric resistivity measurement data:
 - The *Profile* class represents a 2D geolectric resistivity measurement profile.
 - The *ProfileSet* class represents a set of 2D geolectric profiles in order to visualize them in three dimensions.
-- The *RawData* class represents geolectric raw data.
+- The *RawData* class represents geolectric raw data. [example file](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/raw/p1_DipolDipol_SW-NE.dat)
 - The *GpsCoordinates* class represents the GPS coordinates of a single profile. The constructor of this class expects the address of a text file as an argument. [The text file contains two columns with latitudinal and longitudinal values.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/gps/p1.txt)
-- The *XyzData* class represents processed (inverted) geolectric data.
+- The *XyzData* class represents processed (inverted) geolectric data. [example file](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/processed/p1_DipolDipol_SW-NE.xyz)
 
 ![UML class diagram](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/class_diagram.png)
 *Class diagram of the geoelectrics R package*
