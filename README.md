@@ -5,12 +5,14 @@ R package to visualize geoelectric resistivity measurement profiles.
 [![Coverage Status](https://codecov.io/gh/kleebaum/geoelectrics/branch/master/graph/badge.svg)](https://codecov.io/gh/kleebaum/geoelectrics)
 [![CRAN Version](http://www.r-pkg.org/badges/version/geoelectrics)](https://cran.r-project.org/package=geoelectrics)
 
-
 Electrical resistivity tomography is an efficient geophysical technique to investigate the spatial extent of subsurface structures. Many scientific objectives in geology demand three-dimensional imaging. 
 3D electrical resistivity tomography provides a technique to survey three-dimensional structures. 
 Nonetheless, 3D electrical resistivity tomography requires an enormous amount of time as well as a high work load. 
 In most cases, 2D electrical resistivity tomography is used to obtain two-dimensional subsurface profiles. 
 This R package enables the user to visualize two-dimensional profiles in three dimensions.
+
+![Example plot created with the geoelectrics R package](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/sinkhole.png)
+*Example plot created with the geoelectrics R package.*
  
 ## Installation 
 
@@ -64,10 +66,6 @@ The *geoelectrics* R package provides five model classes to represent geolectric
 
 ## Example Usage
 Run ```demo(geoelectrics)``` to get an impression of the *geoelectrics* R package.
-
-![Example plot created with the geoelectrics R package](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/sinkhole.png)
-
-*Example plot created with the geoelectrics R package.*
 
 ### Profile
 An object of the Profile class is created for each profile:

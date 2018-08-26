@@ -7,7 +7,7 @@
 #' @slot height data frame that contains topography information (distance and height).
 #' @export
 #' @examples
-#' rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+#' rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
 #'           package='geoelectrics'))
 #'
 #' data(sinkhole)
@@ -106,7 +106,7 @@ setMethod("initialize", "RawData",
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
 #' @examples
-#' xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+#' xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
 #'           package='geoelectrics'))
 #'
 #' data(sinkhole)
@@ -201,7 +201,7 @@ setMethod("initialize", "XyzData",
                 indices <- which(round(profile[1]) == i)
                 if (length(indices) > 0) {
                   index <- min(indices)
-                  height[j, ] <-
+                  height[j,] <-
                     c(profile[index, 1], profile[index, 2])
                   j <- j + 1
                 }
@@ -227,7 +227,7 @@ setMethod("initialize", "XyzData",
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
 #' @examples
-#' gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+#' gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
 #'                  package='geoelectrics'))
 #'
 #' data(sinkhole)
@@ -247,12 +247,12 @@ setClass(
     lmRelative = "lm"
   ),
   prototype = prototype(lm = lm(1 ~ 1),
-                        lmRelative = lm (1 ~ 1))
+                        lmRelative = lm(1 ~ 1))
 )
 setMethod("initialize", "GpsCoordinates",
           function(.Object, address) {
             if (nchar(address) == 0) {
-              print("GPS coordinates address is missing.")
+              stop("GPS coordinates file address is empty.")
             } else {
               .Object@address = address
               
@@ -294,14 +294,14 @@ setMethod("initialize", "GpsCoordinates",
 #' p1 <- new('Profile',
 #'            title = 'Profile 1',
 #'            xyzData =
-#'              new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+#'              new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
 #'                                       package='geoelectrics')),
 #'            rawData =
-#'              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+#'              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
 #'                                       package='geoelectrics')),
 #'            measurementType = "DipoleDipole",
 #'            gpsCoordinates =
-#'              new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+#'              new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
 #'                                              package='geoelectrics')))
 #'
 #' p1@title
@@ -309,7 +309,7 @@ setMethod("initialize", "GpsCoordinates",
 #' p1@rawData
 #' p1@measurementType
 #' p1@gpsCoordinates
-#' 
+#'
 #' plot3dXyz(p1)
 setClass(
   "Profile",
