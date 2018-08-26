@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+\tikzumlset{font = \sffamily\footnotesize, fill class=white}
+\umlsimpleclass[x=6, y=-4]{Profile}
+\umlsimpleclass[x=9, y=-4]{ProfileSet}
+\umlsimpleclass[x=6, y=-2.5]{RawData}
+\umlsimpleclass[x=2.5, y=-4]{GpsCoordinates}
+\umlsimpleclass[x=6, y=-5.5]{ProcessedData}
+	
+\umluniaggreg[mult1=$^*$, mult2=$0..^*$]{ProfileSet}{Profile}
+\umlunicompo[mult2=$0..1$]{Profile}{RawData}
+\umlunicompo[mult2=$0..1$]{Profile}{ProcessedData}
+\umlunicompo[mult2=$0..1$]{Profile}{GpsCoordinates}
+\end{tikzpicture}
