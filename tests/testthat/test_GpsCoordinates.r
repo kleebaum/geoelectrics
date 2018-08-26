@@ -1,3 +1,5 @@
+context("classes")
+
 test_that('Test GpsCoordinates Constructor Missing Address', {
   expect_error(new('GpsCoordinates'), "argument \"address\" is missing, with no default")
 })
@@ -12,6 +14,8 @@ test_that('Test GpsCoordinates Constructor Wrong Address', {
 
 test_that('Test GpsCoordinates Constructor Correct Address', {
  gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
-                                                               package='geoelectrics'))
+                                                               package = 'geoelectrics'))
  expect_s4_class(gpsCoordinates, "GpsCoordinates")
+ lm <- lm(gpsCoordinates@exact$lat ~ gpsCoordinates@exact$lon)
+ expect_equal(lm$fitted.values, gpsCoordinates@lm$fitted.values)
 })

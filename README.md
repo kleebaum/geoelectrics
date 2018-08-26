@@ -58,7 +58,7 @@ The *geoelectrics* R package provides five model classes to represent geolectric
 - The *Profile* class represents a 2D geolectric resistivity measurement profile.
 - The *ProfileSet* class represents a set of 2D geolectric profiles in order to visualize them in three dimensions.
 - The *RawData* class represents geolectric raw data.
-- The *GpsCoordinates* class represents the GPS coordinates of a single profile.
+- The *GpsCoordinates* class represents the GPS coordinates of a single profile. The constructor of this class expects the address of a text file as an argument. [The text file contains two columns with latitudinal and longitudinal values.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/gps/p1.txt)
 - The *XyzData* class represents processed (inverted) geolectric data.
 
 ![UML class diagram](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/class_diagram.png)
@@ -117,9 +117,9 @@ p3 <- heightAdjustment(p3, -10)
 This R package provides a graphical user interface (GUI). 
 ![GUI](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/gui.png)
 
-The following packages from CRAN are needed for the GUI:
-  - tcltk
-  - tkrplot
+The following packages are needed for the GUI:
+  - [tcltk](https://www.rdocumentation.org/packages/tcltk/) part of R
+  - [tkrplot](https://cran.r-project.org/package=tkrplot/) from CRAN 
 
 Perform ONE of the following steps to start the GUI:
   - open R in a terminal and type ```source(system.file("gui/gui.r", package="geoelectrics"))```
