@@ -16,6 +16,8 @@ test_that('Test GpsCoordinates Constructor Correct Address', {
  gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
                                                                package = 'geoelectrics'))
  expect_s4_class(gpsCoordinates, "GpsCoordinates")
+ expect_equal(gpsCoordinates, initialize(gpsCoordinates, address = system.file('extdata/gps/p1.txt',
+                                                                               package = 'geoelectrics')))
  lm <- lm(gpsCoordinates@exact$lat ~ gpsCoordinates@exact$lon)
  expect_equal(lm$fitted.values, gpsCoordinates@lm$fitted.values)
 })
