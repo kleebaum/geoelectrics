@@ -10,8 +10,8 @@ test_that('Test GpsCoordinates Constructor Wrong Address', {
   expect_error(new('GpsCoordinates', address = 'abc'), "cannot open the connection")
 })
 
-# test_that('Test GpsCoordinates Constructor Correct Address', {
-#  gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
-#                                                                package='geoelectrics'))
-#  expect_s4_class(gpsCoordinates, "GpsCoordinates")
-# })
+test_that('Test GpsCoordinates Constructor Correct Address', {
+ gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
+                                                               package='geoelectrics'))
+ expect_s4_class(gpsCoordinates, "GpsCoordinates")
+})
