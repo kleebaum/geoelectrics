@@ -1,4 +1,4 @@
-context("classes")
+context("test-allclasses")
 
 test_that('Test GpsCoordinates Constructor Missing Address', {
   expect_error(new('GpsCoordinates'), "argument \"address\" is missing, with no default")
