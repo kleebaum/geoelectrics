@@ -24,9 +24,9 @@ A class to handle a collection of many profiles.
 }}
 
 \examples{
-# sinkhole <- new("ProfileSet",
+# sinkhole <- new('ProfileSet',
 #                profiles = list(p1, p2, p3),
-#                title="Sinkhole")
+#                title='Sinkhole')
 
 data(sinkhole)
 plot3dXyz(sinkhole)

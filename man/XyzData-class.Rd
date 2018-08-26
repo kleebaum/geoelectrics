@@ -27,7 +27,7 @@ It is reconstructed from .xyz-file.}
 }}
 
 \examples{
-xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
           package='geoelectrics'))
 
 data(sinkhole)

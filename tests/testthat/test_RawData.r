@@ -1,21 +1,34 @@
-context("test_RawData")
+context('test_RawData')
+
+testFileAddress <- system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
+                               package = 'geoelectrics')
 
 test_that('Test RawData Constructor Missing Address', {
-  expect_error(new('RawData')) # "argument \"address\" is missing, with no default"
+  # 'argument \'address\' is missing, with no default'
+  expect_that(new('RawData'), prints_text('Created an empty raw data object.')) 
 })
 
 test_that('Test RawData Constructor Empty Address', {
-  expect_error(new('RawData', address = ''), "Raw data file cannot be found.")
+  expect_error(new('RawData', address = ''), 'Raw data file address is given but file cannot be found.')
 })
 
 test_that('Test RawData Constructor Wrong Address', {
-  expect_error(new('RawData', address = 'abc')) # "cannot open the connection"
+  # 'cannot open the connection'
+  expect_error(new('RawData', address = 'abc')) 
+})
+
+test_that('Test Parse Raw Data File Correct Address', {
+  rawData = new('RawData')
+  rawData@address = testFileAddress
+  rawData@seaLevel <- parseRawDataFile(address = testFileAddress)
+  rawData@height <- parseHeight(address = testFileAddress, 9 +
+                                nrow(rawData@seaLevel))
+  
+  expect_equal(rawData, new('RawData', address = testFileAddress))
 })
 
 test_that('Test RawData Constructor Correct Address', {
-  rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
-                                                 package = 'geoelectrics'))
-  expect_s4_class(rawData, "RawData")
-  expect_equal(rawData, initialize(rawData, address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
-                                                                  package = 'geoelectrics')))
+  rawData = new('RawData', address = testFileAddress)
+  expect_s4_class(rawData, 'RawData')
+  expect_equal(rawData, initialize(rawData, address = testFileAddress))
 })

@@ -27,14 +27,14 @@ A class to handle a single profile.
 p1 <- new('Profile',
            title = 'Profile 1',
            xyzData =
-             new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz', 
+             new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
                                       package='geoelectrics')),
            rawData =
-             new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+             new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
                                       package='geoelectrics')),
-           measurementType = "DipoleDipole",
+           measurementType = 'DipoleDipole',
            gpsCoordinates =
-             new('GpsCoordinates', address = system.file('extdata/gps/p1.txt', 
+             new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
                                              package='geoelectrics')))
 
 p1@title

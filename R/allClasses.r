@@ -3,7 +3,7 @@
 #' A class to handle geoelectrics raw data.
 #'
 #' @slot address address of the raw data ascii file.
-#' @slot seaLevel data frame that contains raw data positions and resitance values.
+#' @slot seaLevel data frame that contains raw data resistance values and their positions (distance and depth).
 #' @slot height data frame that contains topography information (distance and height).
 #' @export
 #' @examples
@@ -17,74 +17,26 @@
 #' sinkhole@profiles[[2]]@rawData@seaLevel
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 setClass(
-  "RawData",
+  'RawData',
   representation = representation(
-    address = "character",
-    seaLevel = "data.frame",
-    height = "data.frame"
+    address = 'character',
+    seaLevel = 'data.frame',
+    height = 'data.frame'
   )
 )
-setMethod("initialize", "RawData",
-          function(.Object, address) {
-            if (nchar(address) == 0 || !file.exists(address)) {
-              stop("Raw data file cannot be found.")
+setMethod('initialize', 'RawData',
+          function(.Object, address, skip = 9) {
+            if (missing(address)) {
+              cat('Created an empty raw data object.')
+            }
+            else if (nchar(address) == 0 || !file.exists(address)) {
+              stop('Raw data file address is given but file cannot be found.')
             } else {
               .Object@address = address
-              con  <- file(address, open = "r")
-              
-              skipLines1 <- 9
-              skipLines2 <- 0
-              numberOfRows1 <- 0
-              numberOfRows2 <- 0
-              
-              for (i in 1:10) {
-                oneLine <- readLines(con, n = 1)
-              }
-              
-              while (grepl(".", oneLine, fixed = T)) {
-                oneLine <- readLines(con, n = 1)
-                numberOfRows1 <- numberOfRows1 + 1
-              }
-              
-              profile <- read.table(
-                file = address,
-                skip = skipLines1,
-                header = F,
-                nrows = numberOfRows1
-              )
-              
-              .Object@seaLevel <- data.frame("dist" = profile[1],
-                                             "depth" = profile[2],
-                                             "val" = profile[4])
-              colnames(.Object@seaLevel) <-
-                c("dist", "depth", "val")
-              
-              skipLines2 <- skipLines1 + numberOfRows1
-              
-              try({
-                while (!grepl(".", oneLine, fixed = T)) {
-                  oneLine <- readLines(con, n = 1)
-                  skipLines2 <- skipLines2 + 1
-                }
-                
-                while (grepl(".", oneLine, fixed = T)) {
-                  oneLine <- readLines(con, n = 1)
-                  numberOfRows2 <- numberOfRows2 + 1
-                }
-                
-                height <- read.table(
-                  file = address,
-                  skip = skipLines2,
-                  header = F,
-                  nrows = numberOfRows2
-                )
-                
-                .Object@height <- data.frame("dist" = height[1],
-                                             "height" = height[2])
-                colnames(.Object@height) <- c("dist", "height")
-              })
-              
-              close(con)
+              .Object@seaLevel <- parseRawDataFile(address, skip)
+ 
+              skip <- skip + nrow(.Object@seaLevel)
+              .Object@height <- parseHeight(address, skip)
             }
             return(.Object)
           })
@@ -117,47 +69,47 @@ setMethod("initialize", "RawData",
 #' sinkhole@profiles[[1]]@xyzData@minData
 #' sinkhole@profiles[[1]]@xyzData@maxData
 setClass(
-  "XyzData",
+  'XyzData',
   representation = representation(
-    address = "character",
-    seaLevel = "data.frame",
-    heightAdaption = "data.frame",
-    minData = "numeric",
-    maxData = "numeric",
-    height = "data.frame"
+    address = 'character',
+    seaLevel = 'data.frame',
+    heightAdaption = 'data.frame',
+    minData = 'numeric',
+    maxData = 'numeric',
+    height = 'data.frame'
   )
 )
-setMethod("initialize", "XyzData",
+setMethod('initialize', 'XyzData',
           function(.Object, address) {
-            if (nchar(address) == 0) {
-              print("XYZ data address is missing.")
+            if (nchar(address) == 0 || !file.exists(address)) {
+              stop('XYZ data file cannot be found.')
             } else {
               .Object@address = address
-              con  <- file(address, open = "r")
+              con  <- file(address, open = 'r')
               
               skipLines1 <- 0
               numberOfRows <- 0
               numberOfRows2 <- 0
               
               oneLine <- readLines(con, n = 1)
-              while (grepl("/", oneLine)) {
+              while (grepl('/', oneLine)) {
                 oneLine <- readLines(con, n = 1)
                 skipLines1 <- skipLines1 + 1
               }
               
-              while (!grepl("/", oneLine)) {
+              while (!grepl('/', oneLine)) {
                 oneLine <- readLines(con, n = 1)
                 numberOfRows <- numberOfRows + 1
               }
               
               skipLines2 <- skipLines1 + numberOfRows
               
-              while (grepl("/", oneLine)) {
+              while (grepl('/', oneLine)) {
                 oneLine <- readLines(con, n = 1)
                 skipLines2 <- skipLines2 + 1
               }
               
-              while (!grepl("/", oneLine)) {
+              while (!grepl('/', oneLine)) {
                 oneLine <- readLines(con, n = 1)
                 numberOfRows2 <- numberOfRows2 + 1
               }
@@ -174,7 +126,7 @@ setMethod("initialize", "XyzData",
                            depth = profile_without_topo[2],
                            val = profile_without_topo[3])
               colnames(.Object@seaLevel) <-
-                c("dist", "depth", "val")
+                c('dist', 'depth', 'val')
               
               profile <- read.table(
                 file = address,
@@ -188,7 +140,7 @@ setMethod("initialize", "XyzData",
                            depth = profile[2],
                            val = profile[3])
               colnames(.Object@heightAdaption) <-
-                c("dist", "depth", "val")
+                c('dist', 'depth', 'val')
               
               .Object@minData <- min(profile[3])
               .Object@maxData <- max(profile[3])
@@ -201,7 +153,7 @@ setMethod("initialize", "XyzData",
                 indices <- which(round(profile[1]) == i)
                 if (length(indices) > 0) {
                   index <- min(indices)
-                  height[j, ] <-
+                  height[j,] <-
                     c(profile[index, 1], profile[index, 2])
                   j <- j + 1
                 }
@@ -225,7 +177,7 @@ setMethod("initialize", "XyzData",
 #' @slot lmRelative linear model of relative coordinates
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-#' \code{\link{heightAdjustment}}, \code{\link{calcRelativeCoords}}
+#' \code{\link{adjustHeight}}, \code{\link{calcRelativeCoords}}
 #' @examples
 #' gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
 #'                  package='geoelectrics'))
@@ -238,29 +190,29 @@ setMethod("initialize", "XyzData",
 #' sinkhole@profiles[[1]]@gpsCoordinates@relative
 #' sinkhole@profiles[[1]]@gpsCoordinates@lmRelative
 setClass(
-  "GpsCoordinates",
+  'GpsCoordinates',
   representation = representation(
-    address = "character",
-    exact = "data.frame",
-    lm = "lm",
-    relative = "data.frame",
-    lmRelative = "lm"
+    address = 'character',
+    exact = 'data.frame',
+    lm = 'lm',
+    relative = 'data.frame',
+    lmRelative = 'lm'
   ),
   prototype = prototype(lm = lm(1 ~ 1),
                         lmRelative = lm(1 ~ 1))
 )
-setMethod("initialize", "GpsCoordinates",
+setMethod('initialize', 'GpsCoordinates',
           function(.Object, address) {
             if (nchar(address) == 0 || !file.exists(address)) {
-              stop("GPS coordinates file cannot be found.")
+              stop('GPS coordinates file cannot be found.')
             } else {
               .Object@address = address
               
               gpsData <- read.table(file = address, header = T)
               
-              .Object@exact <- data.frame("lat" = gpsData[1],
-                                          "lon" = gpsData[2])
-              colnames(.Object@exact) <- c("lat", "lon")
+              .Object@exact <- data.frame('lat' = gpsData[1],
+                                          'lon' = gpsData[2])
+              colnames(.Object@exact) <- c('lat', 'lon')
               
               lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
               .Object@lm <- lm
@@ -299,7 +251,7 @@ setMethod("initialize", "GpsCoordinates",
 #'            rawData =
 #'              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
 #'                                       package='geoelectrics')),
-#'            measurementType = "DipoleDipole",
+#'            measurementType = 'DipoleDipole',
 #'            gpsCoordinates =
 #'              new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
 #'                                              package='geoelectrics')))
@@ -312,18 +264,18 @@ setMethod("initialize", "GpsCoordinates",
 #'
 #' plot3dXyz(p1)
 setClass(
-  "Profile",
+  'Profile',
   representation = representation(
-    title = "character",
-    number = "numeric",
-    xyzData = "XyzData",
-    rawData = "RawData",
-    measurementType = "character",
-    gpsCoordinates = "GpsCoordinates"
+    title = 'character',
+    number = 'numeric',
+    xyzData = 'XyzData',
+    rawData = 'RawData',
+    measurementType = 'character',
+    gpsCoordinates = 'GpsCoordinates'
   ),
   prototype = prototype(
     number = 0,
-    title = "",
+    title = '',
     xyzData = NULL,
     rawData = NULL
   )
@@ -342,27 +294,27 @@ setClass(
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{plot3dXyz}}
 #' @examples
-#' # sinkhole <- new("ProfileSet",
+#' # sinkhole <- new('ProfileSet',
 #' #                profiles = list(p1, p2, p3),
-#' #                title="Sinkhole")
+#' #                title='Sinkhole')
 #'
 #' data(sinkhole)
 #' plot3dXyz(sinkhole)
 setClass(
-  "ProfileSet",
+  'ProfileSet',
   representation = representation(
-    profiles = "list",
-    title = "character",
-    minLat = "numeric",
-    minLon = "numeric",
-    minData = "numeric",
-    maxData = "numeric"
+    profiles = 'list',
+    title = 'character',
+    minLat = 'numeric',
+    minLon = 'numeric',
+    minData = 'numeric',
+    maxData = 'numeric'
   )
 )
-setMethod("initialize", "ProfileSet",
+setMethod('initialize', 'ProfileSet',
           function(.Object,
                    profiles = list(),
-                   title = "",
+                   title = '',
                    minData = 9999999,
                    maxData = 0,
                    minLat = 100000000000,

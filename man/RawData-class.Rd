@@ -12,13 +12,13 @@ A class to handle geoelectrics raw data.
 \describe{
 \item{\code{address}}{address of the raw data ascii file.}
 
-\item{\code{seaLevel}}{data frame that contains raw data positions and resitance values.}
+\item{\code{seaLevel}}{data frame that contains raw data resistance values and their positions (distance and depth).}
 
 \item{\code{height}}{data frame that contains topography information (distance and height).}
 }}
 
 \examples{
-rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat', 
+rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
           package='geoelectrics'))
 
 data(sinkhole)
