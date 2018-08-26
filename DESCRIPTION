@@ -4,8 +4,18 @@ Version: 0.1.6
 Author: Anja Kleebaum <kleebaum@informatik.uni-heidelberg.de>
 Maintainer: Anja Kleebaum <kleebaum@informatik.uni-heidelberg.de>
 Description: Visualizes two-dimensional geoelectric resistivity measurement profiles in three dimensions.
-Depends: R (>= 3.0), lattice, rgl, fields
+Depends: 
+    R (>= 3.0), 
+    lattice, 
+    rgl, 
+    fields
 Imports: methods
 License: GPL (>= 2)
+URL: https://github.com/kleebaum/geoelectrics
+BugReports: https://github.com/kleebaum/geoelectrics/issues
 Encoding: UTF-8
+Language: en-US
 RoxygenNote: 6.1.0
+Suggests: 
+    covr,
+    testthat
