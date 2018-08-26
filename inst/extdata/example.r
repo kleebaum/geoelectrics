@@ -57,7 +57,7 @@ p3 <- new(
         address = "./inst/extdata/gps/p3.txt")
 )
 
-p3 <- heightAdjustment(p3, -10)
+p3 <- adjustHeight(p3, -10)
 
 sinkhole <- new("ProfileSet",
                 profiles = list(p1, p2, p3),

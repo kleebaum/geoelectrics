@@ -26,8 +26,8 @@ setClass(
 )
 setMethod("initialize", "RawData",
           function(.Object, address) {
-            if (nchar(address) == 0) {
-              print("Raw Data address is missing.")
+            if (nchar(address) == 0 || !file.exists(address)) {
+              stop("Raw data file cannot be found.")
             } else {
               .Object@address = address
               con  <- file(address, open = "r")
@@ -201,7 +201,7 @@ setMethod("initialize", "XyzData",
                 indices <- which(round(profile[1]) == i)
                 if (length(indices) > 0) {
                   index <- min(indices)
-                  height[j,] <-
+                  height[j, ] <-
                     c(profile[index, 1], profile[index, 2])
                   j <- j + 1
                 }
@@ -251,8 +251,8 @@ setClass(
 )
 setMethod("initialize", "GpsCoordinates",
           function(.Object, address) {
-            if (nchar(address) == 0) {
-              stop("GPS coordinates file address is empty.")
+            if (nchar(address) == 0 || !file.exists(address)) {
+              stop("GPS coordinates file cannot be found.")
             } else {
               .Object@address = address
               
