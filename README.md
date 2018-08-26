@@ -2,6 +2,9 @@
 R package to visualize geoelectric resistivity measurement profiles.
 
 [![Build Status](https://travis-ci.org/kleebaum/geoelectrics.svg?branch=master)](https://travis-ci.org/kleebaum/geoelectrics)
+[![Coverage Status](https://codecov.io/gh/kleebaum/geoelectrics/branch/master/graph/badge.svg)](https://codecov.io/gh/kleebaum/geoelectrics)
+[![CRAN Version](http://www.r-pkg.org/badges/version/geoelectrics)](https://cran.r-project.org/package=geoelectrics)
+
 
 Electrical resistivity tomography is an efficient geophysical technique to investigate the spatial extent of subsurface structures. Many scientific objectives in geology demand three-dimensional imaging. 
 3D electrical resistivity tomography provides a technique to survey three-dimensional structures. 
@@ -15,9 +18,9 @@ This R package enables the user to visualize two-dimensional profiles in three d
 The following prerequisites are necessary for the *geoelectrics* R package:
 - the [R software environment](http://www.r-project.org/)
 - the following packages from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/):
-  - [rgl](https://cran.r-project.org/web/packages/rgl/)
-  - [lattice](https://cran.r-project.org/web/packages/lattice/)
-  - [fields](https://cran.r-project.org/web/packages/fields/)
+  - [rgl](https://cran.r-project.org/package=rgl/)
+  - [lattice](https://cran.r-project.org/package=lattice/)
+  - [fields](https://cran.r-project.org/package=fields/)
 - optionally: an integrated development environment such as [RStudio](https://www.rstudio.com/)
   
 ### Build from Source Code
@@ -32,7 +35,7 @@ Perform ONE of the following steps to build the *geoelectrics* package:
 - Clone the source code, navigate to the *geoelectrics* folder, open R in a terminal/RStudio and type ```build()```
 
 ### Installation from CRAN
-[The *geoelectrics* package is available via the Comprehensive R Archive Network (CRAN).](https://cran.r-project.org/web/packages/geoelectrics/)
+[The *geoelectrics* package is available via the Comprehensive R Archive Network (CRAN).](https://cran.r-project.org/package=geoelectrics/)
 ```
 install.packages("geoelectrics")
 library(geoelectrics)
