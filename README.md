@@ -39,8 +39,10 @@ library(geoelectrics)
 ```
 
 ## Domain Model
-The domain model shows the fundamental classes involved in electrical resistivity tomography:
-A 2D subsurface profile comprises GPS coordinates and raw data that needs to be processed. 
+The domain model shows the fundamental classes involved in electrical resistivity tomography.
+A 2D subsurface profile comprises GPS coordinates and raw data.
+The raw data is collected using a certain type of measurement (e.g., Dipole Dipole or Wenner). 
+The raw data needs to be processed resulting in processed data.
 A profile set comprises 2D profiles.
 
 ![Domain model as a UML class diagram](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/domain_data.png)
@@ -61,6 +63,7 @@ The *geoelectrics* R package provides five model classes to represent geolectric
 Run ```demo(geoelectrics)``` to get an impression of the *geoelectrics* R package.
 
 ![Example plot created with the geoelectrics R package](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/sinkhole.png)
+
 *Example plot created with the geoelectrics R package.*
 
 ### Profile
