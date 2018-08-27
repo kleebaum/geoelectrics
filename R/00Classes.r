@@ -122,8 +122,8 @@ setMethod('initialize', 'ProcessedData',
 #'
 #' @slot address address of the gps ascii file
 #' @slot exact data frame that contains measured gps coordinates
+#' @slot relative relative coordinates, normalized to (0,0)
 #' @slot lm linear model of the measured gps coordinates
-#' @slot relative relative coordinates
 #' @slot lmRelative linear model of relative coordinates
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},

@@ -14,9 +14,9 @@ A class to handle gps coordinates.
 
 \item{\code{exact}}{data frame that contains measured gps coordinates}
 
-\item{\code{lm}}{linear model of the measured gps coordinates}
+\item{\code{relative}}{relative coordinates, normalized to (0,0)}
 
-\item{\code{relative}}{relative coordinates}
+\item{\code{lm}}{linear model of the measured gps coordinates}
 
 \item{\code{lmRelative}}{linear model of relative coordinates}
 }}

@@ -22,37 +22,41 @@
 	plot3dXyz(p : ProfileSet) : void\\
 	plotLegend(p : ProfileSet) : void\\
 	plotIntersect(p : ProfileSet) : void}
-\umlclass[y=-0.5]{RawData}{
+\umlclass[y=-0.5, x=-2]{RawData}{
 	address : character\\
 	points : data.frame}{
 	RawData()\\
-	RawData(address : character)}
+	RawData(address : character)\\
+	parseRawDataFile(address : character) : data.frame}
 \umlabstract[x=9,y=1]{ProfileComponent}{}{
 	\textit{plot3dXyz(p : ProfileComponent) : void}\\
 	\textit{plotLegend(p : ProfileComponent) : void}\\
 	\textit{plotIntersect(p1 : ProfileComponent, p2 : ProfileComponent) : void}}
-\umlclass[y=-4]{GpsCoordinates}{
+\umlclass[y=-4, x=-3]{GpsCoordinates}{
 	address : character\\
-	sampleCoordinates : data.frame\\
-	/linearModel : lm\\
-	/normalizedSampleCoordinates : data.frame\\
-	/normalizedLinearModel : lm\\
-	heightInformation : data.frame}{
+	exact : data.frame\\
+	/relative : data.frame\\
+	/lm : lm\\
+	/lmRelative : lm}{
 	GpsCoordinates()\\
-	GpsCoordinates(address : character)}
-\umlclass[y=-8]{ProcessedData}{
+	GpsCoordinates(address : character)\\
+	calcRelativeCoords(minLat : double, minLon : double)}
+\umlclass[y=-8.5, x=-2]{ProcessedData}{
 	address : character\\
 	points : data.frame\\
 	pointsWithTopo : data.frame\\
 	/minData : double\\
-	/maxData : double}{
+	/maxData : double\\
+	/height : data.frame}{
 	ProcessedData()\\
-	ProcessedData(address : character)}
+	ProcessedData(address : character)\\
+	parseProcessedDataFile(address : character) : list\\
+	getHeightInformation() : data.frame}
 	
-\umluniaggreg[anchor2=17, mult1=$^*$, mult2=$^*$]{ProfileSet}{Profile}
+\umluniaggreg[anchor2=18, mult1=$^*$, mult2=$^*$, arg=profiles, pos2=0.65]{ProfileSet}{Profile}
 \umlinherit[anchor1=80, anchor2=-150]{Profile}{ProfileComponent}
 \umlinherit{ProfileSet}{ProfileComponent}
-\umlunicompo[geometry=|-, mult2=$0..1$, pos1=0.3, pos2=1.9, anchor1=130, anchor2=0]{Profile}{RawData}
-\umlunicompo[geometry=|-, mult2=$0..1$, pos1=0.4, pos2=1.9, anchor1=-130, anchor2=-25]{Profile}{ProcessedData}
-\umlunicompo[mult2=$0..1$, pos2=0.8, pos1=0.3, anchor2=-18.5]{Profile}{GpsCoordinates}
+\umlunicompo[geometry=|-, mult2=$0..1$, arg=rawData, pos2=1.7, anchor1=130, anchor2=0]{Profile}{RawData}
+\umlunicompo[geometry=|-, mult2=$0..1$, arg=processedData, pos2=1.5, anchor1=-130, anchor2=0]{Profile}{ProcessedData}
+\umlunicompo[mult2=$0..1$, arg2=gpsCoordinates, pos2=0.5]{Profile}{GpsCoordinates}
 \end{tikzpicture}
