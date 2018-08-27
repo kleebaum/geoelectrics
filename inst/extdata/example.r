@@ -83,6 +83,7 @@ levelplotLegendLabel()
 
 levelplotXyz(p1)
 
+# remove(.Random.seed)
 # remove(p1)
 # remove(p2)
 # remove(p3)

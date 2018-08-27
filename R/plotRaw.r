@@ -47,7 +47,6 @@ plotRaw <- function(Profile,
 #' @examples
 #' data(sinkhole)
 #' plotRawHeight(sinkhole@profiles[[2]])
-#' plotRawHeight(sinkhole@profiles[[2]], sinkhole@profiles[[2]]@xyzData@height)
 plotRawHeight <- function(Profile,
                           height = Profile@processedData@height,
                           spline = TRUE,

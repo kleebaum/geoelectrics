@@ -6,9 +6,9 @@
 \alias{getHeightInformation,ProcessedData-method}
 \title{Gets the Height Information for a Profile}
 \usage{
-getHeightInformation(object, ...)
+getHeightInformation(object)
 
-\S4method{getHeightInformation}{ProcessedData}(object, ...)
+\S4method{getHeightInformation}{ProcessedData}(object)
 }
 \arguments{
 \item{object}{a single Profile.}

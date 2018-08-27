@@ -50,7 +50,7 @@ Finally, "n" does not produce any points or lines.}
 \item{legendLoc}{legendLocation (default "bottomleft").}
 }
 \description{
-Plots resistivity against depth on and next to the intersection line
+Plots resistivity against height on and next to the intersection line
 between two profiles.
 }
 \examples{

@@ -31,7 +31,6 @@ The topography is considered, i.e., heights are added to the measurement depth.
 \examples{
 data(sinkhole)
 plotRawHeight(sinkhole@profiles[[2]])
-plotRawHeight(sinkhole@profiles[[2]], sinkhole@profiles[[2]]@xyzData@height)
 }
 \seealso{
 \code{\link{plotRaw}}, \code{\link{RawData-class}}
