@@ -2,11 +2,11 @@
 % Please edit documentation in R/plotRaw.r
 \name{plotRawHeight}
 \alias{plotRawHeight}
-\title{Plot Raw Data Points considering Topography}
+\title{Plot Raw Data Points With Topography Information}
 \usage{
 plotRawHeight(Profile, height = Profile@processedData@height,
   spline = TRUE, xlab = "Length [m]", ylab = "Depth [m]",
-  main = paste(Profile@title, "without topography"), ...)
+  main = paste(Profile@title, "with topography"), ...)
 }
 \arguments{
 \item{Profile}{profile.}

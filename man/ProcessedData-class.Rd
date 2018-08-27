@@ -27,7 +27,7 @@ It is reconstructed from .xyz-file.}
 }}
 
 \examples{
-processedData = new('ProcessedData', 
+processedData = new('ProcessedData',
                      address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
                      package='geoelectrics'))
 

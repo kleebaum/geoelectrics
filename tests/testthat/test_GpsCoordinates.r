@@ -5,8 +5,11 @@ testFileAddress <- system.file('extdata/gps/p1.txt',
 
 test_that('Test GpsCoordinates Constructor Missing Address', {
   # 'argument \'address\' is missing, with no default'
-  expect_that(new('GpsCoordinates'),
+  expect_that(gpsCoordinates <- new('GpsCoordinates'),
               prints_text('Created an empty GPS coordinates object.'))
+  
+  expect_equal(gpsCoordinates@exact, data.frame(lat = double(),
+                                                lon = double()))
 })
 
 test_that('Test GpsCoordinates Constructor Empty Address', {

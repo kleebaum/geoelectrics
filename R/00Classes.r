@@ -16,17 +16,20 @@
 #' sinkhole@profiles[[2]]@rawData@address
 #' sinkhole@profiles[[2]]@rawData@points
 #' @seealso \code{\link{parseRawDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
-setClass('RawData',
-         representation = representation(address = 'character',
-                                         points = 'data.frame'))
+setClass(
+  'RawData',
+  representation = representation(address = 'character',
+                                  points = 'data.frame'),
+  prototype = prototype(points = data.frame(
+    dist = double(),
+    depth = double(),
+    val = double()
+  ))
+)
 setMethod('initialize', 'RawData',
           function(.Object, address, skip = 9) {
             if (missing(address)) {
-              .Object@points <-
-                data.frame(dist = double(),
-                           depth = double(),
-                           val = double())
-              cat('Created an empty raw data object.')
+              cat('Created an empty raw data object.\n')
             }
             else if (!file.exists(address)) {
               stop('Raw data file address is given but file cannot be found.')
@@ -54,7 +57,7 @@ setMethod('initialize', 'RawData',
 #' @seealso \code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
 #' @examples
-#' processedData = new('ProcessedData', 
+#' processedData = new('ProcessedData',
 #'                      address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
 #'                      package='geoelectrics'))
 #'
@@ -74,27 +77,34 @@ setClass(
     minData = 'numeric',
     maxData = 'numeric',
     height = 'data.frame'
+  ),
+  prototype = prototype(
+    points =
+      data.frame(
+        dist = double(),
+        depth = double(),
+        val = double()
+      ),
+    pointsWithTopo =
+      data.frame(
+        dist = double(),
+        height = double(),
+        val = double()
+      )
   )
 )
 setMethod('initialize', 'ProcessedData',
           function(.Object, address, skip = 0) {
             if (missing(address)) {
-              .Object@points <-
-                data.frame(dist = double(),
-                           depth = double(),
-                           val = double())
-              .Object@pointsWithTopo <-
-                data.frame(dist = double(),
-                           height = double(),
-                           val = double())
-              cat('Created an empty processed data object.')
+              cat('Created an empty processed data object.\n')
             }
             else if (!file.exists(address)) {
               stop('Processed data file address is given but file cannot be found.')
             } else {
               .Object@address = address
               
-              parsedProcessedData <- parseProcessedDataFile(address, skip)
+              parsedProcessedData <-
+                parseProcessedDataFile(address, skip)
               .Object@points <- parsedProcessedData[[1]]
               .Object@pointsWithTopo <- parsedProcessedData[[2]]
               
@@ -138,16 +148,17 @@ setClass(
     relative = 'data.frame',
     lmRelative = 'lm'
   ),
-  prototype = prototype(lm = lm(1 ~ 1),
-                        lmRelative = lm(1 ~ 1))
+  prototype = prototype(
+    exact = data.frame(lat = double(),
+                       lon = double()),
+    lm = lm(1 ~ 1),
+    lmRelative = lm(1 ~ 1)
+  )
 )
 setMethod('initialize', 'GpsCoordinates',
           function(.Object, address) {
             if (missing(address)) {
-              .Object@exact <-
-                data.frame(lat = double(),
-                           lon = double())
-              cat('Created an empty GPS coordinates object.')
+              cat('Created an empty GPS coordinates object.\n')
             }
             else if (!file.exists(address)) {
               stop('GPS coordinates file address is given but file cannot be found.')
@@ -156,13 +167,11 @@ setMethod('initialize', 'GpsCoordinates',
               
               gpsData <- read.table(file = address, header = T)
               
-              .Object@exact <- data.frame('lat' = gpsData[1],
-                                          'lon' = gpsData[2])
-              colnames(.Object@exact) <- c('lat', 'lon')
+              .Object@exact <- data.frame(lat = gpsData[1],
+                                          lon = gpsData[2])
               
-              lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
-              .Object@lm <- lm
-              
+              .Object@lm <- lm(.Object@exact$lat ~ .Object@exact$lon)
+
               minLat <- min(gpsData[1])
               minLon <- min(gpsData[2])
               
@@ -222,8 +231,10 @@ setClass(
   prototype = prototype(
     number = 0,
     title = '',
+    measurementType = '',
     processedData = new('ProcessedData'),
-    rawData = new('RawData')
+    rawData = new('RawData'),
+    gpsCoordinates = new('GpsCoordinates')
   )
 )
 

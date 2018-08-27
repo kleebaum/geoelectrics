@@ -30,7 +30,7 @@ plotRaw <- function(Profile,
   )
 }
 
-#' Plot Raw Data Points considering Topography
+#' Plot Raw Data Points With Topography Information
 #'
 #' Plots raw data points of a single profile (e.g. to show measurement gaps).
 #' The topography is considered, i.e., heights are added to the measurement depth.
@@ -52,7 +52,7 @@ plotRawHeight <- function(Profile,
                           spline = TRUE,
                           xlab = "Length [m]",
                           ylab = "Depth [m]",
-                          main = paste(Profile@title, "without topography"),
+                          main = paste(Profile@title, "with topography"),
                           ...) {
   if (spline) {
     height <- as.data.frame(spline(
