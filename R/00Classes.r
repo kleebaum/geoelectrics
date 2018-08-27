@@ -222,8 +222,8 @@ setClass(
   prototype = prototype(
     number = 0,
     title = '',
-    processedData = NULL,
-    rawData = NULL
+    processedData = new('ProcessedData'),
+    rawData = new('RawData')
   )
 )
 

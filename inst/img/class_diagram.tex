@@ -34,9 +34,10 @@
 \umlclass[y=-4]{GpsCoordinates}{
 	address : character\\
 	sampleCoordinates : data.frame\\
-	linearModel : lm\\
-	normalizedCoordinates : data.frame\\
-	linearModelRelative : lm}{
+	/linearModel : lm\\
+	/normalizedSampleCoordinates : data.frame\\
+	/normalizedLinearModel : lm\\
+	heightInformation : data.frame}{
 	GpsCoordinates()\\
 	GpsCoordinates(address : character)}
 \umlclass[y=-8]{ProcessedData}{
