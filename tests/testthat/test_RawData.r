@@ -20,7 +20,7 @@ test_that('Test RawData Constructor Wrong Address', {
 test_that('Test Parse Raw Data File Correct Address', {
   rawData = new('RawData')
   rawData@address = testFileAddress
-  rawData@seaLevel <- parseRawDataFile(address = testFileAddress)
+  rawData@points <- parseRawDataFile(address = testFileAddress)
   expect_equal(rawData, new('RawData', address = testFileAddress))
 })
 

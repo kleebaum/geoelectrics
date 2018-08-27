@@ -21,7 +21,7 @@ plotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 \item{...}{plot parameters.}
 }
 \description{
-Plots the interpolated points of the xyz data
+Plots the interpolated points of the processed data
 after height adjustment.
 }
 \examples{

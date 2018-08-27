@@ -30,8 +30,8 @@ levelplotRaw <-
            trafo = log,
            ...) {
     levelplot(
-      trafo(Profile@rawData@seaLevel$val) ~ Profile@rawData@seaLevel$dist * (-1 *
-                                                                               Profile@rawData@seaLevel$depth),
+      trafo(Profile@rawData@points$val) ~ Profile@rawData@points$dist * (-1 *
+                                                                           Profile@rawData@points$depth),
       col.regions = colorRampPalette(col),
       xlab = xlab,
       ylab = ylab,

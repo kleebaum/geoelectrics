@@ -16,7 +16,8 @@ plotLegend(.Object, legend.lab = expression(paste("Resistivity [", Omega,
   minData = .Object@minData, maxData = .Object@maxData)
 
 \S4method{plotLegend}{Profile}(.Object, legend.lab,
-  minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData)
+  minData = .Object@processedData@minData,
+  maxData = .Object@processedData@maxData)
 }
 \arguments{
 \item{.Object}{either a single Profile or a ProfileSet.}

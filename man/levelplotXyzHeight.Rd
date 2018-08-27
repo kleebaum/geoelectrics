@@ -29,8 +29,8 @@ levelplotXyzHeight(Profile, xlab = "Length [m]", ylab = "Depth [m]",
 }
 \description{
 Plots the interpolated resistance values of the
-xyz data after height adjustment.
-The xyz values are obtained through inversion of the raw values.
+processed data after height adjustment.
+The processed values are obtained through inversion of the raw values.
 }
 \examples{
 data(sinkhole)
@@ -45,6 +45,6 @@ levelplotXyzHeight(sinkhole@profiles[[3]])
 levelplotLegendLabel()
 }
 \seealso{
-\code{\link{XyzData-class}}, \code{\link{levelplotXyz}},
+\code{\link{ProcessedData-class}}, \code{\link{levelplotXyz}},
 \code{\link{levelplotRaw}}
 }

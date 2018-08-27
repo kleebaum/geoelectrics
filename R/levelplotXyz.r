@@ -1,8 +1,8 @@
 #' Levelplot of XYZ Data
 #'
-#' Plots the interpolated resistance values of the xyz
+#' Plots the interpolated resistance values of the processed
 #' data without topography (height adjustment).
-#' The xyz values are obtained through inversion of the raw values.
+#' The processed values are obtained through inversion of the raw values.
 #' @param Profile profile.
 #' @param xlab label for x-axes.
 #' @param ylab label for y-axes.
@@ -13,7 +13,7 @@
 #' @param backtrafo back transformation to plot correct labels (default: exp).
 #' @param ... lattice levelplot arguments.
 #' @export
-#' @seealso \code{\link{XyzData-class}}, \code{\link{levelplotXyzHeight}},
+#' @seealso \code{\link{ProcessedData-class}}, \code{\link{levelplotXyzHeight}},
 #' \code{\link{levelplotRaw}}
 #' @examples
 #' data(sinkhole)
@@ -38,14 +38,14 @@ levelplotXyz <-
            ...) {
     lab.breaks <-
       round(backtrafo(seq(trafo(
-        min(Profile@xyzData@heightAdaption$val)
+        min(Profile@processedData@pointsWithTopo$val)
       ),
       trafo(
-        max(Profile@xyzData@heightAdaption$val)
+        max(Profile@processedData@pointsWithTopo$val)
       ),
       length.out = breaks)))
     levelplot(
-      trafo(Profile@xyzData@seaLevel$val) ~ Profile@xyzData@seaLevel$dist * Profile@xyzData@seaLevel$depth,
+      trafo(Profile@processedData@points$val) ~ Profile@processedData@points$dist * Profile@processedData@points$depth,
       col.regions = colorRampPalette(col),
       xlab = xlab,
       ylab = ylab,
@@ -65,8 +65,8 @@ levelplotXyz <-
 #' Levelplot of XYZ Data regarding Topography
 #'
 #' Plots the interpolated resistance values of the
-#' xyz data after height adjustment.
-#' The xyz values are obtained through inversion of the raw values.
+#' processed data after height adjustment.
+#' The processed values are obtained through inversion of the raw values.
 #' @param xlab label for x-axes.
 #' @param ylab label for y-axes.
 #' @param main title to be plotted.
@@ -77,7 +77,7 @@ levelplotXyz <-
 #' @param backtrafo back transformation to plot correct labels (default: exp).
 #' @param ... lattice levelplot arguments.
 #' @export
-#' @seealso \code{\link{XyzData-class}}, \code{\link{levelplotXyz}},
+#' @seealso \code{\link{ProcessedData-class}}, \code{\link{levelplotXyz}},
 #' \code{\link{levelplotRaw}}
 #' @examples
 #' data(sinkhole)
@@ -102,14 +102,14 @@ levelplotXyzHeight <-
            ...) {
     lab.breaks <-
       round(backtrafo(seq(trafo(
-        min(Profile@xyzData@heightAdaption$val)
+        min(Profile@processedData@pointsWithTopo$val)
       ),
       trafo(
-        max(Profile@xyzData@heightAdaption$val)
+        max(Profile@processedData@pointsWithTopo$val)
       ),
       length.out = breaks)))
     levelplot(
-      trafo(Profile@xyzData@heightAdaption$val) ~ round(Profile@xyzData@heightAdaption$dist) * round(Profile@xyzData@heightAdaption$depth),
+      trafo(Profile@processedData@pointsWithTopo$val) ~ round(Profile@processedData@pointsWithTopo$dist) * round(Profile@processedData@pointsWithTopo$height),
       col.regions = colorRampPalette(col),
       xlab = xlab,
       ylab = ylab,

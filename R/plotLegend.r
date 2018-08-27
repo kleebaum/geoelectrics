@@ -85,7 +85,7 @@ setMethod("plotLegend", signature(.Object = "ProfileSet"),
 setMethod("plotLegend", signature(.Object = "Profile"),
           function(.Object,
                    legend.lab,
-                   minData = .Object@xyzData@minData,
-                   maxData = .Object@xyzData@maxData) {
+                   minData = .Object@processedData@minData,
+                   maxData = .Object@processedData@maxData) {
             
           })

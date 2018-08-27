@@ -26,8 +26,8 @@ This is necessary if GPS measurement heights of two profiles differ systematical
 p3 <- new(
   "Profile",
   title = "Profile 3",
-  xyzData =
-    new("XyzData",
+  processedData =
+    new("ProcessedData",
         address = system.file("extdata/processed/p3_DipolDipol_S-N.xyz",
                   package='geoelectrics')),
   rawData =

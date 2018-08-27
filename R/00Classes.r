@@ -1,9 +1,11 @@
 #' Raw Data Class
 #'
 #' A class to handle geoelectrics raw data.
+#' The raw data class parses .dat files provided by the GeoTest software by Dr. Rauen.
+#' If you want to use another format, overwrite the \code{\link{parseRawDataFile}} method.
 #'
 #' @slot address address of the raw data ascii file.
-#' @slot seaLevel data frame that contains raw data resistance values and their positions (distance and depth).
+#' @slot points data frame that contains raw data resistance values and their positions (distance and depth).
 #' @export
 #' @examples
 #' rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
@@ -12,150 +14,94 @@
 #' data(sinkhole)
 #' sinkhole@profiles[[2]]@rawData
 #' sinkhole@profiles[[2]]@rawData@address
-#' sinkhole@profiles[[2]]@rawData@seaLevel
-#' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
-setClass(
-  'RawData',
-  representation = representation(
-    address = 'character',
-    seaLevel = 'data.frame'
-  )
-)
+#' sinkhole@profiles[[2]]@rawData@points
+#' @seealso \code{\link{parseRawDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
+setClass('RawData',
+         representation = representation(address = 'character',
+                                         points = 'data.frame'))
 setMethod('initialize', 'RawData',
           function(.Object, address, skip = 9) {
             if (missing(address)) {
+              .Object@points <-
+                data.frame(dist = double(),
+                           depth = double(),
+                           val = double())
               cat('Created an empty raw data object.')
             }
-            else if (nchar(address) == 0 || !file.exists(address)) {
+            else if (!file.exists(address)) {
               stop('Raw data file address is given but file cannot be found.')
             } else {
               .Object@address = address
-              .Object@seaLevel <- parseRawDataFile(address, skip)
+              .Object@points <- parseRawDataFile(address, skip)
             }
             return(.Object)
           })
 
-#' XYZ Data Class
+#' Processed Data Class
 #'
-#' A class to handle processed geoelectrics data in the xyz format.
-#' The software Res2DInv produces .xyz-files that contain the
-#' inverted resistance values. The xyz class parses .xyz files.
+#' A class to handle processed geoelectrics data in ascii format.
+#' The processed data class parses .xyz files produced by the software Res2DInv.
+#' If you want to use another format, overwrite the \code{\link{parseProcessedDataFile}} method.
 #'
-#' @slot address address of the xyz ascii file
-#' @slot seaLevel data frame that contains positions and values withouth height adjustment
-#' @slot heightAdaption data frame that contains positions and values after height adjustment
+#' @slot address address of the processed ascii file
+#' @slot points data frame that contains positions and values withouth topography information
+#' @slot pointsWithTopo data frame that contains positions and values with topography information
 #' @slot height data frame that contains topography information (distances and heights).
 #' It is reconstructed from .xyz-file.
 #' @slot minData minimum value
 #' @slot maxData maximum value
 #' @export
-#' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
+#' @seealso \code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
 #' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
 #' @examples
-#' xyzData = new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
-#'           package='geoelectrics'))
+#' processedData = new('ProcessedData', 
+#'                      address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
+#'                      package='geoelectrics'))
 #'
 #' data(sinkhole)
-#' sinkhole@profiles[[1]]@xyzData
-#' sinkhole@profiles[[1]]@xyzData@seaLevel
-#' sinkhole@profiles[[1]]@xyzData@heightAdaption
-#' sinkhole@profiles[[1]]@xyzData@height
-#' sinkhole@profiles[[1]]@xyzData@minData
-#' sinkhole@profiles[[1]]@xyzData@maxData
+#' sinkhole@profiles[[1]]@processedData
+#' sinkhole@profiles[[1]]@processedData@points
+#' sinkhole@profiles[[1]]@processedData@pointsWithTopo
+#' sinkhole@profiles[[1]]@processedData@height
+#' sinkhole@profiles[[1]]@processedData@minData
+#' sinkhole@profiles[[1]]@processedData@maxData
 setClass(
-  'XyzData',
+  'ProcessedData',
   representation = representation(
     address = 'character',
-    seaLevel = 'data.frame',
-    heightAdaption = 'data.frame',
+    points = 'data.frame',
+    pointsWithTopo = 'data.frame',
     minData = 'numeric',
     maxData = 'numeric',
     height = 'data.frame'
   )
 )
-setMethod('initialize', 'XyzData',
-          function(.Object, address) {
-            if (nchar(address) == 0 || !file.exists(address)) {
-              stop('XYZ data file cannot be found.')
+setMethod('initialize', 'ProcessedData',
+          function(.Object, address, skip = 0) {
+            if (missing(address)) {
+              .Object@points <-
+                data.frame(dist = double(),
+                           depth = double(),
+                           val = double())
+              .Object@pointsWithTopo <-
+                data.frame(dist = double(),
+                           height = double(),
+                           val = double())
+              cat('Created an empty processed data object.')
+            }
+            else if (!file.exists(address)) {
+              stop('Processed data file address is given but file cannot be found.')
             } else {
               .Object@address = address
-              con  <- file(address, open = 'r')
               
-              skipLines1 <- 0
-              numberOfRows <- 0
-              numberOfRows2 <- 0
+              parsedProcessedData <- parseProcessedDataFile(address, skip)
+              .Object@points <- parsedProcessedData[[1]]
+              .Object@pointsWithTopo <- parsedProcessedData[[2]]
               
-              oneLine <- readLines(con, n = 1)
-              while (grepl('/', oneLine)) {
-                oneLine <- readLines(con, n = 1)
-                skipLines1 <- skipLines1 + 1
-              }
+              .Object@minData <- min(.Object@pointsWithTopo[3])
+              .Object@maxData <- max(.Object@pointsWithTopo[3])
               
-              while (!grepl('/', oneLine)) {
-                oneLine <- readLines(con, n = 1)
-                numberOfRows <- numberOfRows + 1
-              }
-              
-              skipLines2 <- skipLines1 + numberOfRows
-              
-              while (grepl('/', oneLine)) {
-                oneLine <- readLines(con, n = 1)
-                skipLines2 <- skipLines2 + 1
-              }
-              
-              while (!grepl('/', oneLine)) {
-                oneLine <- readLines(con, n = 1)
-                numberOfRows2 <- numberOfRows2 + 1
-              }
-              
-              profile_without_topo <-
-                read.table(
-                  file = address,
-                  skip = skipLines1,
-                  header = F,
-                  nrows = numberOfRows
-                )
-              .Object@seaLevel <-
-                data.frame(dist = profile_without_topo[1],
-                           depth = profile_without_topo[2],
-                           val = profile_without_topo[3])
-              colnames(.Object@seaLevel) <-
-                c('dist', 'depth', 'val')
-              
-              profile <- read.table(
-                file = address,
-                skip = skipLines2,
-                header = F,
-                nrows = numberOfRows2
-              )
-              
-              .Object@heightAdaption <-
-                data.frame(dist = profile[1],
-                           depth = profile[2],
-                           val = profile[3])
-              colnames(.Object@heightAdaption) <-
-                c('dist', 'depth', 'val')
-              
-              .Object@minData <- min(profile[3])
-              .Object@maxData <- max(profile[3])
-              
-              height <- data.frame(dist = 1,
-                                   height = 1)
-              
-              j <- 1
-              for (i in 1:max(profile[1])) {
-                indices <- which(round(profile[1]) == i)
-                if (length(indices) > 0) {
-                  index <- min(indices)
-                  height[j,] <-
-                    c(profile[index, 1], profile[index, 2])
-                  j <- j + 1
-                }
-              }
-              
-              .Object@height <- height
-              
-              close(con)
+              .Object@height <- getHeightInformation(.Object)
             }
             return(.Object)
           })
@@ -197,8 +143,14 @@ setClass(
 )
 setMethod('initialize', 'GpsCoordinates',
           function(.Object, address) {
-            if (nchar(address) == 0 || !file.exists(address)) {
-              stop('GPS coordinates file cannot be found.')
+            if (missing(address)) {
+              .Object@exact <-
+                data.frame(lat = double(),
+                           lon = double())
+              cat('Created an empty GPS coordinates object.')
+            }
+            else if (!file.exists(address)) {
+              stop('GPS coordinates file address is given but file cannot be found.')
             } else {
               .Object@address = address
               
@@ -229,18 +181,18 @@ setMethod('initialize', 'GpsCoordinates',
 #'
 #' @slot title title of the profile (e.g. Profile 1).
 #' @slot number index of the profile.
-#' @slot xyzData object of Xyz Data Class (\code{\link{XyzData-class}}).
+#' @slot processedData object of Processed Data Class (\code{\link{ProcessedData-class}}).
 #' @slot rawData object of Raw Data Class (\code{\link{RawData-class}}).
 #' @slot measurementType type of measurement (e.g. Dipole Dipole, Wenner, ...).
 #' @slot gpsCoordinates object of GpsCoordinates Class (\code{\link{GpsCoordinates-class}}).
 #' @export
-#' @seealso \code{\link{XyzData-class}}, \code{\link{RawData-class}},
+#' @seealso \code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
 #' \code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
 #' @examples
 #' p1 <- new('Profile',
 #'            title = 'Profile 1',
-#'            xyzData =
-#'              new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
+#'            processedData =
+#'              new('ProcessedData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
 #'                                       package='geoelectrics')),
 #'            rawData =
 #'              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
@@ -251,7 +203,7 @@ setMethod('initialize', 'GpsCoordinates',
 #'                                              package='geoelectrics')))
 #'
 #' p1@title
-#' p1@xyzData
+#' p1@processedData
 #' p1@rawData
 #' p1@measurementType
 #' p1@gpsCoordinates
@@ -262,7 +214,7 @@ setClass(
   representation = representation(
     title = 'character',
     number = 'numeric',
-    xyzData = 'XyzData',
+    processedData = 'ProcessedData',
     rawData = 'RawData',
     measurementType = 'character',
     gpsCoordinates = 'GpsCoordinates'
@@ -270,7 +222,7 @@ setClass(
   prototype = prototype(
     number = 0,
     title = '',
-    xyzData = NULL,
+    processedData = NULL,
     rawData = NULL
   )
 )
@@ -317,8 +269,8 @@ setMethod('initialize', 'ProfileSet',
             .Object@title <- title
             
             for (profile in profiles) {
-              minDataX <- min(profile@xyzData@seaLevel$val)
-              maxDataX <- max(profile@xyzData@seaLevel$val)
+              minDataX <- min(profile@processedData@points$val)
+              maxDataX <- max(profile@processedData@points$val)
               if (minDataX < minData)
                 minData <- minDataX
               if (maxDataX > maxData)

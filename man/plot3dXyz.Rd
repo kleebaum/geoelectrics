@@ -19,8 +19,9 @@ plot3dXyz(.Object, title = "", sub = "", xlab = "", ylab = "",
 
 \S4method{plot3dXyz}{Profile}(.Object, title = "", sub = "",
   xlab = "", ylab = "", zlab = "",
-  minData = .Object@xyzData@minData, maxData = .Object@xyzData@maxData,
-  col = colors, trafo = log, psize = pointsize)
+  minData = .Object@processedData@minData,
+  maxData = .Object@processedData@maxData, col = colors, trafo = log,
+  psize = pointsize)
 }
 \arguments{
 \item{.Object}{either an object of a single Profile or a ProfileSet.}

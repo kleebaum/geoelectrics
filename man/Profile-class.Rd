@@ -14,7 +14,7 @@ A class to handle a single profile.
 
 \item{\code{number}}{index of the profile.}
 
-\item{\code{xyzData}}{object of Xyz Data Class (\code{\link{XyzData-class}}).}
+\item{\code{processedData}}{object of Processed Data Class (\code{\link{ProcessedData-class}}).}
 
 \item{\code{rawData}}{object of Raw Data Class (\code{\link{RawData-class}}).}
 
@@ -26,8 +26,8 @@ A class to handle a single profile.
 \examples{
 p1 <- new('Profile',
            title = 'Profile 1',
-           xyzData =
-             new('XyzData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
+           processedData =
+             new('ProcessedData', address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
                                       package='geoelectrics')),
            rawData =
              new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
@@ -38,7 +38,7 @@ p1 <- new('Profile',
                                              package='geoelectrics')))
 
 p1@title
-p1@xyzData
+p1@processedData
 p1@rawData
 p1@measurementType
 p1@gpsCoordinates
@@ -46,6 +46,6 @@ p1@gpsCoordinates
 plot3dXyz(p1)
 }
 \seealso{
-\code{\link{XyzData-class}}, \code{\link{RawData-class}},
+\code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
 \code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
 }

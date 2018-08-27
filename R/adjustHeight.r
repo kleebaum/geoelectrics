@@ -12,8 +12,8 @@
 #' p3 <- new(
 #'   "Profile",
 #'   title = "Profile 3",
-#'   xyzData =
-#'     new("XyzData",
+#'   processedData =
+#'     new("ProcessedData",
 #'         address = system.file("extdata/processed/p3_DipolDipol_S-N.xyz",
 #'                   package='geoelectrics')),
 #'   rawData =
@@ -34,9 +34,9 @@ setGeneric('adjustHeight', function(object, delta) {
 
 #' @rdname adjustHeight
 #' @export
-setMethod('adjustHeight', 'Profile',
+setMethod('adjustHeight', signature(object = 'Profile'),
           function(object, delta) {
-            object@xyzData@heightAdaption$depth <-
-              object@xyzData@heightAdaption$depth + delta
+            object@processedData@pointsWithTopo$height <-
+              object@processedData@pointsWithTopo$height + delta
             object
           })

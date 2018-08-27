@@ -6,13 +6,15 @@
 \title{Raw Data Class}
 \description{
 A class to handle geoelectrics raw data.
+The raw data class parses .dat files provided by the GeoTest software by Dr. Rauen.
+If you want to use another format, overwrite the \code{\link{parseRawDataFile}} method.
 }
 \section{Slots}{
 
 \describe{
 \item{\code{address}}{address of the raw data ascii file.}
 
-\item{\code{seaLevel}}{data frame that contains raw data resistance values and their positions (distance and depth).}
+\item{\code{points}}{data frame that contains raw data resistance values and their positions (distance and depth).}
 }}
 
 \examples{
@@ -22,8 +24,8 @@ rawData = new('RawData', address = system.file('extdata/raw/p1_DipolDipol_SW-NE.
 data(sinkhole)
 sinkhole@profiles[[2]]@rawData
 sinkhole@profiles[[2]]@rawData@address
-sinkhole@profiles[[2]]@rawData@seaLevel
+sinkhole@profiles[[2]]@rawData@points
 }
 \seealso{
-\code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
+\code{\link{parseRawDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 }

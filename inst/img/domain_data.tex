@@ -1,23 +1,28 @@
 \begin{tikzpicture}
 \tikzumlset{font = \sffamily\footnotesize, fill class=white}
-\umlenum[x=-4, y=-4]{measurementType}{
+\umlenum[x=-3, y=-4]{MeasurementType}{
 	DIPOLE\_DIPOLE\\
 	WENNER\\
 	SCHLUMBERGER\\
 	$\dots$}{}
-\umlclass[x=-1, y=-4]{Coordinate}{
+\umlclass[x=1, y=-4]{GpsCoordinate}{
 	lat : double\\
 	lon : double\\
 	height : double}{}
-\umlsimpleclass[x=6, y=-4]{Profile}
-\umlsimpleclass[x=9, y=-4]{ProfileSet}
-\umlsimpleclass[x=6, y=-2.5]{RawData}
-\umlsimpleclass[x=2.5, y=-4]{GpsCoordinates}
-\umlsimpleclass[x=6, y=-5.5]{ProcessedData}
+\umlclass[x=6, y=-1.5]{RawDataPoint}{
+	dist : double\\
+	depth : double\\	
+	resistivity : double}{}
+\umlclass[x=6, y=-4]{Profile}{
+	measurementType : MeasurementType}{}
+\umlclass[x=6, y=-6.5]{ProcessedDataPoint}{
+	dist : double\\
+	depth : double\\	
+	resistivity : double}{}
+\umlsimpleclass[x=11, y=-4]{ProfileSet}
 	
 \umluniaggreg[mult1=$^*$, mult2=$^*$]{ProfileSet}{Profile}
-\umlunicompo[mult2=$0..1$]{Profile}{RawData}
-\umlunicompo[mult2=$0..1$]{Profile}{ProcessedData}
-\umlunicompo[mult2=$0..1$]{Profile}{GpsCoordinates}
-\umluniaggreg[mult1=$^*$, mult2=$^*$]{GpsCoordinates}{Coordinate}
+\umlunicompo[mult2=$^*$]{Profile}{RawDataPoint}
+\umlunicompo[mult2=$^*$]{Profile}{ProcessedDataPoint}
+\umluniaggreg[mult2=$^*$]{Profile}{GpsCoordinate}
 \end{tikzpicture}

@@ -1,6 +1,6 @@
 #' Plot Profile Intersection
 #'
-#' Plots resistivity against depth on and next to the intersection line
+#' Plots resistivity against height on and next to the intersection line
 #' between two profiles.
 #'
 #' @param .Object1 either a single Profile or a ProfileSet.
@@ -114,24 +114,24 @@ setMethod("plotIntersect", signature(.Object1 = "Profile", .Object2 = "Profile")
             # identify point indices on intersection line and next to it
             indices1 <-
               c(which(
-                round(.Object1@xyzData@heightAdaption$dist) == round(length1)
+                round(.Object1@processedData@pointsWithTopo$dist) == round(length1)
               ),
               which(
-                round(.Object1@xyzData@heightAdaption$dist) == round(length1 + 1)
+                round(.Object1@processedData@pointsWithTopo$dist) == round(length1 + 1)
               ),
               which(
-                round(.Object1@xyzData@heightAdaption$dist) == round(length1 - 1)
+                round(.Object1@processedData@pointsWithTopo$dist) == round(length1 - 1)
               ))
             
             indices2 <-
               c(which(
-                round(.Object2@xyzData@heightAdaption$dist) == round(length2, 0)
+                round(.Object2@processedData@pointsWithTopo$dist) == round(length2, 0)
               ),
               which(
-                round(.Object2@xyzData@heightAdaption$dist) == round(length2 + 1, 0)
+                round(.Object2@processedData@pointsWithTopo$dist) == round(length2 + 1, 0)
               ),
               which(
-                round(.Object2@xyzData@heightAdaption$dist) == round(length2 - 1, 0)
+                round(.Object2@processedData@pointsWithTopo$dist) == round(length2 - 1, 0)
               ))
             
             # check whether there is an intersection
@@ -151,18 +151,18 @@ setMethod("plotIntersect", signature(.Object1 = "Profile", .Object2 = "Profile")
             
             # identify xyz values for these indices
             res1 <- data.frame(
-              "dist" = .Object1@xyzData@heightAdaption$dist[indices1],
-              "depth" = .Object1@xyzData@heightAdaption$depth[indices1],
-              "val" = .Object1@xyzData@heightAdaption$val[indices1]
+              "dist" = .Object1@processedData@pointsWithTopo$dist[indices1],
+              "height" = .Object1@processedData@pointsWithTopo$height[indices1],
+              "val" = .Object1@processedData@pointsWithTopo$val[indices1]
             )
             
             res2 <- data.frame(
-              "dist" = .Object2@xyzData@heightAdaption$dist[indices2],
-              "depth" = .Object2@xyzData@heightAdaption$depth[indices2],
-              "val" = .Object2@xyzData@heightAdaption$val[indices2]
+              "dist" = .Object2@processedData@pointsWithTopo$dist[indices2],
+              "height" = .Object2@processedData@pointsWithTopo$height[indices2],
+              "val" = .Object2@processedData@pointsWithTopo$val[indices2]
             )
             
-            #boxplot(trafo(res1$val)~round(res1$depth))
+            #boxplot(trafo(res1$val)~round(res1$height))
             lab.breaks <-
               round(backtrafo(seq(trafo(
                 min(res1$val, res2$val)
@@ -176,9 +176,9 @@ setMethod("plotIntersect", signature(.Object1 = "Profile", .Object2 = "Profile")
                              length.out = 6)
             
             plot(
-              res1$depth,
+              res1$height,
               trafo(res1$val),
-              xlim = c(min(res1$depth, res2$depth), max(res1$depth, res2$depth)),
+              xlim = c(min(res1$height, res2$height), max(res1$height, res2$height)),
               ylim = c(trafo(min(
                 res1$val, res2$val
               )), trafo(max(
@@ -193,7 +193,7 @@ setMethod("plotIntersect", signature(.Object1 = "Profile", .Object2 = "Profile")
               yaxt = "n"
             )
             points(
-              res2$depth,
+              res2$height,
               trafo(res2$val),
               col = col[2],
               pch = pch[2],

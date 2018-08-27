@@ -72,17 +72,17 @@ setMethod("plot3dXyz", signature(.Object = "Profile"),
                    xlab = "",
                    ylab = "",
                    zlab = "",
-                   minData = .Object@xyzData@minData,
-                   maxData = .Object@xyzData@maxData,
+                   minData = .Object@processedData@minData,
+                   maxData = .Object@processedData@maxData,
                    col,
                    trafo,
                    psize) {
             title3d(title, sub, xlab, ylab, zlab)
-            values <- trafo(.Object@xyzData@heightAdaption$val)
+            values <- trafo(.Object@processedData@pointsWithTopo$val)
             colorAssignment <-
               myColorRamp(col, values, trafo(minData), trafo(maxData))
             
-            l <- .Object@xyzData@heightAdaption$dist # hypotenuse
+            l <- .Object@processedData@pointsWithTopo$dist # hypotenuse
             m <-
               .Object@gpsCoordinates@lmRelative$coefficients[2] # y = mx + n
             n <- .Object@gpsCoordinates@lmRelative$coefficients[1]
@@ -101,14 +101,14 @@ setMethod("plot3dXyz", signature(.Object = "Profile"),
             # plot 3D
             rgl.bg(color = "white")
             points3d(y,
-                     .Object@xyzData@heightAdaption$depth,
+                     .Object@processedData@pointsWithTopo$height,
                      x,
                      color = colorAssignment,
                      size = pointsize)
             rgl.bbox()
             rgl.texts(
               y[1],
-              .Object@xyzData@heightAdaption$depth[1] + 20,
+              .Object@processedData@pointsWithTopo$height[1] + 20,
               x[1],
               text = paste(.Object@title),
               cex = 1,

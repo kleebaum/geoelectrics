@@ -16,7 +16,7 @@ plotLegend(sinkhole@profiles[[3]])
 plotIntersect(sinkhole)
 plotIntersect(sinkhole@profiles[[1]], sinkhole@profiles[[2]])
 
-plotRawHeight(sinkhole@profiles[[1]], height = sinkhole@profiles[[1]]@xyzData@height)
+plotRawHeight(sinkhole@profiles[[1]])
 levelplotRaw(sinkhole@profiles[[1]])
 levelplotLegendLabel()
 

@@ -1,23 +1,31 @@
-context("test_GpsCoordinates")
+context('test_GpsCoordinates')
+
+testFileAddress <- system.file('extdata/gps/p1.txt',
+                               package = 'geoelectrics')
 
 test_that('Test GpsCoordinates Constructor Missing Address', {
-  expect_error(new('GpsCoordinates')) # "argument \"address\" is missing, with no default"
+  # 'argument \'address\' is missing, with no default'
+  expect_that(new('GpsCoordinates'),
+              prints_text('Created an empty GPS coordinates object.'))
 })
 
 test_that('Test GpsCoordinates Constructor Empty Address', {
-  expect_error(new('GpsCoordinates', address = ''), "GPS coordinates file cannot be found.")
+  expect_error(
+    new('GpsCoordinates', address = ''),
+    'GPS coordinates file address is given but file cannot be found.'
+  )
 })
 
 test_that('Test GpsCoordinates Constructor Wrong Address', {
-  expect_error(new('GpsCoordinates', address = 'abc')) # "cannot open the connection"
+  # 'cannot open the connection'
+  expect_error(new('GpsCoordinates', address = 'abc'))
 })
 
 test_that('Test GpsCoordinates Constructor Correct Address', {
- gpsCoordinates = new('GpsCoordinates', address = system.file('extdata/gps/p1.txt',
-                                                               package = 'geoelectrics'))
- expect_s4_class(gpsCoordinates, "GpsCoordinates")
- expect_equal(gpsCoordinates, initialize(gpsCoordinates, address = system.file('extdata/gps/p1.txt',
-                                                                               package = 'geoelectrics')))
- lm <- lm(gpsCoordinates@exact$lat ~ gpsCoordinates@exact$lon)
- expect_equal(lm$fitted.values, gpsCoordinates@lm$fitted.values)
+  gpsCoordinates = new('GpsCoordinates', address = testFileAddress)
+  expect_s4_class(gpsCoordinates, 'GpsCoordinates')
+  expect_equal(gpsCoordinates,
+               initialize(gpsCoordinates, address = testFileAddress))
+  lm <- lm(gpsCoordinates@exact$lat ~ gpsCoordinates@exact$lon)
+  expect_equal(lm$fitted.values, gpsCoordinates@lm$fitted.values)
 })

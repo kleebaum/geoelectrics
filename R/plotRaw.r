@@ -20,8 +20,8 @@ plotRaw <- function(Profile,
                     main = paste(Profile@title, "without topography"),
                     ...) {
   plot(
-    Profile@rawData@seaLevel$dist,
-    -1 * (Profile@rawData@seaLevel$depth),
+    Profile@rawData@points$dist,
+    -1 * (Profile@rawData@points$depth),
     xlab = xlab,
     ylab = ylab,
     main = main,
@@ -49,7 +49,7 @@ plotRaw <- function(Profile,
 #' plotRawHeight(sinkhole@profiles[[2]])
 #' plotRawHeight(sinkhole@profiles[[2]], sinkhole@profiles[[2]]@xyzData@height)
 plotRawHeight <- function(Profile,
-                          height = Profile@rawData@height,
+                          height = Profile@processedData@height,
                           spline = TRUE,
                           xlab = "Length [m]",
                           ylab = "Depth [m]",
@@ -59,24 +59,24 @@ plotRawHeight <- function(Profile,
     height <- as.data.frame(spline(
       height,
       method = "natural",
-      xmin = min(Profile@rawData@seaLevel$dist),
-      xmax = max(Profile@rawData@seaLevel$dist),
+      xmin = min(Profile@rawData@points$dist),
+      xmax = max(Profile@rawData@points$dist),
       n = (
-        max(Profile@rawData@seaLevel$dist) - min(Profile@rawData@seaLevel$dist) +
+        max(Profile@rawData@points$dist) - min(Profile@rawData@points$dist) +
           1
       )
     ))
   }
   
   heightAdaption <- data.frame(
-    "dist" = Profile@rawData@seaLevel$dist,
-    "depth" = -1 * Profile@rawData@seaLevel$depth,
-    "val" = Profile@rawData@seaLevel$val
+    "dist" = Profile@rawData@points$dist,
+    "depth" = -1 * Profile@rawData@points$depth,
+    "val" = Profile@rawData@points$val
   )
   
   for (i in 1:nrow(height)) {
     indices <-
-      which(round(height[i, 1]) == round(Profile@rawData@seaLevel$dist))
+      which(round(height[i, 1]) == round(Profile@rawData@points$dist))
     if (length(indices) > 0)
       for (j in 1:length(indices)) {
         heightAdaption$depth[indices[j]] <-

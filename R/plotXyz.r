@@ -1,6 +1,6 @@
 #' Plot XYZ Points
 #'
-#' Plots the interpolated points of the xyz data.
+#' Plots the interpolated points of the processed data.
 #' @param Profile profile.
 #' @param xlab label for x-axes.
 #' @param ylab label for y-axes.
@@ -22,8 +22,8 @@ plotXyz <- function(Profile,
                     asp = 1,
                     ...) {
   plot(
-    Profile@xyzData@seaLevel$dist,
-    Profile@xyzData@seaLevel$depth,
+    Profile@processedData@points$dist,
+    Profile@processedData@points$depth,
     xlab = xlab,
     ylab = ylab,
     main = main,
@@ -34,7 +34,7 @@ plotXyz <- function(Profile,
 
 #' Plot XYZ Points considering Topography
 #'
-#' Plots the interpolated points of the xyz data
+#' Plots the interpolated points of the processed data
 #' after height adjustment.
 #' @param Profile profile.
 #' @param xlab label for x-axes.
@@ -58,8 +58,8 @@ plotXyzHeight <-
            asp = 1,
            ...) {
     plot(
-      Profile@xyzData@heightAdaption$dist,
-      Profile@xyzData@heightAdaption$depth,
+      Profile@processedData@pointsWithTopo$dist,
+      Profile@processedData@pointsWithTopo$height,
       xlab = xlab,
       ylab = ylab,
       main = main,
