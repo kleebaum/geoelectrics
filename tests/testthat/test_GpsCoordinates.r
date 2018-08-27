@@ -29,3 +29,10 @@ test_that('Test GpsCoordinates Constructor Correct Address', {
   lm <- lm(gpsCoordinates@exact$lat ~ gpsCoordinates@exact$lon)
   expect_equal(lm$fitted.values, gpsCoordinates@lm$fitted.values)
 })
+
+test_that('Test GpsCoordinates From Gauss Krueger', {
+  sampleCoordinates <- data.frame(lat = 5, lon = 2)
+  gpsCoordinates = new('GpsCoordinates')
+  gpsCoordinates@exact <- sampleCoordinates
+  expect_equal(calcRelativeCoords(gpsCoordinates, 5, 2), data.frame(lat = 0, lon = 0))
+})
