@@ -22,7 +22,7 @@
 #' @param ... image.plot arguments.
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-#' \code{\link{plot3dXyz}},
+#' \code{\link{plot3d}},
 #' @examples
 #' data(sinkhole)
 #'

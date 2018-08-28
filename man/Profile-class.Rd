@@ -43,9 +43,9 @@ p1@rawData
 p1@measurementType
 p1@gpsCoordinates
 
-plot3dXyz(p1)
+plot3d(p1)
 }
 \seealso{
 \code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
-\code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
+\code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}
 }

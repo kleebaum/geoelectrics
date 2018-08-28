@@ -29,8 +29,8 @@ A class to handle a collection of many profiles.
 #                title='Sinkhole')
 
 data(sinkhole)
-plot3dXyz(sinkhole)
+plot3d(sinkhole)
 }
 \seealso{
-\code{\link{Profile-class}}, \code{\link{plot3dXyz}}
+\code{\link{Profile-class}}, \code{\link{plot3d}}
 }

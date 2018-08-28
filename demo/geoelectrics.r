@@ -102,9 +102,9 @@ levelplotLegendLabel()
 
 readline(prompt = 'Hit <Return> to plot the processed data in three dimensions:')
 
-plot3dXyz(sinkhole@profiles[[1]])
+plot3d(sinkhole@profiles[[1]])
 
-plot3dXyz(sinkhole,
+plot3d(sinkhole,
           xlab = 'length [m]',
           ylab = 'height above sea level [m]',
           zlab = 'length [m]')

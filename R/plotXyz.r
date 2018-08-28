@@ -9,7 +9,7 @@
 #' @param ... plot parameters
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{plotXyzHeight}},
-#' \code{\link{plot3dXyz}},
+#' \code{\link{plot3d}},
 #' \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}}
 #' @examples
 #' data(sinkhole)
@@ -44,7 +44,7 @@ plotXyz <- function(Profile,
 #' @param ... plot parameters.
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{plotXyz}},
-#' \code{\link{plot3dXyz}},
+#' \code{\link{plot3d}},
 #' \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}}
 #' @examples
 #' data(sinkhole)

@@ -31,6 +31,6 @@ plotXyzHeight(sinkhole@profiles[[1]])
 }
 \seealso{
 \code{\link{Profile-class}}, \code{\link{plotXyz}},
-\code{\link{plot3dXyz}},
+\code{\link{plot3d}},
 \code{\link{levelplotXyz}}, \code{\link{levelplotXyzHeight}}
 }

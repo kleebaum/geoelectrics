@@ -55,7 +55,7 @@ setMethod('initialize', 'RawData',
 #' @slot maxData maximum value
 #' @export
 #' @seealso \code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-#' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3dXyz}}
+#' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3d}}
 #' @examples
 #' processedData = new('ProcessedData',
 #'                      address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
@@ -196,7 +196,7 @@ setMethod('initialize', 'GpsCoordinates',
 #' @slot gpsCoordinates object of GpsCoordinates Class (\code{\link{GpsCoordinates-class}}).
 #' @export
 #' @seealso \code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
-#' \code{\link{GpsCoordinates-class}}, \code{\link{plot3dXyz}}
+#' \code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}
 #' @examples
 #' p1 <- new('Profile',
 #'            title = 'Profile 1',
@@ -217,7 +217,7 @@ setMethod('initialize', 'GpsCoordinates',
 #' p1@measurementType
 #' p1@gpsCoordinates
 #'
-#' plot3dXyz(p1)
+#' plot3d(p1)
 setClass(
   'Profile',
   representation = representation(
@@ -249,14 +249,14 @@ setClass(
 #' @slot minData minimum data value of all profiles
 #' @slot maxData maximum data value of all profiles
 #' @export
-#' @seealso \code{\link{Profile-class}}, \code{\link{plot3dXyz}}
+#' @seealso \code{\link{Profile-class}}, \code{\link{plot3d}}
 #' @examples
 #' # sinkhole <- new('ProfileSet',
 #' #                profiles = list(p1, p2, p3),
 #' #                title='Sinkhole')
 #'
 #' data(sinkhole)
-#' plot3dXyz(sinkhole)
+#' plot3d(sinkhole)
 setClass(
   'ProfileSet',
   representation = representation(

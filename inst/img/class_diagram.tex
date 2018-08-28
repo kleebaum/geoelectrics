@@ -11,7 +11,7 @@
 	plotXyzHeight(p : Profile) : void\\
 	levelplotXyz(p : Profile) : void\\
 	levelplotXyzHeight(p : Profile) : void\\
-	plot3dXyz(p : Profile) : void\\
+	plot3d(p : Profile) : void\\
 	plotIntersect(p1 : Profile, p2 : Profile) : void}
 \umlclass[x=13, y=-3]{ProfileSet}{
 	title : character\\
@@ -19,7 +19,7 @@
 	minLon : double\\
 	minData : double\\
 	maxData : double}{
-	plot3dXyz(p : ProfileSet) : void\\
+	plot3d(p : ProfileSet) : void\\
 	plotLegend(p : ProfileSet) : void\\
 	plotIntersect(p : ProfileSet) : void}
 \umlclass[y=-0.5, x=-2]{RawData}{
@@ -28,10 +28,6 @@
 	RawData()\\
 	RawData(address : character)\\
 	parseRawDataFile(address : character) : data.frame}
-\umlabstract[x=9,y=1]{ProfileComponent}{}{
-	\textit{plot3dXyz(p : ProfileComponent) : void}\\
-	\textit{plotLegend(p : ProfileComponent) : void}\\
-	\textit{plotIntersect(p1 : ProfileComponent, p2 : ProfileComponent) : void}}
 \umlclass[y=-4, x=-3]{GpsCoordinates}{
 	address : character\\
 	exact : data.frame\\
@@ -51,11 +47,9 @@
 	ProcessedData()\\
 	ProcessedData(address : character)\\
 	parseProcessedDataFile(address : character) : list\\
-	getHeightInformation() : data.frame}
+	getHeightInformation(processedData : ProcessedData) : data.frame}
 	
 \umluniaggreg[anchor2=18, mult1=$^*$, mult2=$^*$, arg=profiles, pos2=0.65]{ProfileSet}{Profile}
-\umlinherit[anchor1=80, anchor2=-150]{Profile}{ProfileComponent}
-\umlinherit{ProfileSet}{ProfileComponent}
 \umlunicompo[geometry=|-, mult2=$0..1$, arg=rawData, pos2=1.7, anchor1=130, anchor2=0]{Profile}{RawData}
 \umlunicompo[geometry=|-, mult2=$0..1$, arg=processedData, pos2=1.5, anchor1=-130, anchor2=0]{Profile}{ProcessedData}
 \umlunicompo[mult2=$0..1$, arg2=gpsCoordinates, pos2=0.5]{Profile}{GpsCoordinates}
