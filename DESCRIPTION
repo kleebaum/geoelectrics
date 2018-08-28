@@ -1,6 +1,6 @@
 Package: geoelectrics
 Title: 3D-Visualization of Geoelectric Resistivity Measurement Profiles
-Version: 0.1.8
+Version: 0.2.0
 Author: Anja Kleebaum <kleebaum@informatik.uni-heidelberg.de>
 Maintainer: Anja Kleebaum <kleebaum@informatik.uni-heidelberg.de>
 Description: Visualizes two-dimensional geoelectric resistivity measurement profiles in three dimensions.

@@ -2,4 +2,9 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.codecov\.yml$
-^README\.md$ 
+^inst/img/preview\_standalone.*$
+^inst/img/pngLaTeX.bat$
+^inst/img/tikz-uml.sty$
+^inst/extdata/example.r$
+^README\.md$
+^tests/testthat/Rplots\.pdf$
