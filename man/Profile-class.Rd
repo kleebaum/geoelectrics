@@ -47,5 +47,5 @@ plot3d(p1)
 }
 \seealso{
 \code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
-\code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}
+\code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}, \code{\link{plot}}
 }

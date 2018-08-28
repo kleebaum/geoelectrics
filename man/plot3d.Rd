@@ -54,5 +54,5 @@ plot3d(sinkhole)
 }
 \seealso{
 \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-\code{\link{plotXyz}}, \code{\link{levelplotXyz}}
+\code{\link{plot}}, \code{\link{levelplot}}
 }

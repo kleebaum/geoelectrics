@@ -70,34 +70,46 @@ readline(prompt = 'Hit <Return> to alter the height of profile 3 since it differ
 
 p3 <- adjustHeight(p3, -10)
 
-readline(prompt = 'Hit <Return> to create a profile set:') 
+readline(prompt = 'Hit <Return> to create a profile set:')
 
 sinkhole <- new('ProfileSet',
                 profiles = list(p1, p2, p3),
                 title = 'Sinkhole')
 
-# This profile set can also be loaded using 
+# This profile set can also be loaded using
 # data(sinkhole)
 
 # Plot raw data of profile 1
 readline(prompt = 'Hit <Return> to plot the raw data:')
 
-plotRaw(sinkhole@profiles[[1]])
+plot(
+  sinkhole@profiles[[1]],
+  dataType = 'raw',
+  withTopo = FALSE,
+  main = 'Profile 1',
+  ylab = 'Depth [m]'
+)
 
-plotRawHeight(sinkhole@profiles[[1]])
+plot(sinkhole@profiles[[1]], dataType = 'raw', withTopo = TRUE)
 
-levelplotRaw(sinkhole@profiles[[1]])
+levelplot(sinkhole@profiles[[1]], dataType = 'raw')
 levelplotLegendLabel()
 
 # Plot processed data of profile 1
-plotXyz(sinkhole@profiles[[1]])
+plot(
+  sinkhole@profiles[[1]],
+  dataType = 'processed',
+  withTopo = FALSE,
+  main = 'Profile 1',
+  ylab = 'Depth [m]'
+)
 
-plotXyzHeight(sinkhole@profiles[[1]])
+plot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = TRUE)
 
-levelplotXyz(sinkhole@profiles[[1]])
+levelplot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = FALSE)
 levelplotLegendLabel()
 
-levelplotXyzHeight(sinkhole@profiles[[1]])
+levelplot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = TRUE)
 levelplotLegendLabel()
 
 readline(prompt = 'Hit <Return> to plot the processed data in three dimensions:')
@@ -105,13 +117,13 @@ readline(prompt = 'Hit <Return> to plot the processed data in three dimensions:'
 plot3d(sinkhole@profiles[[1]])
 
 plot3d(sinkhole,
-          xlab = 'length [m]',
-          ylab = 'height above sea level [m]',
-          zlab = 'length [m]')
+       xlab = 'length [m]',
+       ylab = 'height above sea level [m]',
+       zlab = 'length [m]')
 
 # Plot legend for a single profile
 plot.new()
-plotLegend(sinkhole@profiles[[3]], horizontal = F)
+plotLegend(sinkhole@profiles[[3]], horizontal = FALSE)
 
 # Plot legend for the profile set
 plot.new()

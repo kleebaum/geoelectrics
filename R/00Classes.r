@@ -54,8 +54,7 @@ setMethod('initialize', 'RawData',
 #' @slot minData minimum value
 #' @slot maxData maximum value
 #' @export
-#' @seealso \code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-#' \code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3d}}
+#' @seealso \code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 #' @examples
 #' processedData = new('ProcessedData',
 #'                      address = system.file('extdata/processed/p1_DipolDipol_SW-NE.xyz',
@@ -196,7 +195,7 @@ setMethod('initialize', 'GpsCoordinates',
 #' @slot gpsCoordinates object of GpsCoordinates Class (\code{\link{GpsCoordinates-class}}).
 #' @export
 #' @seealso \code{\link{ProcessedData-class}}, \code{\link{RawData-class}},
-#' \code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}
+#' \code{\link{GpsCoordinates-class}}, \code{\link{plot3d}}, \code{\link{plot}}
 #' @examples
 #' p1 <- new('Profile',
 #'            title = 'Profile 1',

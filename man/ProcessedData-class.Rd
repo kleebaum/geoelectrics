@@ -40,6 +40,5 @@ sinkhole@profiles[[1]]@processedData@minData
 sinkhole@profiles[[1]]@processedData@maxData
 }
 \seealso{
-\code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-\code{\link{plotXyz}}, \code{\link{plotXyzHeight}}, \code{\link{plot3d}}
+\code{\link{parseProcessedDataFile}}, \code{\link{Profile-class}}, \code{\link{ProfileSet-class}}
 }

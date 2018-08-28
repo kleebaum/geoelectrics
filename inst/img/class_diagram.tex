@@ -4,16 +4,12 @@
 	title : character\\
 	number : int\\
 	measurementType : character}{
-	plotRaw(p : Profile) : void\\
-	plotRawHeight(p : Profile) : void\\
-	levelplotRaw(p : Profile) : void\\
-	plotXyz(p : Profile) : void\\
-	plotXyzHeight(p : Profile) : void\\
-	levelplotXyz(p : Profile) : void\\
-	levelplotXyzHeight(p : Profile) : void\\
+	plot(p : Profile, dataType : character,\\ ~~~~withTopo : logical) : void\\
+	levelplot(p : Profile, dataType : character,\\ ~~~~withTopo : logical) : void\\
+	
 	plot3d(p : Profile) : void\\
 	plotIntersect(p1 : Profile, p2 : Profile) : void}
-\umlclass[x=13, y=-3]{ProfileSet}{
+\umlclass[x=13, y=-4]{ProfileSet}{
 	title : character\\
 	minLat : double\\
 	minLon : double\\
@@ -49,8 +45,8 @@
 	parseProcessedDataFile(address : character) : list\\
 	getHeightInformation(processedData : ProcessedData) : data.frame}
 	
-\umluniaggreg[anchor2=18, mult1=$^*$, mult2=$^*$, arg=profiles, pos2=0.65]{ProfileSet}{Profile}
-\umlunicompo[geometry=|-, mult2=$0..1$, arg=rawData, pos2=1.7, anchor1=130, anchor2=0]{Profile}{RawData}
-\umlunicompo[geometry=|-, mult2=$0..1$, arg=processedData, pos2=1.5, anchor1=-130, anchor2=0]{Profile}{ProcessedData}
+\umluniaggreg[mult1=$^*$, mult2=$^*$, arg=profiles, pos2=0.65]{ProfileSet}{Profile}
+\umlunicompo[geometry=|-, mult2=$0..1$, arg=rawData, pos2=1.8, anchor1=90, anchor2=0]{Profile}{RawData}
+\umlunicompo[geometry=|-, mult2=$0..1$, arg=processedData, pos2=1.7, anchor1=-90, anchor2=0]{Profile}{ProcessedData}
 \umlunicompo[mult2=$0..1$, arg2=gpsCoordinates, pos2=0.5]{Profile}{GpsCoordinates}
 \end{tikzpicture}

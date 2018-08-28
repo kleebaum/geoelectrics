@@ -3,17 +3,29 @@ context('test_plot')
 data(sinkhole)
 
 test_that('Test Plotting Raw Data Without Topography', {
-  plotRaw(sinkhole@profiles[[1]])
+  plotRawData(sinkhole@profiles[[1]])
+  plot(sinkhole@profiles[[1]],
+       dataType = 'raw',
+       withTopo = F)
 })
 
 test_that('Test Plotting Raw Data With Topography', {
-  plotRawHeight(sinkhole@profiles[[1]])
+  plotRawDataWithTopo(sinkhole@profiles[[1]])
+  plot(sinkhole@profiles[[1]],
+       dataType = 'raw',
+       withTopo = T)
 })
 
 test_that('Test Plotting Processed Data Without Topography', {
-  plotXyz(sinkhole@profiles[[1]])
+  plotProcessedData(sinkhole@profiles[[1]])
+  plot(sinkhole@profiles[[1]],
+       dataType = 'processed',
+       withTopo = F)
 })
 
 test_that('Test Plotting Processed Data With Topography', {
-  plotXyzHeight(sinkhole@profiles[[1]])
+  plotProcessedDataWithTopo(sinkhole@profiles[[1]])
+  plot(sinkhole@profiles[[1]],
+       dataType = 'processed',
+       withTopo = T)
 })

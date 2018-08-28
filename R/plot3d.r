@@ -19,7 +19,7 @@
 #' @aliases plot3d
 #' @export
 #' @seealso \code{\link{Profile-class}}, \code{\link{ProfileSet-class}},
-#' \code{\link{plotXyz}}, \code{\link{levelplotXyz}}
+#' \code{\link{plot}}, \code{\link{levelplot}}
 #' @examples
 #' data(sinkhole)
 #'
@@ -89,11 +89,14 @@ setMethod('plot3d', signature(x = 'Profile'),
             
             # plot 3D
             rgl.bg(color = 'white')
-            points3d(y,
-                     x@processedData@pointsWithTopo$height,
-                     dx,
-                     color = colorAssignment,
-                     size = pointsize, ...)
+            points3d(
+              y,
+              x@processedData@pointsWithTopo$height,
+              dx,
+              color = colorAssignment,
+              size = pointsize,
+              ...
+            )
             rgl.bbox()
             rgl.texts(
               y[1],
