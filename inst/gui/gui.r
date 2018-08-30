@@ -185,7 +185,7 @@ settings <- function() {
     
     switch(tclvalue(colorRamp),
            'grey' = {
-             colors <- c('black', 'grey', 'white')
+             colors <- c('white', 'grey', 'black')
            },
            'multicolored' = {
              colors <- c('blue', 'green', 'yellow', 'orange', 'red', 'purple')
