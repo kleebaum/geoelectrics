@@ -2,6 +2,7 @@
 
 export(adjustHeight)
 export(calcRelativeCoords)
+export(geoelectricsGui)
 export(getHeightInformation)
 export(levelplot)
 export(levelplotLegendLabel)
@@ -42,4 +43,5 @@ importFrom(graphics,plot)
 importFrom(graphics,points)
 importFrom(grid,grid.text)
 importFrom(stats,lm)
+importFrom(utils,installed.packages)
 importFrom(utils,read.table)

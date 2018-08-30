@@ -45,6 +45,7 @@ setMethod('plot3d', signature(x = 'ProfileSet'),
               maxData = maxData,
               col = col,
               trafo = trafo,
+              psize = psize,
               ...
             )
             title3d(title, sub, xlab, ylab, zlab)
@@ -94,7 +95,7 @@ setMethod('plot3d', signature(x = 'Profile'),
               x@processedData@pointsWithTopo$height,
               dx,
               color = colorAssignment,
-              size = pointsize,
+              size = psize,
               ...
             )
             rgl.bbox()

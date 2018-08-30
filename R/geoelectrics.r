@@ -10,6 +10,7 @@
 #' @importFrom graphics axis legend plot points
 #' @importFrom stats lm
 #' @importFrom utils read.table
+#' @importFrom utils installed.packages
 
 ###---Settings---####
 pointsize <- 10

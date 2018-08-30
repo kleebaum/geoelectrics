@@ -1,3 +1,8 @@
+# geoelectrics 0.2.1
+
+## News
+* The GUI is now available through the `geoelectricsGui()` function.
+
 # geoelectrics 0.2.0
 
 ## News
@@ -18,3 +23,6 @@
 * The method `levelplotXyz` was renamed to `levelplotProcessedData`.
 * The method `levelplotRaw` was renamed to `levelplotRawData`.
 * The method `heightAdjustment` was renamed to `adjustHeight`.
+* The method `plotXyzHeight` was renamed to `plotProcessedDataWithTopo`.
+* The method `plotRawHeight` was renamed to `plotRawDataWithTopo`.
+* The method `levelplotXyzHeight` was renamed to `levelplotProcessedDataWithTopo`.
