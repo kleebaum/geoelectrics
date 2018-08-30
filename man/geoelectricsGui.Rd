@@ -10,5 +10,5 @@ geoelectricsGui()
 This method starts a simple TclTk graphical user interface (GUI) provided by this package.
 }
 \examples{
-geoelectricsGui()
+# geoelectricsGui()
 }
