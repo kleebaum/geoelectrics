@@ -54,12 +54,12 @@ A profile set comprises 2D profiles.
 *Domain model for electrical resistivity tomography*
 
 ## Implementation Details
-The *geoelectrics* R package provides five model classes to represent geolectric resistivity measurement data:
+The *geoelectrics* R package provides [five model classes](https://github.com/kleebaum/geoelectrics/blob/master/R/00Classes.r) to represent geolectric resistivity measurement data:
 - The *Profile* class represents a 2D geolectric resistivity measurement profile.
 - The *ProfileSet* class represents a set of 2D geolectric profiles in order to visualize them in three dimensions.
-- The *RawData* class represents geolectrics raw data. The constructor of this class expects the address of a text file as an argument. The `parseRawDataMethod()` is used to parse [geoelectrics raw data files created by the GeoTest software by Dr. Rauen.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/raw/p1_DipolDipol_SW-NE.dat) You need to overwrite the `parseRawDataMethod()` method if you want to use another raw data format.
+- The *RawData* class represents geolectrics raw data. The constructor of this class expects the address of a text file as an argument. The [`parseRawDataFile()` method](https://github.com/kleebaum/geoelectrics/blob/master/R/parseRawDataFile.r) is used to parse [geoelectrics raw data files created by the GeoTest software by Dr. Rauen.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/raw/p1_DipolDipol_SW-NE.dat) You need to overwrite the `parseRawDataFile()` method if you want to use another raw data format.
 - The *GpsCoordinates* class represents the GPS coordinates of a single profile. The constructor of this class expects the address of a text file as an argument. [The text file contains two columns with latitudinal and longitudinal values.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/gps/p1.txt)
-- The *ProcessedData* class represents processed (inverted) geolectric data. The constructor of this class expects the address of a text file as an argument. The `parseProcessedDataMethod()` is used to parse [.xyz files produced by the software Res2DInv.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/processed/p1_DipolDipol_SW-NE.xyz) You need to overwrite the `parseProcessedDataMethod()` method if you want to use another processed data format.
+- The *ProcessedData* class represents processed (inverted) geolectric data. The constructor of this class expects the address of a text file as an argument. The [`parseProcessedDataFile()` method](https://github.com/kleebaum/geoelectrics/blob/master/R/parseProcessedDataFile.r) is used to parse [.xyz files produced by the software Res2DInv.](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/extdata/processed/p1_DipolDipol_SW-NE.xyz) You need to overwrite the `parseProcessedDataFile()` method if you want to use another processed data format.
 
 ![UML class diagram](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/class_diagram.png)
 *Class diagram of the geoelectrics R package*
@@ -139,7 +139,7 @@ parseRawDataFile(address = system.file('extdata/raw/p1_DipolDipol_SW-NE.dat',
 ```
 
 ## Graphical User Interface
-This R package provides a graphical user interface (GUI). 
+This R package provides a [graphical user interface (GUI)](https://github.com/kleebaum/geoelectrics/tree/master/inst/gui). 
 
 ![GUI](https://raw.githubusercontent.com/kleebaum/geoelectrics/master/inst/img/gui.png)
 *Graphical user interface of the geoelectrics R package*
@@ -149,8 +149,8 @@ The following packages are needed for the GUI:
   - [tkrplot](https://cran.r-project.org/package=tkrplot/) from CRAN 
 
 Perform ONE of the following steps to start the GUI:
-  - open R in a terminal and type ```source(system.file('gui/gui.r', package='geoelectrics'))```
-  - navigate into the *gui* folder and execute *start_gui.sh* (Unix) or *start_gui.bat* (Windows, make sure that R is added to the PATH variable)
+  - open R in a terminal and type `source(system.file('gui/gui.r', package='geoelectrics'))`
+  - navigate into the [*gui* folder](https://github.com/kleebaum/geoelectrics/tree/master/inst/gui) and execute *start_gui.sh* (Unix) or *start_gui.bat* (Windows, make sure that R is added to the PATH variable)
   
 ## Geoelectric Inversion
 The inversion of two-dimensional geoelectrical resistivity measurement data (raw data) is currently not supported by this package. Please feel free to implement the inversion and create a pull request.

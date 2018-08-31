@@ -23,3 +23,9 @@ test_that('Test Plotting Processed Data With Topography', {
   levelplot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = TRUE)
   expect_error(levelplotLegendLabel())
 })
+
+test_that('Test Plotting Profile Set With Topography', {
+  levelplot(sinkhole,
+       dataType = 'processed',
+       withTopo = T)
+})

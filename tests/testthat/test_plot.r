@@ -29,3 +29,9 @@ test_that('Test Plotting Processed Data With Topography', {
        dataType = 'processed',
        withTopo = T)
 })
+
+test_that('Test Plotting Profile Set With Topography', {
+  plot(sinkhole,
+       dataType = 'processed',
+       withTopo = T)
+})

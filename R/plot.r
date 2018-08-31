@@ -19,13 +19,13 @@
 #'
 #' plot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = FALSE)
 #' plotProcessedData(sinkhole@profiles[[1]])
-#' 
+#'
 #' plot(sinkhole@profiles[[1]], dataType = 'processed', withTopo = TRUE)
 #' plotProcessedDataWithTopo(sinkhole@profiles[[1]])
-#' 
+#'
 #' plot(sinkhole@profiles[[1]], dataType = 'raw', withTopo = FALSE)
 #' plotRawData(sinkhole@profiles[[1]])
-#' 
+#'
 #' plot(sinkhole@profiles[[1]], dataType = 'raw', withTopo = TRUE)
 #' plotRawDataWithTopo(sinkhole@profiles[[1]])
 setMethod('plot', 'Profile', function(x,
@@ -38,15 +38,40 @@ setMethod('plot', 'Profile', function(x,
                                       ...) {
   if (dataType == 'processed') {
     if (withTopo) {
-      plotProcessedDataWithTopo(x, xlab, ylab, main, ..., asp=asp)
+      plotProcessedDataWithTopo(x, xlab, ylab, main, ..., asp = asp)
     } else {
-      plotProcessedData(x, xlab, ylab, main, ..., asp=asp)
+      plotProcessedData(x, xlab, ylab, main, ..., asp = asp)
     }
   } else {
     if (withTopo) {
-      plotRawDataWithTopo(x, xlab, ylab, main, ..., asp=asp)
+      plotRawDataWithTopo(x, xlab, ylab, main, ..., asp = asp)
     } else {
-      plotRawData(x, xlab, ylab, main, ..., asp=asp)
+      plotRawData(x, xlab, ylab, main, ..., asp = asp)
     }
   }
 })
+
+#' @rdname plot
+#' @aliases plot
+#' @export
+setMethod('plot', signature(x = 'ProfileSet'),
+          function(x,
+                   dataType = 'processed',
+                   withTopo = T,
+                   xlab = 'Length [m]',
+                   ylab = 'Height [m]',
+                   main = paste(x@title, 'with topography'),
+                   asp = 1,
+                   ...) {
+            lapply(
+              x@profiles,
+              plot,
+              dataType = dataType,
+              withTopo = withTopo,
+              xlab = xlab,
+              ylab = ylab,
+              main = main,
+              asp = asp,
+              ...
+            )
+          })

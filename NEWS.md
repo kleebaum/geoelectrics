@@ -2,6 +2,7 @@
 
 ## News
 * The GUI is now available through the `geoelectricsGui()` function.
+* Add `plot` and `levelplot` methods for signature ProfileSet
 
 # geoelectrics 0.2.0
 
@@ -9,7 +10,7 @@
 * The package provides an example geoelectrics data set of a filled sinkhole and a demo script. The demo can be run with `demo(geolectrics)`.
 * The package contains unit tests written with [testthat](https://github.com/r-lib/testthat). It currently has a line coverage of 99%! (Thanks to the [covr](https://github.com/r-lib/testthat) package.)
 * The generic `plot` and `levelplot` functions were added.
-* The `parseRawDataMethod()` and `parseProcessedDataMethod()` function was added.
+* The `parseRawDataFile()` and `parseProcessedDataFile()` function was added.
 * The `getHeightInformation()`function was added.
 
 ## Deprecated Classes and Functions

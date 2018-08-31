@@ -5,6 +5,7 @@
 \name{levelplot}
 \alias{levelplot}
 \alias{levelplot,Profile-method}
+\alias{levelplot,ProfileSet-method}
 \alias{levelplotProcessedData}
 \alias{levelplotProcessedDataWithTopo}
 \alias{levelplotRawData}
@@ -13,6 +14,11 @@
 levelplot(x, data, ...)
 
 \S4method{levelplot}{Profile}(x, dataType = "processed",
+  withTopo = FALSE, xlab = "Length [m]", ylab = "Depth [m]",
+  main = paste(x@title), col = colors, breaks = 18, trafo = log,
+  backtrafo = exp, ...)
+
+\S4method{levelplot}{ProfileSet}(x, dataType = "processed",
   withTopo = FALSE, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title), col = colors, breaks = 18, trafo = log,
   backtrafo = exp, ...)

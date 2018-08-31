@@ -4,6 +4,7 @@
 \name{plot,Profile,ANY-method}
 \alias{plot,Profile,ANY-method}
 \alias{plot}
+\alias{plot,ProfileSet,ANY-method}
 \alias{plotProcessedData}
 \alias{plotProcessedDataWithTopo}
 \alias{plotRawData}
@@ -13,6 +14,10 @@
 \S4method{plot}{Profile,ANY}(x, dataType = "processed", withTopo = T,
   xlab = "Length [m]", ylab = "Height [m]", main = paste(x@title,
   "with topography"), asp = 1, ...)
+
+\S4method{plot}{ProfileSet,ANY}(x, dataType = "processed",
+  withTopo = T, xlab = "Length [m]", ylab = "Height [m]",
+  main = paste(x@title, "with topography"), asp = 1, ...)
 
 plotProcessedData(x, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title, "without topography"), ...)

@@ -57,6 +57,37 @@ setMethod('levelplot', signature('Profile', 'ANY'),
             }
           })
 
+#' @rdname levelplot
+#' @aliases levelplot
+#' @export
+setMethod('levelplot', signature(x = 'ProfileSet'),
+          function(x,
+                   dataType = 'processed',
+                   withTopo = FALSE,
+                   xlab = 'Length [m]',
+                   ylab = 'Depth [m]',
+                   main = paste(x@title),
+                   col = colors,
+                   breaks = 18,
+                   trafo = log,
+                   backtrafo = exp,
+                   ...) {
+            lapply(
+              x@profiles,
+              levelplot,
+              dataType = dataType,
+              withTopo = withTopo,
+              xlab = xlab,
+              ylab = ylab,
+              main = main,
+              col = col,
+              breaks = breaks,
+              trafo = trafo,
+              backtrafo = backtrafo,
+              ...
+            )
+          })
+
 #' Levelplot Legend Label
 #'
 #' Plots the label of the levelplot.

@@ -21,6 +21,37 @@ profiles <-
   list(sinkhole@profiles[[1]], sinkhole@profiles[[2]], sinkhole@profiles[[3]])
 selectedProfileNumber <- tclVar(1)
 
+### Read Config File
+getColorsForColorRamp <- function(colorRamp) {
+  switch(colorRamp,
+         'grey' = {
+           colors <- c('white', 'grey', 'black')
+         },
+         'multicolored' = {
+           colors <- c('blue', 'green', 'yellow', 'orange', 'red', 'purple')
+         })
+  colors
+}
+
+readSettingsFromFile <- function() {
+  if (file.exists('config')) {
+    config <- read.table('config')
+    pointsize <- as.character(config[1, 2])
+    colorRamp <- as.character(config[2, 2])
+  } else {
+    pointsize <- 10
+    colorRamp <- 'grey'
+  }
+  assign('pointsize', pointsize, envir = .GlobalEnv)
+  
+  colors <- getColorsForColorRamp(colorRamp)
+  assign('colors', colors, envir = .GlobalEnv)
+  
+  list(pointsize, colorRamp)
+}
+
+readSettingsFromFile()
+
 ###---Plotting functions in GUI---###
 plotProcessedDataGui <- function(profile) {
   try(tkgrid.remove(img))
@@ -33,7 +64,7 @@ plotProcessedDataGui <- function(profile) {
       ylab = 'Depth [m]'
     )
   })
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   tkgrid(img)
 }
 
@@ -44,7 +75,7 @@ levelplotProcessedDataGui <- function(profile) {
     withTopo = FALSE,
     main = profile@title
   )
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   print(img)
 }
 
@@ -53,19 +84,19 @@ plotProcessedDataWithTopoGui <- function(profile) {
   img <- tkrplot(frameRight, function() {
     plot(profile, dataType = 'processed', withTopo = TRUE)
   })
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   tkgrid(img)
 }
 
 levelplotProcessedDataWithTopoGui <- function(profile) {
   img <- levelplot(profile, dataType = 'processed', withTopo = TRUE)
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   print(img)
 }
 
 levelplotRawDataGui <- function(profile) {
   img <- levelplot(profile, dataType = 'raw', withTopo = FALSE)
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   print(img)
 }
 
@@ -80,7 +111,7 @@ plotRawDataGui <- function(profile) {
       ylab = 'Depth [m]'
     )
   })
-  assign("img", img, envir = .GlobalEnv)
+  assign('img', img, envir = .GlobalEnv)
   tkgrid(img)
 }
 
@@ -140,14 +171,9 @@ adjustHeightGui <- function() {
 
 ###---GUI methods---####
 settings <- function() {
-  if (file.exists('config')) {
-    config <- read.table('config')
-    pointsize <- as.character(config[1, 2])
-    colorRamp <- as.character(config[2, 2])
-  } else {
-    pointsize <- 10
-    colorRamp <- 'grey'
-  }
+  settings <- readSettingsFromFile()
+  pointsize <- settings[[1]]
+  colorRamp <- settings[[2]]
   
   settingsDialog <- tktoplevel(topLevelWindow)
   tktitle(settingsDialog) <- 'Settings'
@@ -181,16 +207,10 @@ settings <- function() {
     tkdestroy(settingsDialog)
     tkfocus(topLevelWindow)
     pointsize <- tclvalue(sliderValue)
-    assign("pointsize", pointsize, envir = .GlobalEnv)
+    assign('pointsize', pointsize, envir = .GlobalEnv)
     
-    switch(tclvalue(colorRamp),
-           'grey' = {
-             colors <- c('white', 'grey', 'black')
-           },
-           'multicolored' = {
-             colors <- c('blue', 'green', 'yellow', 'orange', 'red', 'purple')
-           })
-    assign("colors", colors, envir = .GlobalEnv)
+    colors <- getColorsForColorRamp(tclvalue(colorRamp))
+    assign('colors', colors, envir = .GlobalEnv)
     
     # save settings to file
     write.table(
@@ -293,7 +313,7 @@ updateProject <- function() {
     processedDataLabel <-
       tklabel(profileFrame, text = 'Processed data file:')
     processedDataAddress <-
-      tclVar(p[[selectedProfileNumber]]@processedData@address)
+      tclVar(profiles[[selectedProfileNumber]]@processedData@address)
     processedDataEntry <-
       tkentry(
         profileFrame,
@@ -374,7 +394,7 @@ updateProject <- function() {
   
   createComboBoxForProfiles(updateProjectDialog, onChangedSelection)
   
-  return(p)
+  return(profiles)
 }
 
 modalDialog <- function(title,
@@ -661,8 +681,10 @@ tkadd(
 resetFrames <- function() {
   deleteFrame(frameLeft)
   deleteFrame(frameRight)
-  frameLeft <<- newFrame('frameLeft')
-  frameRight <<- newFrame('frameRight')
+  frameLeft <- newFrame('frameLeft')
+  frameRight <- newFrame('frameRight')
+  assign('frameLeft', frameLeft, envir = .GlobalEnv)
+  assign('frameRight', frameRight, envir = .GlobalEnv)
   return(tkgrid(frameLeft, frameRight))
 }
 
@@ -689,4 +711,4 @@ tkgrid(
 tkgrid(frameLeft, frameRight)
 
 # don't terminate
-#Sys.sleep(360000)
+#Sys.sleep(36000)
