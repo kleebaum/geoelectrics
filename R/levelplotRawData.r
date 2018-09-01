@@ -8,6 +8,7 @@ levelplotRawData <-
            main = paste(x@title, 'without topography (raw data)'),
            col = colors,
            trafo = log,
+           aspect = "iso",
            ...) {
     levelplot(
       trafo(x@rawData@points$val) ~ x@rawData@points$dist * (-1 *
@@ -16,6 +17,7 @@ levelplotRawData <-
       xlab = xlab,
       ylab = ylab,
       main = main,
+      aspect = aspect,
       ...
     )
   }

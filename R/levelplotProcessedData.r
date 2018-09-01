@@ -10,6 +10,7 @@ levelplotProcessedData <-
            breaks = 18,
            trafo = log,
            backtrafo = exp,
+           aspect = "iso",
            ...) {
     lab.breaks <-
       round(backtrafo(seq(trafo(
@@ -25,6 +26,7 @@ levelplotProcessedData <-
       xlab = xlab,
       ylab = ylab,
       main = main,
+      aspect = aspect,
       colorkey = list(at = as.numeric(factor(c(
         seq(
           from = 0,
@@ -49,6 +51,7 @@ levelplotProcessedDataWithTopo <-
            breaks = 18,
            trafo = log,
            backtrafo = exp,
+           aspect = "iso",
            ...) {
     lab.breaks <-
       round(backtrafo(seq(trafo(
@@ -64,6 +67,7 @@ levelplotProcessedDataWithTopo <-
       xlab = xlab,
       ylab = ylab,
       main = main,
+      aspect = aspect,
       colorkey = list(at = as.numeric(factor(c(
         seq(
           from = 0,

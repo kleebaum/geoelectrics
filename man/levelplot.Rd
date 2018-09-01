@@ -16,24 +16,25 @@ levelplot(x, data, ...)
 \S4method{levelplot}{Profile}(x, dataType = "processed",
   withTopo = FALSE, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title), col = colors, breaks = 18, trafo = log,
-  backtrafo = exp, ...)
+  backtrafo = exp, aspect = "iso", ...)
 
 \S4method{levelplot}{ProfileSet}(x, dataType = "processed",
   withTopo = FALSE, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title), col = colors, breaks = 18, trafo = log,
-  backtrafo = exp, ...)
+  backtrafo = exp, aspect = "iso", ...)
 
 levelplotProcessedData(x, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title, "without topography"), col = colors,
-  breaks = 18, trafo = log, backtrafo = exp, ...)
+  breaks = 18, trafo = log, backtrafo = exp, aspect = "iso", ...)
 
 levelplotProcessedDataWithTopo(x, xlab = "Length [m]",
   ylab = "Height [m]", main = paste(x@title, "with topography"),
-  col = colors, breaks = 18, trafo = log, backtrafo = exp, ...)
+  col = colors, breaks = 18, trafo = log, backtrafo = exp,
+  aspect = "iso", ...)
 
 levelplotRawData(x, xlab = "Length [m]", ylab = "Depth [m]",
   main = paste(x@title, "without topography (raw data)"), col = colors,
-  trafo = log, ...)
+  trafo = log, aspect = "iso", ...)
 }
 \arguments{
 \item{x}{profile object.}
@@ -59,6 +60,8 @@ levelplotRawData(x, xlab = "Length [m]", ylab = "Depth [m]",
 \item{trafo}{transformation to be done on data (default: log).}
 
 \item{backtrafo}{back transformation to plot correct labels (default: exp).}
+
+\item{aspect}{the y/x aspect ratio (default: iso).}
 }
 \description{
 Plots the interpolated resistance values of the
