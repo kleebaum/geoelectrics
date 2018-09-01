@@ -4,6 +4,7 @@ R package to visualize geoelectric resistivity measurement profiles.
 [![Build Status](https://travis-ci.org/kleebaum/geoelectrics.svg?branch=master)](https://travis-ci.org/kleebaum/geoelectrics)
 [![Coverage Status](https://codecov.io/gh/kleebaum/geoelectrics/branch/master/graph/badge.svg)](https://codecov.io/gh/kleebaum/geoelectrics)
 [![CRAN Version](http://www.r-pkg.org/badges/version/geoelectrics)](https://cran.r-project.org/package=geoelectrics)
+[![Rdoc](http://www.rdocumentation.org/badges/version/geoelectrics)](http://www.rdocumentation.org/packages/geoelectrics) 
 
 Electrical resistivity tomography is an efficient geophysical technique to investigate the spatial extent of subsurface structures. Many scientific objectives in geology demand three-dimensional imaging. 
 3D electrical resistivity tomography provides a technique to survey three-dimensional structures. 

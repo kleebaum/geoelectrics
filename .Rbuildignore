@@ -8,3 +8,4 @@
 ^inst/extdata/example.r$
 ^README\.md$
 ^tests/testthat/Rplots\.pdf$
+^inst/extdata/other/*$
