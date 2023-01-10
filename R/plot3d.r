@@ -89,7 +89,7 @@ setMethod('plot3d', signature(x = 'Profile'),
             y <- m * dx + n
             
             # plot 3D
-            rgl.bg(color = 'white')
+            bg3d(color = 'white')
             points3d(
               y,
               x@processedData@pointsWithTopo$height,
@@ -98,8 +98,8 @@ setMethod('plot3d', signature(x = 'Profile'),
               size = psize,
               ...
             )
-            rgl.bbox()
-            rgl.texts(
+            bbox3d()
+            text3d(
               y[1],
               x@processedData@pointsWithTopo$height[1] + 20,
               dx[1],
