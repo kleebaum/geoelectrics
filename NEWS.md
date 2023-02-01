@@ -1,3 +1,8 @@
+# geoelectrics 0.2.2
+
+## News
+* The deprecated functions of rgl 1.0.1 were replaced with the new functions.
+
 # geoelectrics 0.2.1
 
 ## News

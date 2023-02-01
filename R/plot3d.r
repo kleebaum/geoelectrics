@@ -103,7 +103,7 @@ setMethod('plot3d', signature(x = 'Profile'),
               y[1],
               x@processedData@pointsWithTopo$height[1] + 20,
               dx[1],
-              text = paste(x@title),
+              texts = paste(x@title),
               cex = 1,
               color = 'black'
             )

@@ -99,7 +99,7 @@ p1 <- new(
 ```
 
 ### Profile Set
-An instance of the ProfileSet class is created using a list of single profiles.
+An instance of the ProfileSet class is created using a list of single profiles:
 ```
 sinkhole <- new('ProfileSet',
                 profiles = list(p1, p2, p3),
@@ -107,7 +107,8 @@ sinkhole <- new('ProfileSet',
 ```
 
 ### Adjust Profile Height
-GPS measurement heights might differ. Therefore, the height of a single profile can be adjusted.
+GPS measurement heights might differ due to inaccuracy of measurement. 
+Therefore, the height of a single profile can be adjusted:
 ```
 p3 <- adjustHeight(p3, -10)
 ```
